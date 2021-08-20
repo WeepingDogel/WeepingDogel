@@ -5,6 +5,8 @@
 [![trophy](https://github-profile-trophy.vercel.app/?username=weepingdogel)](https://github.com/ryo-ma/github-profile-trophy)
 
 ---
+![Visitor Count](https://profile-counter.glitch.me/weepingdogel/count.svg)
+---
 
 # Intro
 
