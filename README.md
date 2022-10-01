@@ -1,6 +1,6 @@
 # My Intro
 
-INFP-T / Arch User / Python 初学者
+INFP-T / Arch User / Python 初学者 / 大专笨狗
 
 ## Contact
 [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:weepingdogel@gmail.com)
