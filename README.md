@@ -45,7 +45,7 @@ INFP-T / Arch User / Student / Learning FullStack Developer
 
 [![trophy](https://github-profile-trophy.vercel.app/?username=weepingdogel)](https://github.com/ryo-ma/github-profile-trophy)
 
-## Visitor Count
-![Visitor Count](https://profile-counter.glitch.me/weepingdogel/count.svg)
+## Visit Count
+![WeepingDogel](https://count.getloli.com/get/@WeepingDogel?theme=asoul)
 
 
