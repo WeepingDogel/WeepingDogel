@@ -1,6 +1,6 @@
 # My Intro
 
-INFP-T / Arch User / Student / Learning FullStack Developer / CICD / CSCI
+INFP-T / Arch User / Learning FullStack Developer / CICD / CSCI / Operations Engineer / I use Arch BTW
 
 ## Contact
 [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:weepingdogel@gmail.com)
