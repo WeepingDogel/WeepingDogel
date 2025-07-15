@@ -17,14 +17,18 @@
 
 ---
 
-<h2 style="text-align: center">Contact Me</h2>
+<h2 align="center">My Intro</h2>
+
+INFP-T / Arch User / Learning FullStack Developer / CICD / CSCI / Operations Engineer / I use Arch BTW
+
+<h2 align="center">Contact Me</h2>
 
 [![Telegram](https://img.shields.io/badge/Telegram-@weepingdogel_2025-666666?style=for-the-badge&logo=Telegram&logoColor=&labelColor=000000)](https://t.me/weepingdogel_2025)
 [![Gmail](https://img.shields.io/badge/Gmail-weepingdogel@gmail.com-666666?style=for-the-badge&logo=Gmail&logoColor=&labelColor=000000)](mailto:weepingdogel@gmail.com)
 [![X](https://img.shields.io/badge/@weepingdogel_me-666666?style=for-the-badge&logo=X&logoColor=&labelColor=000000)](https://x.com/weepingdogel_me)
 [![Mastodon](https://img.shields.io/badge/mastodon-@WeepingDogel-666666?style=for-the-badge&logo=mastodon&logoColor=&labelColor=000000)](https://zone.liolok.com/@WeepingDogel)
 
-<h2 style="text-align: center">Skills & Tools</h2>
+<h2 align="center">Skills & Tools</h2>
 <p style="position: relative; padding: 20px; font-size: 16px; line-height: 1.6;">
         <span style="
             position: absolute;
@@ -93,12 +97,12 @@
          
 
 
-<h2 style="text-align: center;">Views</h2>
+<h2 align="center">Views</h2>
 
 ![:WeepingDogel](https://count.getloli.com/@:WeepingDogel?theme=booru-lewd)
 
 
-<h2 style="text-align: center;">My Devices</h2>
+<h2 align="center">My Devices</h2>
 
 |||
 |---|---|
