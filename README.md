@@ -1,5 +1,5 @@
 
-<p style="text-align: center; position: relative; padding: 20px; font-size: 16px; line-height: 1.6;">
+<p align="center" style="position: relative; padding: 20px; font-size: 16px; line-height: 1.6;">
 <span style="
             position: absolute;
             top: 0;
