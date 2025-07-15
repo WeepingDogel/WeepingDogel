@@ -118,7 +118,7 @@ To be continued....
 
 ![profile](https://github-profile-trophy.vercel.app/?username=weepingdogel&row=2&column=5&theme=darkhub)
 
-![GitHub Streak](https://streak-stats.demolab.com?user=weepingdogel&theme=dark&date_format=%5BY.%5Dn.j&locale=zh_Hans)
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com?user=WeepingDogel&theme=dark&date_format=%5BY.%5Dn.j&locale=zh_Hans)
 
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=weepingdogel&show_icons=true&count_private=true&title_color=ffffff&text_color=ffffff&layout=compact&bg_color=000000&locale=cn&hide_border=0) 
 
