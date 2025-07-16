@@ -110,8 +110,12 @@ INFP-T / Arch User / Learning FullStack Developer / CICD / CSCI / Operations Eng
 
 <h2 align="center">Environment For Development</h2>
 
+![ArchLinux](https://img.shields.io/badge/ArchLinux-1793D1?style=for-the-badge&logo=archlinux&logoColor=FFFFFF)
+![Windows 11](https://img.shields.io/badge/Windows%2011-0078D6?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+V2luZG93czwvdGl0bGU+PHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTAsMEgxMS4zNzdWMTEuMzcySDBaTTEyLjYyMywwSDI0VjExLjM3MkgxMi42MjNaTTAsMTIuNjIzSDExLjM3N1YyNEgwWm0xMi42MjMsMEgyNFYyNEgxMi42MjMiLz48L3N2Zz4=&logoColor=FFFFFF)
+![Windows 10 22H2](https://img.shields.io/badge/Windows%2010%2022h2-0078D6?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDx0aXRsZT5XaW5kb3dzIDEwPC90aXRsZT4KICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wIDMuNDQ5TDkuNzUgMi4xdjkuNDUxSDBtMTAuOTQ5LTkuNjAyTDI0IDB2MTEuNEgxMC45NDlNMCAxMi42aDkuNzV2OS40NTFMMCAyMC42OTlNMTAuOTQ5IDEyLjZIMjRWMjRsLTEyLjktMS44MDEiLz4KPC9zdmc+&logoColor=FFFFFF)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=FFFFFF)
+![WSL](https://img.shields.io/badge/WSL-4D4D4D?style=for-the-badge&logo=linux&logoColor=FFFFFF)
 
-To be continued....
 
 <h2 align="center">Github Status</h2>
 
@@ -128,4 +132,11 @@ To be continued....
 
 <h2 align="center">My Projects</h2>
 
-To be continued....
+|Personal|Collaborate|
+|---|---|
+|[![](https://github-readme-stats.vercel.app/api/pin/?username=WeepingDogel&repo=tinygallery-vue)](https://github.com/WeepingDogel/tinygallery-vue)|[![](https://github-readme-stats.vercel.app/api/pin/?username=Gozjaro&repo=gozjaro-bootstrap)](https://github.com/Gozjaro/gozjaro-bootstrap)|
+|[![](https://github-readme-stats.vercel.app/api/pin/?username=WeepingDogel&repo=tinygallery-backend)](https://github.com/WeepingDogel/tinygallery-backend)|[![](https://github-readme-stats.vercel.app/api/pin/?username=me0w00f&repo=me0w00f_organization_blogger_backend)](https://github.com/me0w00f/me0w00f_organization_blogger_backend)|
+|[![](https://github-readme-stats.vercel.app/api/pin/?username=WeepingDogel&repo=matrix-historian)](https://github.com/WeepingDogel/matrix-historian)|[![](https://github-readme-stats.vercel.app/api/pin/?username=me0w00f&repo=me0w00f_organization_blogger_frontend)](https://github.com/me0w00f/me0w00f_organization_blogger_frontend)|
+|[![](https://github-readme-stats.vercel.app/api/pin/?username=me0w00f&repo=Big-Ball-Swallows-Small-Ball)](https://github.com/me0w00f/Big-Ball-Swallows-Small-Ball)|[![](https://github-readme-stats.vercel.app/api/pin/?username=Kira-Pgr&repo=EmbeddingPaw)](https://github.com/Kira-Pgr/EmbeddingPaw)|
+|[![](https://github-readme-stats.vercel.app/api/pin/?username=me0w00f&repo=red-snake-ai)]()|[![](https://github-readme-stats.vercel.app/api/pin/?username=me0w00f&repo=me0w00f-wiki)](https://github.com/me0w00f/me0w00f-wiki)|
+|||
