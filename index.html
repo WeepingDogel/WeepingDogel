@@ -145,7 +145,9 @@
                 <div class="card-body">
                   <h4 class="card-title">Big-Ball-Swallows-Small-Ball</h4>
                   <p class="text-sm text-base-content/70">
-                    🎮 Big Ball Swallows Small Ball - An addictive arcade game with AI support. Control a demon ball to eat smaller dots while avoiding bigger ones. Features dynamic movement, rainbow effects, and reinforcement learning capabilities. Built with Pygame and PyTorch. 😈 🌈
+                    🎮 Big Ball Swallows Small Ball - An addictive arcade game with AI support. Control a demon ball to
+                    eat smaller dots while avoiding bigger ones. Features dynamic movement, rainbow effects, and
+                    reinforcement learning capabilities. Built with Pygame and PyTorch. 😈 🌈
                   </p>
                   <div class="card-actions justify-start">
                     <div class="badge badge-outline">Python</div>
@@ -203,7 +205,7 @@
                     class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
-              
+
               <div class="card card-compact bg-base-200/50">
                 <div class="card-body">
                   <h4 class="card-title">me0w00f-wiki</h4>
@@ -215,6 +217,294 @@
                     class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+              <h4 class="card-title">World Clock</h4>
+              <p class="text-sm text-base-content/70">Current time in 20 US cities and 20 cities from other countries
+                across major time zones.</p>
+              <div class="overflow-x-auto">
+                <table class="table table-zebra text-sm">
+                  <thead>
+                    <tr>
+                      <th>City</th>
+                      <th>Country/State</th>
+                      <th>Time Zone</th>
+                      <th>Current Time</th>
+                    </tr>
+                  </thead>
+                  <tbody id="world-clock-table">
+                    <!-- USA Cities -->
+                    <tr>
+                      <td>New York</td>
+                      <td>USA/NY</td>
+                      <td>Eastern</td>
+                      <td class="world-clock" data-tz="America/New_York"></td>
+                    </tr>
+                    <tr>
+                      <td>Washington</td>
+                      <td>USA/DC</td>
+                      <td>Eastern</td>
+                      <td class="world-clock" data-tz="America/New_York"></td>
+                    </tr>
+                    <tr>
+                      <td>Miami</td>
+                      <td>USA/FL</td>
+                      <td>Eastern</td>
+                      <td class="world-clock" data-tz="America/New_York"></td>
+                    </tr>
+                    <tr>
+                      <td>Atlanta</td>
+                      <td>USA/GA</td>
+                      <td>Eastern</td>
+                      <td class="world-clock" data-tz="America/New_York"></td>
+                    </tr>
+                    <tr>
+                      <td>Boston</td>
+                      <td>USA/MA</td>
+                      <td>Eastern</td>
+                      <td class="world-clock" data-tz="America/New_York"></td>
+                    </tr>
+                    <tr>
+                      <td>Chicago</td>
+                      <td>USA/IL</td>
+                      <td>Central</td>
+                      <td class="world-clock" data-tz="America/Chicago"></td>
+                    </tr>
+                    <tr>
+                      <td>Houston</td>
+                      <td>USA/TX</td>
+                      <td>Central</td>
+                      <td class="world-clock" data-tz="America/Chicago"></td>
+                    </tr>
+                    <tr>
+                      <td>Dallas</td>
+                      <td>USA/TX</td>
+                      <td>Central</td>
+                      <td class="world-clock" data-tz="America/Chicago"></td>
+                    </tr>
+                    <tr>
+                      <td>Minneapolis</td>
+                      <td>USA/MN</td>
+                      <td>Central</td>
+                      <td class="world-clock" data-tz="America/Chicago"></td>
+                    </tr>
+                    <tr>
+                      <td>New Orleans</td>
+                      <td>USA/LA</td>
+                      <td>Central</td>
+                      <td class="world-clock" data-tz="America/Chicago"></td>
+                    </tr>
+                    <tr>
+                      <td>Denver</td>
+                      <td>USA/CO</td>
+                      <td>Mountain</td>
+                      <td class="world-clock" data-tz="America/Denver"></td>
+                    </tr>
+                    <tr>
+                      <td>Phoenix</td>
+                      <td>USA/AZ</td>
+                      <td>Mountain</td>
+                      <td class="world-clock" data-tz="America/Phoenix"></td>
+                    </tr>
+                    <tr>
+                      <td>Salt Lake City</td>
+                      <td>USA/UT</td>
+                      <td>Mountain</td>
+                      <td class="world-clock" data-tz="America/Denver"></td>
+                    </tr>
+                    <tr>
+                      <td>Albuquerque</td>
+                      <td>USA/NM</td>
+                      <td>Mountain</td>
+                      <td class="world-clock" data-tz="America/Denver"></td>
+                    </tr>
+                    <tr>
+                      <td>Boise</td>
+                      <td>USA/ID</td>
+                      <td>Mountain</td>
+                      <td class="world-clock" data-tz="America/Boise"></td>
+                    </tr>
+                    <tr>
+                      <td>Los Angeles</td>
+                      <td>USA/CA</td>
+                      <td>Pacific</td>
+                      <td class="world-clock" data-tz="America/Los_Angeles"></td>
+                    </tr>
+                    <tr>
+                      <td>San Francisco</td>
+                      <td>USA/CA</td>
+                      <td>Pacific</td>
+                      <td class="world-clock" data-tz="America/Los_Angeles"></td>
+                    </tr>
+                    <tr>
+                      <td>Seattle</td>
+                      <td>USA/WA</td>
+                      <td>Pacific</td>
+                      <td class="world-clock" data-tz="America/Los_Angeles"></td>
+                    </tr>
+                    <tr>
+                      <td>Portland</td>
+                      <td>USA/OR</td>
+                      <td>Pacific</td>
+                      <td class="world-clock" data-tz="America/Los_Angeles"></td>
+                    </tr>
+                    <tr>
+                      <td>San Diego</td>
+                      <td>USA/CA</td>
+                      <td>Pacific</td>
+                      <td class="world-clock" data-tz="America/Los_Angeles"></td>
+                    </tr>
+                    <!-- Other Countries -->
+                    <tr>
+                      <td>London</td>
+                      <td>UK</td>
+                      <td>GMT/BST</td>
+                      <td class="world-clock" data-tz="Europe/London"></td>
+                    </tr>
+                    <tr>
+                      <td>Paris</td>
+                      <td>France</td>
+                      <td>CET/CEST</td>
+                      <td class="world-clock" data-tz="Europe/Paris"></td>
+                    </tr>
+                    <tr>
+                      <td>Berlin</td>
+                      <td>Germany</td>
+                      <td>CET/CEST</td>
+                      <td class="world-clock" data-tz="Europe/Berlin"></td>
+                    </tr>
+                    <tr>
+                      <td>Madrid</td>
+                      <td>Spain</td>
+                      <td>CET/CEST</td>
+                      <td class="world-clock" data-tz="Europe/Madrid"></td>
+                    </tr>
+                    <tr>
+                      <td>Rome</td>
+                      <td>Italy</td>
+                      <td>CET/CEST</td>
+                      <td class="world-clock" data-tz="Europe/Rome"></td>
+                    </tr>
+                    <tr>
+                      <td>Moscow</td>
+                      <td>Russia</td>
+                      <td>MSK</td>
+                      <td class="world-clock" data-tz="Europe/Moscow"></td>
+                    </tr>
+                    <tr>
+                      <td>Beijing</td>
+                      <td>China</td>
+                      <td>CST</td>
+                      <td class="world-clock" data-tz="Asia/Shanghai"></td>
+                    </tr>
+                    <tr>
+                      <td>Tokyo</td>
+                      <td>Japan</td>
+                      <td>JST</td>
+                      <td class="world-clock" data-tz="Asia/Tokyo"></td>
+                    </tr>
+                    <tr>
+                      <td>Seoul</td>
+                      <td>South Korea</td>
+                      <td>KST</td>
+                      <td class="world-clock" data-tz="Asia/Seoul"></td>
+                    </tr>
+                    <tr>
+                      <td>Sydney</td>
+                      <td>Australia</td>
+                      <td>AEST/AEDT</td>
+                      <td class="world-clock" data-tz="Australia/Sydney"></td>
+                    </tr>
+                    <tr>
+                      <td>New Delhi</td>
+                      <td>India</td>
+                      <td>IST</td>
+                      <td class="world-clock" data-tz="Asia/Kolkata"></td>
+                    </tr>
+                    <tr>
+                      <td>Dubai</td>
+                      <td>UAE</td>
+                      <td>GST</td>
+                      <td class="world-clock" data-tz="Asia/Dubai"></td>
+                    </tr>
+                    <tr>
+                      <td>Singapore</td>
+                      <td>Singapore</td>
+                      <td>SGT</td>
+                      <td class="world-clock" data-tz="Asia/Singapore"></td>
+                    </tr>
+                    <tr>
+                      <td>Bangkok</td>
+                      <td>Thailand</td>
+                      <td>ICT</td>
+                      <td class="world-clock" data-tz="Asia/Bangkok"></td>
+                    </tr>
+                    <tr>
+                      <td>Johannesburg</td>
+                      <td>South Africa</td>
+                      <td>SAST</td>
+                      <td class="world-clock" data-tz="Africa/Johannesburg"></td>
+                    </tr>
+                    <tr>
+                      <td>Cairo</td>
+                      <td>Egypt</td>
+                      <td>EET</td>
+                      <td class="world-clock" data-tz="Africa/Cairo"></td>
+                    </tr>
+                    <tr>
+                      <td>Mexico City</td>
+                      <td>Mexico</td>
+                      <td>CST</td>
+                      <td class="world-clock" data-tz="America/Mexico_City"></td>
+                    </tr>
+                    <tr>
+                      <td>Buenos Aires</td>
+                      <td>Argentina</td>
+                      <td>ART</td>
+                      <td class="world-clock" data-tz="America/Argentina/Buenos_Aires"></td>
+                    </tr>
+                    <tr>
+                      <td>São Paulo</td>
+                      <td>Brazil</td>
+                      <td>BRT</td>
+                      <td class="world-clock" data-tz="America/Sao_Paulo"></td>
+                    </tr>
+                    <tr>
+                      <td>Toronto</td>
+                      <td>Canada</td>
+                      <td>Eastern</td>
+                      <td class="world-clock" data-tz="America/Toronto"></td>
+                    </tr>
+                    <tr>
+                      <td>Vancouver</td>
+                      <td>Canada</td>
+                      <td>Pacific</td>
+                      <td class="world-clock" data-tz="America/Vancouver"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <script>
+                function updateWorldClocks() {
+                  const clocks = document.querySelectorAll('.world-clock');
+                  clocks.forEach(function (td) {
+                    const tz = td.getAttribute('data-tz');
+                    const now = new Date();
+                    try {
+                      const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: tz };
+                      td.textContent = now.toLocaleTimeString('en-US', options);
+                    } catch (e) {
+                      td.textContent = '--:--:--';
+                    }
+                  });
+                }
+                updateWorldClocks();
+                setInterval(updateWorldClocks, 1000);
+              </script>
             </div>
           </div>
         </section>
