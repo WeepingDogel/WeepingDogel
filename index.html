@@ -1,3 +1,6 @@
+Using a table for the GitHub status section is a great way to organize the information more clearly and make it easier to read. Here is the updated HTML code with a `table` component from DaisyUI to display the GitHub stats.
+
+```html
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
   <head>
@@ -410,25 +413,43 @@
       </div>
 
       <div class="card bg-base-100 shadow-xl">
-        <div class="card-body text-center">
+        <div class="card-body">
           <h2 class="card-title justify-center">Github Status</h2>
-          <div class="space-y-4 mt-4">
-            <img
-              class="w-full"
-              src="https://github-profile-trophy.vercel.app/?username=weepingdogel&row=2&column=5&theme=darkhub"
-            />
-            <img
-              class="w-full"
-              src="https://github-readme-streak-stats.herokuapp.com?user=WeepingDogel&theme=dark&date_format=%5BY.%5Dn.j&locale=zh_Hans"
-            />
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <img
-                src="https://github-readme-stats.vercel.app/api/top-langs/?username=weepingdogel&show_icons=true&count_private=true&title_color=ffffff&text_color=ffffff&layout=compact&bg_color=000000&locale=cn&hide_border=0"
-              />
-              <img
-                src="https://github-readme-stats.vercel.app/api?username=weepingdogel&title_color=ffffff&text_color=ffffff&layout=compact&bg_color=000000&locale=cn&hide_border=0"
-              />
-            </div>
+          <div class="overflow-x-auto mt-4">
+            <table class="table table-lg">
+              <tbody>
+                <tr>
+                  <td colspan="2" class="text-center">
+                    <img
+                      class="w-full"
+                      src="https://github-profile-trophy.vercel.app/?username=weepingdogel&row=2&column=5&theme=darkhub"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="text-center">
+                    <img
+                      class="w-full"
+                      src="https://github-readme-streak-stats.herokuapp.com?user=WeepingDogel&theme=dark&date_format=%5BY.%5Dn.j&locale=zh_Hans"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      class="w-full"
+                      src="https://github-readme-stats.vercel.app/api/top-langs/?username=weepingdogel&show_icons=true&count_private=true&title_color=ffffff&text_color=ffffff&layout=compact&bg_color=000000&locale=cn&hide_border=0"
+                    />
+                  </td>
+                  <td>
+                    <img
+                      class="w-full"
+                      src="https://github-readme-stats.vercel.app/api?username=weepingdogel&title_color=ffffff&text_color=ffffff&layout=compact&bg_color=000000&locale=cn&hide_border=0"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -495,3 +516,4 @@
     </div>
   </body>
 </html>
+```
