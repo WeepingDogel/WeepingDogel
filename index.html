@@ -57,6 +57,11 @@
             class="dropdown-content bg-base-300 rounded-box z-[1] mt-2 w-52 p-2 shadow-2xl"
           >
             <li>
+              <button class="btn btn-sm btn-block justify-start" data-set-theme="system">
+                System Default
+              </button>
+            </li>
+            <li>
               <button class="btn btn-sm btn-block justify-start" data-set-theme="light">
                 Light
               </button>
@@ -570,5 +575,54 @@
         </div>
       </div>
     </div>
+
+    <script>
+      const themeButtons = document.querySelectorAll('[data-set-theme]');
+      const htmlElement = document.documentElement;
+      const themeKey = 'data-theme';
+      const storedTheme = localStorage.getItem(themeKey);
+
+      // Function to get the system's preferred theme
+      const getSystemTheme = () => {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
+      };
+
+      // Function to set the theme and store it in localStorage
+      const setTheme = (theme) => {
+        let newTheme = theme;
+        if (theme === 'system') {
+          newTheme = getSystemTheme();
+        }
+        htmlElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem(themeKey, theme);
+      };
+
+      // Apply the stored theme or system default on page load
+      if (storedTheme) {
+        setTheme(storedTheme);
+      } else {
+        setTheme('system');
+      }
+
+      // Add click event listeners to theme buttons
+      themeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const newTheme = button.getAttribute('data-set-theme');
+          setTheme(newTheme);
+        });
+      });
+
+      // Listen for changes in the system's preferred color scheme
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', (e) => {
+          // Only update if the user has selected 'system' theme
+          if (localStorage.getItem(themeKey) === 'system') {
+            setTheme('system');
+          }
+        });
+    </script>
   </body>
 </html>
