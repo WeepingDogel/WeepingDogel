@@ -1,391 +1,453 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WeepingDogel | Full-Stack Developer & Operations Engineer</title>
-    
-    <link
-      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeepingDogel | Full-Stack Developer & Operations Engineer</title>
 
-  </head>
-  <body class="bg-base-200 text-base-content font-sans">
-    <header class="navbar bg-base-100 shadow-md sticky top-0 z-50">
-      <div class="container mx-auto">
-        <div class="flex-1">
-          <a class="btn btn-ghost text-xl">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 12" />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+</head>
+
+<body class="bg-base-200 text-base-content font-sans">
+  <header class="navbar bg-base-100 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto">
+      <div class="flex-1">
+        <a class="btn btn-ghost text-xl">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 12" />
+          </svg>
+          WeepingDogel
+        </a>
+      </div>
+      <div class="flex-none items-center">
+        <div class="dropdown dropdown-end">
+          <button tabindex="0" role="button" class="btn btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402a3.75 3.75 0 0 0-5.304-5.304L4.098 14.6c-.43.43-.683.993-.683 1.59V18a1.5 1.5 0 0 0 1.5 1.5h1.812c.596 0 1.16-.253 1.59-.684l.706-.706M18 6l-5.304 5.304m0 0a3.75 3.75 0 0 0 5.304 5.304l6.402-6.401a3.75 3.75 0 0 0-5.304-5.304L18 6Z" />
             </svg>
-            WeepingDogel
-          </a>
+            <span class="hidden md:inline">Theme</span>
+          </button>
+          <ul tabindex="0" class="dropdown-content bg-base-300 rounded-box z-[1] mt-4 w-40 p-2 shadow-2xl">
+            <li><button class="menu-item" data-set-theme="light">Light</button></li>
+            <li><button class="menu-item" data-set-theme="dark">Dark</button></li>
+            <li><button class="menu-item" data-set-theme="synthwave">Synthwave</button></li>
+            <li><button class="menu-item" data-set-theme="dracula">Dracula</button></li>
+            <li><button class="menu-item" data-set-theme="night">Night</button></li>
+            <li><button class="menu-item" data-set-theme="emerald">Emerald</button></li>
+            <li>
+              <div class="divider my-1"></div>
+            </li>
+            <li><button class="menu-item" data-set-theme="">System</button></li>
+          </ul>
         </div>
-        <div class="flex-none items-center">
-          <div class="dropdown dropdown-end">
-            <button tabindex="0" role="button" class="btn btn-ghost">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402a3.75 3.75 0 0 0-5.304-5.304L4.098 14.6c-.43.43-.683.993-.683 1.59V18a1.5 1.5 0 0 0 1.5 1.5h1.812c.596 0 1.16-.253 1.59-.684l.706-.706M18 6l-5.304 5.304m0 0a3.75 3.75 0 0 0 5.304 5.304l6.402-6.401a3.75 3.75 0 0 0-5.304-5.304L18 6Z" />
-              </svg>
-              <span class="hidden md:inline">Theme</span>
-            </button>
-            <ul tabindex="0" class="dropdown-content bg-base-300 rounded-box z-[1] mt-4 w-40 p-2 shadow-2xl">
-              <li><button class="menu-item" data-set-theme="light">Light</button></li>
-              <li><button class="menu-item" data-set-theme="dark">Dark</button></li>
-              <li><button class="menu-item" data-set-theme="synthwave">Synthwave</button></li>
-              <li><button class="menu-item" data-set-theme="dracula">Dracula</button></li>
-              <li><button class="menu-item" data-set-theme="night">Night</button></li>
-              <li><button class="menu-item" data-set-theme="emerald">Emerald</button></li>
-               <li><div class="divider my-1"></div></li>
-              <li><button class="menu-item" data-set-theme="">System</button></li>
-            </ul>
+        <a class="btn btn-primary btn-outline ml-2" href="https://blog.weepingdogel.vip">Blog</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto p-4 md:p-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+      <div class="lg:col-span-2 space-y-8">
+
+        <section class="card bg-base-100 shadow-xl">
+          <div class="card-body flex-col md:flex-row items-center gap-8">
+            <div class="avatar">
+              <div class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img
+                  src="https://www.gravatar.com/avatar/89324749a6b918c319554298ed4fae42093f22b1a0c4e552af1ef39915647d59?s=128&d=retro"
+                  alt="WeepingDogel Gravatar" />
+              </div>
+            </div>
+            <div class="flex-1 text-center md:text-left">
+              <h1 class="text-3xl md:text-4xl font-bold">WeepingDogel</h1>
+              <img
+                src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=888888&width=450&lines=Learning+Full-Stack+Developer;Operations+Engineer;Arch+Linux+Enthusiast"
+                alt="Typing SVG" class="mt-2 h-8 mx-auto md:mx-0" />
+              <p class="py-4 text-base-content/80">
+                A passionate developer and ops engineer exploring the worlds of full-stack development, CI/CD, and cloud
+                infrastructure. I thrive on building efficient, scalable solutions and am always eager to learn new
+                technologies. I use Arch, btw.
+              </p>
+              <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                <a class="btn btn-primary" href="https://t.me/weepingdogel_2025">Telegram</a>
+                <a class="btn btn-secondary" href="mailto:weepingdogel@gmail.com">Email</a>
+                <a class="btn btn-ghost" href="https://x.com/weepingdogel_me">X / Twitter</a>
+              </div>
+            </div>
           </div>
-          <a class="btn btn-primary btn-outline ml-2" href="https://blog.weepingdogel.vip">Blog</a>
-        </div>
-      </div>
-    </header>
+        </section>
 
-    <main class="container mx-auto p-4 md:p-8">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        <div class="lg:col-span-2 space-y-8">
-
-          <section class="card bg-base-100 shadow-xl">
-            <div class="card-body flex-col md:flex-row items-center gap-8">
-              <div class="avatar">
-                <div class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                  <img src="https://www.gravatar.com/avatar/89324749a6b918c319554298ed4fae42093f22b1a0c4e552af1ef39915647d59?s=128&d=retro" alt="WeepingDogel Gravatar"/>
+        <section class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl">My Projects</h2>
+            <div class="divider"></div>
+            <h3 class="font-bold text-lg mt-4">Personal</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+              <div class="card card-compact bg-base-200/50">
+                <div class="card-body">
+                  <h4 class="card-title">tinygallery-vue</h4>
+                  <p class="text-sm text-base-content/70">A lightweight and modern gallery front-end built with Vue.</p>
+                  <div class="card-actions justify-start">
+                    <div class="badge badge-outline">Vue.js</div>
+                    <div class="badge badge-outline">Vite</div>
+                  </div>
+                  <a href="https://github.com/WeepingDogel/tinygallery-vue"
+                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
-              <div class="flex-1 text-center md:text-left">
-                <h1 class="text-3xl md:text-4xl font-bold">WeepingDogel</h1>
-                <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=888888&width=450&lines=Learning+Full-Stack+Developer;Operations+Engineer;Arch+Linux+Enthusiast" alt="Typing SVG" class="mt-2 h-8 mx-auto md:mx-0" />
-                <p class="py-4 text-base-content/80">
-                  A passionate developer and ops engineer exploring the worlds of full-stack development, CI/CD, and cloud infrastructure. I thrive on building efficient, scalable solutions and am always eager to learn new technologies. I use Arch, btw.
-                </p>
-                <div class="flex flex-wrap justify-center md:justify-start gap-2">
-                  <a class="btn btn-primary" href="https://t.me/weepingdogel_2025">Telegram</a>
-                  <a class="btn btn-secondary" href="mailto:weepingdogel@gmail.com">Email</a>
-                  <a class="btn btn-ghost" href="https://x.com/weepingdogel_me">X / Twitter</a>
+              <div class="card card-compact bg-base-200/50">
+                <div class="card-body">
+                  <h4 class="card-title">tinygallery-backend</h4>
+                  <p class="text-sm text-base-content/70">The FastAPI-powered backend for the Tiny Gallery project.</p>
+                  <div class="card-actions justify-start">
+                    <div class="badge badge-outline">Python</div>
+                    <div class="badge badge-outline">FastAPI</div>
+                  </div>
+                  <a href="https://github.com/WeepingDogel/tinygallery-backend"
+                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
-            </div>
-          </section>
-
-          <section class="card bg-base-100 shadow-xl">
-            <div class="card-body">
-              <h2 class="card-title text-2xl">My Projects</h2>
-              <div class="divider"></div>
-              <h3 class="font-bold text-lg mt-4">Personal</h3>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                <div class="card card-compact bg-base-200/50">
-                  <div class="card-body">
-                    <h4 class="card-title">tinygallery-vue</h4>
-                    <p class="text-sm text-base-content/70">A lightweight and modern gallery front-end built with Vue.</p>
-                    <div class="card-actions justify-start">
-                      <div class="badge badge-outline">Vue.js</div>
-                      <div class="badge badge-outline">Vite</div>
-                    </div>
-                    <a href="https://github.com/WeepingDogel/tinygallery-vue" class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
+              <div class="card card-compact bg-base-200/50">
+                <div class="card-body">
+                  <h4 class="card-title">matrix-historian</h4>
+                  <p class="text-sm text-base-content/70">A tool to archive and browse Matrix chat history.</p>
+                  <div class="card-actions justify-start">
+                    <div class="badge badge-outline">Python</div>
                   </div>
-                </div>
-                <div class="card card-compact bg-base-200/50">
-                  <div class="card-body">
-                    <h4 class="card-title">tinygallery-backend</h4>
-                    <p class="text-sm text-base-content/70">The FastAPI-powered backend for the Tiny Gallery project.</p>
-                    <div class="card-actions justify-start">
-                      <div class="badge badge-outline">Python</div>
-                      <div class="badge badge-outline">FastAPI</div>
-                    </div>
-                     <a href="https://github.com/WeepingDogel/tinygallery-backend" class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                  </div>
-                </div>
-                 <div class="card card-compact bg-base-200/50">
-                  <div class="card-body">
-                    <h4 class="card-title">matrix-historian</h4>
-                    <p class="text-sm text-base-content/70">A tool to archive and browse Matrix chat history.</p>
-                    <div class="card-actions justify-start">
-                      <div class="badge badge-outline">Python</div>
-                    </div>
-                     <a href="https://github.com/WeepingDogel/matrix-historian" class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                  </div>
+                  <a href="https://github.com/WeepingDogel/matrix-historian"
+                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
-              <h3 class="font-bold text-lg mt-6">Collaborations</h3>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                 <div class="card card-compact bg-base-200/50">
-                  <div class="card-body">
-                    <h4 class="card-title">gozjaro-bootstrap</h4>
-                    <p class="text-sm text-base-content/70">Bootstrap scripts for the Gozjaro organization.</p>
-                    <div class="card-actions justify-start">
-                      <div class="badge badge-outline">Shell</div>
-                    </div>
-                    <a href="https://github.com/Gozjaro/gozjaro-bootstrap" class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
+              <div class="card card-compact bg-base-200/50">
+                <div class="card-body">
+                  <h4 class="card-title">red-snake-ai</h4>
+                  <p class="text-sm text-base-content/70">An AI project involving the classic Snake game.</p>
+                  <div class="card-actions justify-start">
+                    <div class="badge badge-outline">Python</div>
+                    <div class="badge badge-outline">AI/RL</div>
                   </div>
+                  <a href="https://github.com/me0w00f/red-snake-ai"
+                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
-                <div class="card card-compact bg-base-200/50">
-                  <div class="card-body">
-                    <h4 class="card-title">EmbeddingPaw</h4>
-                    <p class="text-sm text-base-content/70">A collaborative project related to text embeddings.</p>
-                    <div class="card-actions justify-start">
-                      <div class="badge badge-outline">Python</div>
-                      <div class="badge badge-outline">AI/ML</div>
-                    </div>
-                     <a href="https://github.com/Kira-Pgr/EmbeddingPaw" class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
+              </div>
+              <div class="card card-compact bg-base-200/50">
+                <div class="card-body">
+                  <h4 class="card-title">Big-Ball-Swallows-Small-Ball</h4>
+                  <p class="text-sm text-base-content/70">
+                    🎮 Big Ball Swallows Small Ball - An addictive arcade game with AI support. Control a demon ball to eat smaller dots while avoiding bigger ones. Features dynamic movement, rainbow effects, and reinforcement learning capabilities. Built with Pygame and PyTorch. 😈 🌈
+                  </p>
+                  <div class="card-actions justify-start">
+                    <div class="badge badge-outline">Python</div>
+                    <div class="badge badge-outline">AI/RL</div>
                   </div>
+                  <a href="https://github.com/me0w00f/Big-Ball-Swallows-Small-Ball"
+                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
-                <div class="card card-compact bg-base-200/50">
-                    <div class="card-body">
-                      <h4 class="card-title">me0w00f Blogger Backend</h4>
-                      <p class="text-sm text-base-content/70">Backend service for the me0w00f organization's blog.</p>
-                      <div class="card-actions justify-start">
-                        <div class="badge badge-outline">Python</div>
-                      </div>
-                       <a href="https://github.com/me0w00f/me0w00f_organization_blogger_backend" class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                    </div>
-                  </div>
-                  <div class="card card-compact bg-base-200/50">
-                    <div class="card-body">
-                      <h4 class="card-title">me0w00f Blogger Frontend</h4>
-                      <p class="text-sm text-base-content/70">Frontend interface for the me0w00f organization's blog.</p>
-                      <div class="card-actions justify-start">
-                        <div class="badge badge-outline">Vue.js</div>
-                      </div>
-                       <a href="https://github.com/me0w00f/me0w00f_organization_blogger_frontend" class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                    </div>
-                  </div>
-                  <div class="card card-compact bg-base-200/50">
-                    <div class="card-body">
-                      <h4 class="card-title">red-snake-ai</h4>
-                      <p class="text-sm text-base-content/70">An AI project involving the classic Snake game.</p>
-                      <div class="card-actions justify-start">
-                        <div class="badge badge-outline">Python</div>
-                        <div class="badge badge-outline">AI/ML</div>
-                      </div>
-                       <a href="https://github.com/me0w00f/red-snake-ai" class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                    </div>
-                  </div>
-                   <div class="card card-compact bg-base-200/50">
-                    <div class="card-body">
-                      <h4 class="card-title">me0w00f-wiki</h4>
-                      <p class="text-sm text-base-content/70">A collaborative wiki for the me0w00f organization.</p>
-                      <div class="card-actions justify-start">
-                        <div class="badge badge-outline">Markdown</div>
-                      </div>
-                       <a href="https://github.com/me0w00f/me0w00f-wiki" class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                    </div>
-                  </div>
               </div>
             </div>
-          </section>
-        </div>
-        
-        <div class="lg:col-span-1 space-y-8">
-
-          <section class="card bg-base-100 shadow-xl">
-            <div class="card-body">
-              <h2 class="card-title text-2xl">Skills & Tools</h2>
-              <div class="divider my-2"></div>
+            <h3 class="font-bold text-lg mt-6">Collaborations</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+              <div class="card card-compact bg-base-200/50">
+                <div class="card-body">
+                  <h4 class="card-title">gozjaro-bootstrap</h4>
+                  <p class="text-sm text-base-content/70">Bootstrap scripts for the Gozjaro organization.</p>
+                  <div class="card-actions justify-start">
+                    <div class="badge badge-outline">Shell</div>
+                  </div>
+                  <a href="https://github.com/Gozjaro/gozjaro-bootstrap"
+                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
+                </div>
+              </div>
+              <div class="card card-compact bg-base-200/50">
+                <div class="card-body">
+                  <h4 class="card-title">EmbeddingPaw</h4>
+                  <p class="text-sm text-base-content/70">A collaborative project related to text embeddings.</p>
+                  <div class="card-actions justify-start">
+                    <div class="badge badge-outline">Python</div>
+                    <div class="badge badge-outline">AI/ML</div>
+                  </div>
+                  <a href="https://github.com/Kira-Pgr/EmbeddingPaw"
+                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
+                </div>
+              </div>
+              <div class="card card-compact bg-base-200/50">
+                <div class="card-body">
+                  <h4 class="card-title">me0w00f Blogger Backend</h4>
+                  <p class="text-sm text-base-content/70">Backend service for the me0w00f organization's blog.</p>
+                  <div class="card-actions justify-start">
+                    <div class="badge badge-outline">Python</div>
+                  </div>
+                  <a href="https://github.com/me0w00f/me0w00f_organization_blogger_backend"
+                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
+                </div>
+              </div>
+              <div class="card card-compact bg-base-200/50">
+                <div class="card-body">
+                  <h4 class="card-title">me0w00f Blogger Frontend</h4>
+                  <p class="text-sm text-base-content/70">Frontend interface for the me0w00f organization's blog.</p>
+                  <div class="card-actions justify-start">
+                    <div class="badge badge-outline">Vue.js</div>
+                  </div>
+                  <a href="https://github.com/me0w00f/me0w00f_organization_blogger_frontend"
+                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
+                </div>
+              </div>
               
-              <div class="space-y-4 text-sm">
-                <div>
-                  <h3 class="font-semibold text-base-content/90 mb-2">Languages & Markup</h3>
-                  <div class="flex flex-wrap gap-4">
-                    <div class="tooltip" data-tip="Python"><i class="devicon-python-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="JavaScript"><i class="devicon-javascript-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="HTML5"><i class="devicon-html5-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="CSS3"><i class="devicon-css3-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="C"><i class="devicon-c-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Bash"><i class="devicon-bash-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="PowerShell"><i class="devicon-powershell-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Markdown"><i class="devicon-markdown-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="LaTeX"><i class="devicon-latex-plain text-3xl"></i></div>
-                     <div class="tooltip" data-tip="YAML"><i class="devicon-yaml-plain text-3xl"></i></div>
+              <div class="card card-compact bg-base-200/50">
+                <div class="card-body">
+                  <h4 class="card-title">me0w00f-wiki</h4>
+                  <p class="text-sm text-base-content/70">A collaborative wiki for the me0w00f organization.</p>
+                  <div class="card-actions justify-start">
+                    <div class="badge badge-outline">Markdown</div>
                   </div>
-                </div>
-
-                <div>
-                  <h3 class="font-semibold text-base-content/90 mb-2">Frontend</h3>
-                  <div class="flex flex-wrap gap-4">
-                    <div class="tooltip" data-tip="Vue.js"><i class="devicon-vuejs-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="TailwindCSS"><i class="devicon-tailwindcss-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Vite"><i class="devicon-vitejs-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Electron"><i class="devicon-electron-original text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Axios"><i class="devicon-axios-plain text-3xl"></i></div>
-                  </div>
-                </div>
-                
-                <div>
-                  <h3 class="font-semibold text-base-content/90 mb-2">Backend & Databases</h3>
-                  <div class="flex flex-wrap gap-4">
-                    <div class="tooltip" data-tip="Node.js"><i class="devicon-nodejs-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="FastAPI"><i class="devicon-fastapi-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="SQLAlchemy"><i class="devicon-sqlalchemy-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="PostgreSQL"><i class="devicon-postgresql-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="MySQL"><i class="devicon-mysql-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="MariaDB"><i class="devicon-mariadb-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="SQLite"><i class="devicon-sqlite-plain text-3xl"></i></div>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 class="font-semibold text-base-content/90 mb-2">Data Science & AI</h3>
-                   <div class="flex flex-wrap gap-4">
-                    <div class="tooltip" data-tip="Pandas"><i class="devicon-pandas-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="NumPy"><i class="devicon-numpy-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="TensorFlow"><i class="devicon-tensorflow-original text-3xl"></i></div>
-                    <div class="tooltip" data-tip="PyTorch"><i class="devicon-pytorch-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Streamlit"><i class="devicon-streamlit-plain text-3xl"></i></div>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 class="font-semibold text-base-content/90 mb-2">DevOps & Tooling</h3>
-                  <div class="flex flex-wrap gap-4">
-                    <div class="tooltip" data-tip="Docker"><i class="devicon-docker-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Git"><i class="devicon-git-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="GitHub"><i class="devicon-github-original text-3xl"></i></div>
-                    <div class="tooltip" data-tip="GitHub Actions"><i class="devicon-githubactions-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Jenkins"><i class="devicon-jenkins-line text-3xl"></i></div>
-                    <div class="tooltip" data-tip="OpenStack"><i class="devicon-openstack-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Portainer"><i class="devicon-portainer-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="NPM"><i class="devicon-npm-original-wordmark text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Yarn"><i class="devicon-yarn-plain text-3xl"></i></div>
-                  </div>
-                </div>
-
-                 <div>
-                  <h3 class="font-semibold text-base-content/90 mb-2">Platforms & OS</h3>
-                   <div class="flex flex-wrap gap-4">
-                    <div class="tooltip" data-tip="Arch Linux"><i class="devicon-archlinux-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Ubuntu"><i class="devicon-ubuntu-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Windows"><i class="devicon-windows8-original text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Android"><i class="devicon-android-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Apple"><i class="devicon-apple-original text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Google Cloud"><i class="devicon-google-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Cloudflare"><i class="devicon-cloudflare-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Supabase"><i class="devicon-supabase-plain text-3xl"></i></div>
-                  </div>
-                </div>
-
-                 <div>
-                  <h3 class="font-semibold text-base-content/90 mb-2">Software</h3>
-                   <div class="flex flex-wrap gap-4">
-                    <div class="tooltip" data-tip="VSCode"><i class="devicon-vscode-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Vim"><i class="devicon-vim-plain text-3xl"></i></div>
-                    <div class="tooltip" data-tip="Chrome"><i class="devicon-chrome-plain text-3xl"></i></div>
-                  </div>
+                  <a href="https://github.com/me0w00f/me0w00f-wiki"
+                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
             </div>
-          </section>
-
-          <section class="card bg-base-100 shadow-xl">
-            <div class="card-body">
-              <h2 class="card-title text-2xl">My Devices</h2>
-              <div class="divider my-2"></div>
-              <div class="space-y-4">
-                  <div>
-                    <h3 class="font-semibold text-base-content/90 mb-2">Mobile</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <img src="https://img.shields.io/badge/Redmi%20K50%20Ultra-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF" alt="Redmi K50 Ultra"/>
-                        <img src="https://img.shields.io/badge/iPhone%20XR-000000?style=for-the-badge&logo=Apple&logoColor=FFFFFF" alt="iPhone XR"/>
-                        <img src="https://img.shields.io/badge/Redmi%20Pad%20SE-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF" alt="Redmi Pad SE"/>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 class="font-semibold text-base-content/90 mb-2">Computers</h3>
-                    <div class="space-y-3 text-sm">
-                        <div class="p-3 bg-base-200/50 rounded-lg">
-                            <p class="font-bold">Gaming Laptop</p>
-                            <div class="flex flex-wrap gap-2 mt-1">
-                                <img src="https://img.shields.io/badge/Core%20i5--11400H-0071C5?style=for-the-badge&logo=Intel&logoColor=FFFFFF" alt="i5-11400H"/>
-                                <img src="https://img.shields.io/badge/RTX%203050%20Mobile-76B900?style=for-the-badge&logo=Nvidia&logoColor=FFFFFF" alt="RTX 3050 Mobile"/>
-                                <span class="badge badge-lg">32GB RAM</span>
-                            </div>
-                        </div>
-                         <div class="p-3 bg-base-200/50 rounded-lg">
-                            <p class="font-bold">Main Desktop</p>
-                            <div class="flex flex-wrap gap-2 mt-1">
-                                <img src="https://img.shields.io/badge/Xeon%20E3--1230%20v2-0071C5?style=for-the-badge&logo=Intel&logoColor=FFFFFF" alt="Xeon E3-1230 v2"/>
-                                <img src="https://img.shields.io/badge/GTX%20750%20Ti-76B900?style=for-the-badge&logo=Nvidia&logoColor=FFFFFF" alt="GTX 750 Ti"/>
-                                <span class="badge badge-lg">16GB RAM</span>
-                            </div>
-                        </div>
-                        <div class="p-3 bg-base-200/50 rounded-lg">
-                            <p class="font-bold">Secondary Desktop</p>
-                            <div class="flex flex-wrap gap-2 mt-1">
-                                <img src="https://img.shields.io/badge/Ryzen%205%201400-ED1C24?style=for-the-badge&logo=AMD&logoColor=FFFFFF" alt="Ryzen 5 1400"/>
-                                <img src="https://img.shields.io/badge/Radeon%20RX%20580-ED1C24?style=for-the-badge&logo=AMD&logoColor=FFFFFF" alt="Radeon RX 580"/>
-                                <span class="badge badge-lg">8GB RAM</span>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="card bg-base-100 shadow-xl">
-            <div class="card-body">
-              <h2 class="card-title text-2xl">GitHub Stats</h2>
-              <div class="divider my-2"></div>
-              <div class="space-y-4">
-                <img class="w-full rounded-lg" src="https://github-profile-trophy.vercel.app/?username=weepingdogel&theme=dracula&no-frame=true&no-bg=true&margin-w=4" alt="GitHub Trophies"/>
-                <img class="w-full rounded-lg" src="https://github-readme-streak-stats.herokuapp.com?user=WeepingDogel&theme=dracula&hide_border=true&background=282A36" alt="GitHub Streak Stats"/>
-                <img class="w-full rounded-lg" src="https://github-readme-stats.vercel.app/api?username=weepingdogel&show_icons=true&theme=dracula&hide_border=true&title_color=9575CD&icon_color=7986CB&text_color=BDBDBD&bg_color=282A36" alt="GitHub Stats"/>
-                <img class="w-full rounded-lg" src="https://github-readme-stats.vercel.app/api/top-langs/?username=weepingdogel&layout=compact&theme=dracula&hide_border=true&title_color=9575CD&text_color=BDBDBD&bg_color=282A36" alt="Top Languages"/>
-              </div>
-            </div>
-          </section>
-        </div>
+          </div>
+        </section>
       </div>
-    </main>
 
-    <footer class="footer footer-center p-4 bg-base-300 text-base-content mt-12">
-      <aside>
-        <p>Copyright © 2025 - All right reserved by WeepingDogel</p>
-        <div class="mt-2">
-            <img src="https://count.getloli.com/@:WeepingDogel?theme=moebooru" alt="views" />
-        </div>
-      </aside>
-    </footer>
+      <div class="lg:col-span-1 space-y-8">
 
-    <script>
-      (() => {
-        const themeKey = 'theme';
-        const html = document.documentElement;
+        <section class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl">Skills & Tools</h2>
+            <div class="divider my-2"></div>
 
-        const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            <div class="space-y-4 text-sm">
+              <div>
+                <h3 class="font-semibold text-base-content/90 mb-2">Languages & Markup</h3>
+                <div class="flex flex-wrap gap-4">
+                  <div class="tooltip" data-tip="Python"><i class="devicon-python-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="JavaScript"><i class="devicon-javascript-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="HTML5"><i class="devicon-html5-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="CSS3"><i class="devicon-css3-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="C"><i class="devicon-c-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Bash"><i class="devicon-bash-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="PowerShell"><i class="devicon-powershell-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Markdown"><i class="devicon-markdown-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="LaTeX"><i class="devicon-latex-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="YAML"><i class="devicon-yaml-plain text-3xl"></i></div>
+                </div>
+              </div>
 
-        // Set theme on initial load
-        const storedTheme = localStorage.getItem(themeKey);
-        const initialTheme = storedTheme || getSystemTheme();
-        html.setAttribute('data-theme', initialTheme);
+              <div>
+                <h3 class="font-semibold text-base-content/90 mb-2">Frontend</h3>
+                <div class="flex flex-wrap gap-4">
+                  <div class="tooltip" data-tip="Vue.js"><i class="devicon-vuejs-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="TailwindCSS"><i class="devicon-tailwindcss-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Vite"><i class="devicon-vitejs-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Electron"><i class="devicon-electron-original text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Axios"><i class="devicon-axios-plain text-3xl"></i></div>
+                </div>
+              </div>
 
-        // Handle theme button clicks
-        document.querySelectorAll('[data-set-theme]').forEach(button => {
-          button.addEventListener('click', () => {
-            const newTheme = button.getAttribute('data-set-theme');
-            if (newTheme) {
-              html.setAttribute('data-theme', newTheme);
-              localStorage.setItem(themeKey, newTheme);
-            } else {
-              // System default
-              localStorage.removeItem(themeKey);
-              html.setAttribute('data-theme', getSystemTheme());
-            }
-          });
+              <div>
+                <h3 class="font-semibold text-base-content/90 mb-2">Backend & Databases</h3>
+                <div class="flex flex-wrap gap-4">
+                  <div class="tooltip" data-tip="Node.js"><i class="devicon-nodejs-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="FastAPI"><i class="devicon-fastapi-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="SQLAlchemy"><i class="devicon-sqlalchemy-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="PostgreSQL"><i class="devicon-postgresql-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="MySQL"><i class="devicon-mysql-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="MariaDB"><i class="devicon-mariadb-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="SQLite"><i class="devicon-sqlite-plain text-3xl"></i></div>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-semibold text-base-content/90 mb-2">Data Science & AI</h3>
+                <div class="flex flex-wrap gap-4">
+                  <div class="tooltip" data-tip="Pandas"><i class="devicon-pandas-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="NumPy"><i class="devicon-numpy-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="TensorFlow"><i class="devicon-tensorflow-original text-3xl"></i></div>
+                  <div class="tooltip" data-tip="PyTorch"><i class="devicon-pytorch-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Streamlit"><i class="devicon-streamlit-plain text-3xl"></i></div>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-semibold text-base-content/90 mb-2">DevOps & Tooling</h3>
+                <div class="flex flex-wrap gap-4">
+                  <div class="tooltip" data-tip="Docker"><i class="devicon-docker-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Git"><i class="devicon-git-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="GitHub"><i class="devicon-github-original text-3xl"></i></div>
+                  <div class="tooltip" data-tip="GitHub Actions"><i class="devicon-githubactions-plain text-3xl"></i>
+                  </div>
+                  <div class="tooltip" data-tip="Jenkins"><i class="devicon-jenkins-line text-3xl"></i></div>
+                  <div class="tooltip" data-tip="OpenStack"><i class="devicon-openstack-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Portainer"><i class="devicon-portainer-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="NPM"><i class="devicon-npm-original-wordmark text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Yarn"><i class="devicon-yarn-plain text-3xl"></i></div>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-semibold text-base-content/90 mb-2">Platforms & OS</h3>
+                <div class="flex flex-wrap gap-4">
+                  <div class="tooltip" data-tip="Arch Linux"><i class="devicon-archlinux-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Ubuntu"><i class="devicon-ubuntu-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Windows"><i class="devicon-windows8-original text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Android"><i class="devicon-android-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Apple"><i class="devicon-apple-original text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Google Cloud"><i class="devicon-google-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Cloudflare"><i class="devicon-cloudflare-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Supabase"><i class="devicon-supabase-plain text-3xl"></i></div>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-semibold text-base-content/90 mb-2">Software</h3>
+                <div class="flex flex-wrap gap-4">
+                  <div class="tooltip" data-tip="VSCode"><i class="devicon-vscode-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Vim"><i class="devicon-vim-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="Chrome"><i class="devicon-chrome-plain text-3xl"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl">My Devices</h2>
+            <div class="divider my-2"></div>
+            <div class="space-y-4">
+              <div>
+                <h3 class="font-semibold text-base-content/90 mb-2">Mobile</h3>
+                <div class="flex flex-wrap gap-2">
+                  <img
+                    src="https://img.shields.io/badge/Redmi%20K50%20Ultra-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF"
+                    alt="Redmi K50 Ultra" />
+                  <img
+                    src="https://img.shields.io/badge/iPhone%20XR-000000?style=for-the-badge&logo=Apple&logoColor=FFFFFF"
+                    alt="iPhone XR" />
+                  <img
+                    src="https://img.shields.io/badge/Redmi%20Pad%20SE-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF"
+                    alt="Redmi Pad SE" />
+                </div>
+              </div>
+              <div>
+                <h3 class="font-semibold text-base-content/90 mb-2">Computers</h3>
+                <div class="space-y-3 text-sm">
+                  <div class="p-3 bg-base-200/50 rounded-lg">
+                    <p class="font-bold">Gaming Laptop</p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                      <img
+                        src="https://img.shields.io/badge/Core%20i5--11400H-0071C5?style=for-the-badge&logo=Intel&logoColor=FFFFFF"
+                        alt="i5-11400H" />
+                      <img
+                        src="https://img.shields.io/badge/RTX%203050%20Mobile-76B900?style=for-the-badge&logo=Nvidia&logoColor=FFFFFF"
+                        alt="RTX 3050 Mobile" />
+                      <span class="badge badge-lg">32GB RAM</span>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-base-200/50 rounded-lg">
+                    <p class="font-bold">Main Desktop</p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                      <img
+                        src="https://img.shields.io/badge/Xeon%20E3--1230%20v2-0071C5?style=for-the-badge&logo=Intel&logoColor=FFFFFF"
+                        alt="Xeon E3-1230 v2" />
+                      <img
+                        src="https://img.shields.io/badge/GTX%20750%20Ti-76B900?style=for-the-badge&logo=Nvidia&logoColor=FFFFFF"
+                        alt="GTX 750 Ti" />
+                      <span class="badge badge-lg">16GB RAM</span>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-base-200/50 rounded-lg">
+                    <p class="font-bold">Secondary Desktop</p>
+                    <div class="flex flex-wrap gap-2 mt-1">
+                      <img
+                        src="https://img.shields.io/badge/Ryzen%205%201400-ED1C24?style=for-the-badge&logo=AMD&logoColor=FFFFFF"
+                        alt="Ryzen 5 1400" />
+                      <img
+                        src="https://img.shields.io/badge/Radeon%20RX%20580-ED1C24?style=for-the-badge&logo=AMD&logoColor=FFFFFF"
+                        alt="Radeon RX 580" />
+                      <span class="badge badge-lg">8GB RAM</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title text-2xl">GitHub Stats</h2>
+            <div class="divider my-2"></div>
+            <div class="space-y-4">
+              <img class="w-full rounded-lg"
+                src="https://github-profile-trophy.vercel.app/?username=weepingdogel&theme=dracula&no-frame=true&no-bg=true&margin-w=4"
+                alt="GitHub Trophies" />
+              <img class="w-full rounded-lg"
+                src="https://github-readme-streak-stats.herokuapp.com?user=WeepingDogel&theme=dracula&hide_border=true&background=282A36"
+                alt="GitHub Streak Stats" />
+              <img class="w-full rounded-lg"
+                src="https://github-readme-stats.vercel.app/api?username=weepingdogel&show_icons=true&theme=dracula&hide_border=true&title_color=9575CD&icon_color=7986CB&text_color=BDBDBD&bg_color=282A36"
+                alt="GitHub Stats" />
+              <img class="w-full rounded-lg"
+                src="https://github-readme-stats.vercel.app/api/top-langs/?username=weepingdogel&layout=compact&theme=dracula&hide_border=true&title_color=9575CD&text_color=BDBDBD&bg_color=282A36"
+                alt="Top Languages" />
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer footer-center p-4 bg-base-300 text-base-content mt-12">
+    <aside>
+      <p>Copyright © 2025 - All right reserved by WeepingDogel</p>
+      <div class="mt-2">
+        <img src="https://count.getloli.com/@:WeepingDogel?theme=moebooru" alt="views" />
+      </div>
+    </aside>
+  </footer>
+
+  <script>
+    (() => {
+      const themeKey = 'theme';
+      const html = document.documentElement;
+
+      const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+      // Set theme on initial load
+      const storedTheme = localStorage.getItem(themeKey);
+      const initialTheme = storedTheme || getSystemTheme();
+      html.setAttribute('data-theme', initialTheme);
+
+      // Handle theme button clicks
+      document.querySelectorAll('[data-set-theme]').forEach(button => {
+        button.addEventListener('click', () => {
+          const newTheme = button.getAttribute('data-set-theme');
+          if (newTheme) {
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem(themeKey, newTheme);
+          } else {
+            // System default
+            localStorage.removeItem(themeKey);
+            html.setAttribute('data-theme', getSystemTheme());
+          }
         });
+      });
 
-        // Add class for menu items for easier styling
-        document.querySelectorAll('.dropdown-content li button').forEach(el => el.classList.add('btn', 'btn-sm', 'btn-block', 'justify-start', 'font-normal'));
-      })();
-    </script>
-  </body>
+      // Add class for menu items for easier styling
+      document.querySelectorAll('.dropdown-content li button').forEach(el => el.classList.add('btn', 'btn-sm', 'btn-block', 'justify-start', 'font-normal'));
+    })();
+  </script>
+</body>
+
 </html>
