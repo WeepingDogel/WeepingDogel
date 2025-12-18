@@ -23,7 +23,7 @@ INFP-T / Arch User / Learning FullStack Developer / CICD / CSCI / Operations Eng
 
 <h2 align="center">Contact Me</h2>
 
-[![Telegram](https://img.shields.io/badge/Telegram-@weepingdogel_2025-666666?style=for-the-badge&logo=Telegram&logoColor=&labelColor=000000)](https://t.me/weepingdogel_2025)
+[![Telegram](https://img.shields.io/badge/Telegram-@weepingdogel_goz-666666?style=for-the-badge&logo=Telegram&logoColor=&labelColor=000000)](https://t.me/weepingdogel_goz)
 [![Gmail](https://img.shields.io/badge/Gmail-weepingdogel@gmail.com-666666?style=for-the-badge&logo=Gmail&logoColor=&labelColor=000000)](mailto:weepingdogel@gmail.com)
 [![X](https://img.shields.io/badge/@weepingdogel_me-666666?style=for-the-badge&logo=X&logoColor=&labelColor=000000)](https://x.com/weepingdogel_me)
 [![Mastodon](https://img.shields.io/badge/mastodon-@WeepingDogel-666666?style=for-the-badge&logo=mastodon&logoColor=&labelColor=000000)](https://zone.liolok.com/@WeepingDogel)
