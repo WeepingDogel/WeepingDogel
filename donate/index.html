@@ -8,6 +8,13 @@
 
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .no-save {
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+  </style>
 </head>
 
 <body class="bg-base-200 text-base-content font-sans">
@@ -63,13 +70,9 @@
               </div>
 
               <div
-                class="aspect-square rounded-xl border border-dashed border-base-content/30 flex items-center justify-center bg-base-300/40">
-                <!-- Replace with your image, for example:
-                     <img src="../assets/alipay-qr.png" alt="Alipay QR code" class="w-full h-full object-contain rounded-lg bg-white" />
-                -->
-                <span class="text-xs text-base-content/70 text-center px-4">
-                  Insert your<br /><span class="font-semibold">Alipay</span> QR image here
-                </span>
+                class="no-save aspect-square rounded-xl flex items-center justify-center bg-base-300/40 bg-center bg-no-repeat bg-contain"
+                style="background-image: url('./alipay.jpg');">
+                <span class="sr-only">Alipay QR code</span>
               </div>
 
               <p class="text-[11px] text-base-content/60">
@@ -87,13 +90,9 @@
               </div>
 
               <div
-                class="aspect-square rounded-xl border border-dashed border-base-content/30 flex items-center justify-center bg-base-300/40">
-                <!-- Replace with your image, for example:
-                     <img src="../assets/wechat-qr.png" alt="WeChat Pay QR code" class="w-full h-full object-contain rounded-lg bg-white" />
-                -->
-                <span class="text-xs text-base-content/70 text-center px-4">
-                  Insert your<br /><span class="font-semibold">WeChat</span> QR image here
-                </span>
+                class="no-save aspect-square rounded-xl flex items-center justify-center bg-base-300/40 bg-center bg-no-repeat bg-contain"
+                style="background-image: url('./weixin.jpg');">
+                <span class="sr-only">WeChat Pay QR code</span>
               </div>
 
               <p class="text-[11px] text-base-content/60">
@@ -133,6 +132,13 @@
       document.querySelectorAll('.dropdown-content li button').forEach(el =>
         el.classList.add('btn', 'btn-sm', 'btn-block', 'justify-start', 'font-normal')
       );
+
+      // Best-effort: make saving QR images harder (users can still screenshot or use dev tools)
+      document.addEventListener('contextmenu', (e) => {
+        if (e.target.closest('.no-save')) {
+          e.preventDefault();
+        }
+      });
     })();
   </script>
 </body>
