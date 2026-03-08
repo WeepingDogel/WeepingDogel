@@ -32,10 +32,36 @@
           <ul tabindex="0" class="dropdown-content bg-base-300 rounded-box z-[1] mt-4 w-40 p-2 shadow-2xl">
             <li><button class="menu-item" data-set-theme="light">Light</button></li>
             <li><button class="menu-item" data-set-theme="dark">Dark</button></li>
-            <li><button class="menu-item" data-set-theme="synthwave">Synthwave</button></li>
-            <li><button class="menu-item" data-set-theme="dracula">Dracula</button></li>
-            <li><button class="menu-item" data-set-theme="night">Night</button></li>
+            <li><button class="menu-item" data-set-theme="cupcake">Cupcake</button></li>
+            <li><button class="menu-item" data-set-theme="bumblebee">Bumblebee</button></li>
             <li><button class="menu-item" data-set-theme="emerald">Emerald</button></li>
+            <li><button class="menu-item" data-set-theme="corporate">Corporate</button></li>
+            <li><button class="menu-item" data-set-theme="synthwave">Synthwave</button></li>
+            <li><button class="menu-item" data-set-theme="retro">Retro</button></li>
+            <li><button class="menu-item" data-set-theme="cyberpunk">Cyberpunk</button></li>
+            <li><button class="menu-item" data-set-theme="valentine">Valentine</button></li>
+            <li><button class="menu-item" data-set-theme="halloween">Halloween</button></li>
+            <li><button class="menu-item" data-set-theme="garden">Garden</button></li>
+            <li><button class="menu-item" data-set-theme="forest">Forest</button></li>
+            <li><button class="menu-item" data-set-theme="aqua">Aqua</button></li>
+            <li><button class="menu-item" data-set-theme="lofi">LoFi</button></li>
+            <li><button class="menu-item" data-set-theme="pastel">Pastel</button></li>
+            <li><button class="menu-item" data-set-theme="fantasy">Fantasy</button></li>
+            <li><button class="menu-item" data-set-theme="wireframe">Wireframe</button></li>
+            <li><button class="menu-item" data-set-theme="black">Black</button></li>
+            <li><button class="menu-item" data-set-theme="luxury">Luxury</button></li>
+            <li><button class="menu-item" data-set-theme="dracula">Dracula</button></li>
+            <li><button class="menu-item" data-set-theme="cmyk">CMYK</button></li>
+            <li><button class="menu-item" data-set-theme="autumn">Autumn</button></li>
+            <li><button class="menu-item" data-set-theme="business">Business</button></li>
+            <li><button class="menu-item" data-set-theme="acid">Acid</button></li>
+            <li><button class="menu-item" data-set-theme="lemonade">Lemonade</button></li>
+            <li><button class="menu-item" data-set-theme="night">Night</button></li>
+            <li><button class="menu-item" data-set-theme="coffee">Coffee</button></li>
+            <li><button class="menu-item" data-set-theme="winter">Winter</button></li>
+            <li><button class="menu-item" data-set-theme="dim">Dim</button></li>
+            <li><button class="menu-item" data-set-theme="nord">Nord</button></li>
+            <li><button class="menu-item" data-set-theme="sunset">Sunset</button></li>
             <li>
               <div class="divider my-1"></div>
             </li>
@@ -51,8 +77,9 @@
       <div class="card-body">
         <h1 class="card-title text-2xl md:text-3xl mb-4">Online Tools</h1>
 
-        <!-- Tabs Menu: Vertical on small, horizontal on large -->
-        <div class="tabs tabs-boxed flex-col md:flex-row mb-6 w-full">
+        <!-- Tabs Menu: Scrollable on mobile, wrapped on desktop -->
+        <div
+          class="tabs tabs-boxed flex-nowrap overflow-x-auto md:flex-wrap justify-start md:justify-center mb-6 w-full gap-1">
           <a class="tab tab-active" data-tool="world-clock">World Clock</a>
           <a class="tab" data-tool="year-progress">Year Progress</a>
           <a class="tab" data-tool="calculator">Calculator</a>
@@ -70,7 +97,8 @@
           <!-- World Clock -->
           <div id="world-clock" class="tool-panel">
             <h2 class="text-xl font-bold mb-4">World Clock</h2>
-            <p class="text-sm text-base-content/70 mb-4">Current time in 20 US cities and 20 cities from other countries across major time zones.</p>
+            <p class="text-sm text-base-content/70 mb-4">Current time in 20 US cities and 20 cities from other countries
+              across major time zones.</p>
             <div class="overflow-x-auto">
               <table class="table table-zebra text-sm">
                 <thead>
@@ -344,7 +372,8 @@
                   <div class="text-4xl font-bold mb-2" id="year-progress-percent">0%</div>
                   <div class="text-sm text-base-content/70" id="year-progress-text"></div>
                 </div>
-                <progress class="progress progress-primary w-full" id="year-progress-bar" value="0" max="100"></progress>
+                <progress class="progress progress-primary w-full" id="year-progress-bar" value="0"
+                  max="100"></progress>
                 <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
                   <div>
                     <div class="text-base-content/70">Days Passed</div>
@@ -364,7 +393,8 @@
             <h2 class="text-xl font-bold mb-4">Calculator</h2>
             <div class="card bg-base-200 max-w-md mx-auto">
               <div class="card-body">
-                <input type="text" id="calc-display" class="input input-bordered w-full text-right text-2xl font-mono mb-4" readonly value="0" />
+                <input type="text" id="calc-display"
+                  class="input input-bordered w-full text-right text-2xl font-mono mb-4" readonly value="0" />
                 <div class="grid grid-cols-4 gap-2">
                   <button class="btn btn-error" onclick="calcClear()">C</button>
                   <button class="btn btn-ghost" onclick="calcOperation('backspace')">⌫</button>
@@ -431,7 +461,8 @@
                         <option value="USDC">USDC - USD Coin</option>
                       </optgroup>
                     </select>
-                    <input type="number" id="currency-amount" class="input input-bordered w-full mt-2" placeholder="Amount" value="1" />
+                    <input type="number" id="currency-amount" class="input input-bordered w-full mt-2"
+                      placeholder="Amount" value="1" />
                   </div>
                   <div>
                     <label class="label">
@@ -487,19 +518,22 @@
                     <label class="label">
                       <span class="label-text">Celsius (°C)</span>
                     </label>
-                    <input type="number" id="temp-c" class="input input-bordered w-full" placeholder="0" oninput="convertTemp('c')" />
+                    <input type="number" id="temp-c" class="input input-bordered w-full" placeholder="0"
+                      oninput="convertTemp('c')" />
                   </div>
                   <div>
                     <label class="label">
                       <span class="label-text">Fahrenheit (°F)</span>
                     </label>
-                    <input type="number" id="temp-f" class="input input-bordered w-full" placeholder="32" oninput="convertTemp('f')" />
+                    <input type="number" id="temp-f" class="input input-bordered w-full" placeholder="32"
+                      oninput="convertTemp('f')" />
                   </div>
                   <div>
                     <label class="label">
                       <span class="label-text">Kelvin (K)</span>
                     </label>
-                    <input type="number" id="temp-k" class="input input-bordered w-full" placeholder="273.15" oninput="convertTemp('k')" />
+                    <input type="number" id="temp-k" class="input input-bordered w-full" placeholder="273.15"
+                      oninput="convertTemp('k')" />
                   </div>
                 </div>
               </div>
@@ -516,25 +550,29 @@
                     <label class="label">
                       <span class="label-text">Kilograms (kg)</span>
                     </label>
-                    <input type="number" id="weight-kg" class="input input-bordered w-full" placeholder="0" oninput="convertWeight('kg')" />
+                    <input type="number" id="weight-kg" class="input input-bordered w-full" placeholder="0"
+                      oninput="convertWeight('kg')" />
                   </div>
                   <div>
                     <label class="label">
                       <span class="label-text">Pounds (lb)</span>
                     </label>
-                    <input type="number" id="weight-lb" class="input input-bordered w-full" placeholder="0" oninput="convertWeight('lb')" />
+                    <input type="number" id="weight-lb" class="input input-bordered w-full" placeholder="0"
+                      oninput="convertWeight('lb')" />
                   </div>
                   <div>
                     <label class="label">
                       <span class="label-text">Grams (g)</span>
                     </label>
-                    <input type="number" id="weight-g" class="input input-bordered w-full" placeholder="0" oninput="convertWeight('g')" />
+                    <input type="number" id="weight-g" class="input input-bordered w-full" placeholder="0"
+                      oninput="convertWeight('g')" />
                   </div>
                   <div>
                     <label class="label">
                       <span class="label-text">Ounces (oz)</span>
                     </label>
-                    <input type="number" id="weight-oz" class="input input-bordered w-full" placeholder="0" oninput="convertWeight('oz')" />
+                    <input type="number" id="weight-oz" class="input input-bordered w-full" placeholder="0"
+                      oninput="convertWeight('oz')" />
                   </div>
                 </div>
               </div>
@@ -551,37 +589,43 @@
                     <label class="label">
                       <span class="label-text">Meters (m)</span>
                     </label>
-                    <input type="number" id="length-m" class="input input-bordered w-full" placeholder="0" oninput="convertLength('m')" />
+                    <input type="number" id="length-m" class="input input-bordered w-full" placeholder="0"
+                      oninput="convertLength('m')" />
                   </div>
                   <div>
                     <label class="label">
                       <span class="label-text">Feet (ft)</span>
                     </label>
-                    <input type="number" id="length-ft" class="input input-bordered w-full" placeholder="0" oninput="convertLength('ft')" />
+                    <input type="number" id="length-ft" class="input input-bordered w-full" placeholder="0"
+                      oninput="convertLength('ft')" />
                   </div>
                   <div>
                     <label class="label">
                       <span class="label-text">Kilometers (km)</span>
                     </label>
-                    <input type="number" id="length-km" class="input input-bordered w-full" placeholder="0" oninput="convertLength('km')" />
+                    <input type="number" id="length-km" class="input input-bordered w-full" placeholder="0"
+                      oninput="convertLength('km')" />
                   </div>
                   <div>
                     <label class="label">
                       <span class="label-text">Miles (mi)</span>
                     </label>
-                    <input type="number" id="length-mi" class="input input-bordered w-full" placeholder="0" oninput="convertLength('mi')" />
+                    <input type="number" id="length-mi" class="input input-bordered w-full" placeholder="0"
+                      oninput="convertLength('mi')" />
                   </div>
                   <div>
                     <label class="label">
                       <span class="label-text">Centimeters (cm)</span>
                     </label>
-                    <input type="number" id="length-cm" class="input input-bordered w-full" placeholder="0" oninput="convertLength('cm')" />
+                    <input type="number" id="length-cm" class="input input-bordered w-full" placeholder="0"
+                      oninput="convertLength('cm')" />
                   </div>
                   <div>
                     <label class="label">
                       <span class="label-text">Inches (in)</span>
                     </label>
-                    <input type="number" id="length-in" class="input input-bordered w-full" placeholder="0" oninput="convertLength('in')" />
+                    <input type="number" id="length-in" class="input input-bordered w-full" placeholder="0"
+                      oninput="convertLength('in')" />
                   </div>
                 </div>
               </div>
@@ -609,7 +653,8 @@
                   <label class="label">
                     <span class="label-text">Input Text</span>
                   </label>
-                  <textarea id="hash-input" class="textarea textarea-bordered w-full h-32" placeholder="Enter text to hash" oninput="generateHash()"></textarea>
+                  <textarea id="hash-input" class="textarea textarea-bordered w-full h-32"
+                    placeholder="Enter text to hash" oninput="generateHash()"></textarea>
                 </div>
                 <div class="mb-4">
                   <label class="label">
@@ -623,13 +668,15 @@
                   <label class="label">
                     <span class="label-text">Text to Verify</span>
                   </label>
-                  <textarea id="md5-verify-input" class="textarea textarea-bordered w-full h-24" placeholder="Enter text to verify" oninput="verifyMD5()"></textarea>
+                  <textarea id="md5-verify-input" class="textarea textarea-bordered w-full h-24"
+                    placeholder="Enter text to verify" oninput="verifyMD5()"></textarea>
                 </div>
                 <div class="mb-4">
                   <label class="label">
                     <span class="label-text">MD5 Hash to Compare</span>
                   </label>
-                  <input type="text" id="md5-verify-hash" class="input input-bordered w-full font-mono text-sm" placeholder="Enter MD5 hash" oninput="verifyMD5()" />
+                  <input type="text" id="md5-verify-hash" class="input input-bordered w-full font-mono text-sm"
+                    placeholder="Enter MD5 hash" oninput="verifyMD5()" />
                 </div>
                 <div class="alert" id="md5-verify-result">
                   <span id="md5-verify-message">Enter text and hash to verify</span>
@@ -650,13 +697,15 @@
                   <label class="label">
                     <span class="label-text">Text to Verify</span>
                   </label>
-                  <textarea id="sha-verify-input" class="textarea textarea-bordered w-full h-24" placeholder="Enter text to verify" oninput="verifySHA()"></textarea>
+                  <textarea id="sha-verify-input" class="textarea textarea-bordered w-full h-24"
+                    placeholder="Enter text to verify" oninput="verifySHA()"></textarea>
                 </div>
                 <div class="mb-4">
                   <label class="label">
                     <span class="label-text">SHA Hash to Compare</span>
                   </label>
-                  <input type="text" id="sha-verify-hash" class="input input-bordered w-full font-mono text-sm" placeholder="Enter SHA hash" oninput="verifySHA()" />
+                  <input type="text" id="sha-verify-hash" class="input input-bordered w-full font-mono text-sm"
+                    placeholder="Enter SHA hash" oninput="verifySHA()" />
                 </div>
                 <div class="alert" id="sha-verify-result">
                   <span id="sha-verify-message">Enter text and hash to verify</span>
@@ -693,14 +742,17 @@
                   <label class="label">
                     <span class="label-text" id="encrypt-key-label">Key (Shift for Caesar Cipher)</span>
                   </label>
-                  <input type="number" id="encrypt-key" class="input input-bordered w-full" value="3" min="1" max="25" placeholder="Enter key" />
-                  <p class="text-xs text-base-content/60 mt-1" id="encrypt-key-hint">For Caesar: number (1-25). For Vigenère/XOR: text key. For Rail Fence: number of rails.</p>
+                  <input type="number" id="encrypt-key" class="input input-bordered w-full" value="3" min="1" max="25"
+                    placeholder="Enter key" />
+                  <p class="text-xs text-base-content/60 mt-1" id="encrypt-key-hint">For Caesar: number (1-25). For
+                    Vigenère/XOR: text key. For Rail Fence: number of rails.</p>
                 </div>
                 <div class="mb-4">
                   <label class="label">
                     <span class="label-text">Input Text</span>
                   </label>
-                  <textarea id="encrypt-input" class="textarea textarea-bordered w-full h-32" placeholder="Enter text to encrypt or decrypt"></textarea>
+                  <textarea id="encrypt-input" class="textarea textarea-bordered w-full h-32"
+                    placeholder="Enter text to encrypt or decrypt"></textarea>
                 </div>
                 <button class="btn btn-primary w-full mb-4" onclick="processEncrypt()">Process</button>
                 <div>
@@ -709,7 +761,8 @@
                   </label>
                   <textarea id="encrypt-output" class="textarea textarea-bordered w-full h-32" readonly></textarea>
                 </div>
-                <button class="btn btn-ghost btn-sm mt-2" onclick="copyToClipboard('encrypt-output')">Copy Result</button>
+                <button class="btn btn-ghost btn-sm mt-2" onclick="copyToClipboard('encrypt-output')">Copy
+                  Result</button>
               </div>
             </div>
           </div>
@@ -743,7 +796,8 @@
                   <label class="label">
                     <span class="label-text">Input</span>
                   </label>
-                  <textarea id="encode-input" class="textarea textarea-bordered w-full h-32" placeholder="Enter text to encode or decode"></textarea>
+                  <textarea id="encode-input" class="textarea textarea-bordered w-full h-32"
+                    placeholder="Enter text to encode or decode"></textarea>
                 </div>
                 <button class="btn btn-primary w-full mb-4" onclick="processEncode()">Process</button>
                 <div>
@@ -752,7 +806,8 @@
                   </label>
                   <textarea id="encode-output" class="textarea textarea-bordered w-full h-32" readonly></textarea>
                 </div>
-                <button class="btn btn-ghost btn-sm mt-2" onclick="copyToClipboard('encode-output')">Copy Result</button>
+                <button class="btn btn-ghost btn-sm mt-2" onclick="copyToClipboard('encode-output')">Copy
+                  Result</button>
               </div>
             </div>
           </div>
@@ -765,20 +820,20 @@
     // Countup animation function
     function animateCountup(element, targetValue, duration = 500, decimals = 2) {
       if (!element) return;
-      
+
       const startValue = parseFloat(element.textContent || element.value || 0) || 0;
       const isInput = element.tagName === 'INPUT' || element.tagName === 'TEXTAREA';
       const startTime = performance.now();
-      
+
       // Extract number from string if it contains non-numeric characters
       const extractNumber = (str) => {
         const match = str.toString().match(/[\d.]+/);
         return match ? parseFloat(match[0]) : 0;
       };
-      
+
       const targetNum = extractNumber(targetValue);
       const startNum = extractNumber(startValue);
-      
+
       if (isNaN(targetNum) || targetNum === startNum) {
         if (isInput) {
           element.value = targetValue;
@@ -787,15 +842,15 @@
         }
         return;
       }
-      
+
       function update(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Easing function for smooth animation
         const easeOutQuart = 1 - Math.pow(1 - progress, 4);
         const current = startNum + (targetNum - startNum) * easeOutQuart;
-        
+
         if (progress < 1) {
           if (isInput) {
             if (decimals === 0) {
@@ -826,7 +881,7 @@
           }
         }
       }
-      
+
       requestAnimationFrame(update);
     }
 
@@ -867,7 +922,7 @@
       });
     });
 
-    // World Clock with countup animation
+    // World Clock
     function updateWorldClocks() {
       const clocks = document.querySelectorAll('.world-clock');
       clocks.forEach(function (td) {
@@ -876,54 +931,7 @@
         try {
           const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: tz };
           const newTime = now.toLocaleTimeString('en-US', options);
-          const oldTime = td.textContent || '00:00:00';
-          
-          // Only animate if time actually changed (to avoid unnecessary animations)
-          if (newTime !== oldTime && oldTime !== '--:--:--') {
-            // Convert time to seconds for smooth animation
-            const timeToSeconds = (timeStr) => {
-              const parts = timeStr.split(':');
-              if (parts.length === 3) {
-                return parseInt(parts[0]) * 3600 + parseInt(parts[1]) * 60 + parseInt(parts[2]);
-              }
-              return 0;
-            };
-            
-            const oldSeconds = timeToSeconds(oldTime);
-            const newSeconds = timeToSeconds(newTime);
-            
-            // Handle day rollover (if new time is less, it's next day)
-            const diff = newSeconds - oldSeconds;
-            const targetSeconds = diff < -43200 ? newSeconds + 86400 : (diff > 43200 ? newSeconds - 86400 : newSeconds);
-            
-            // Animate seconds
-            const startTime = performance.now();
-            const duration = 1000; // 1 second animation
-            
-            function animateTime(currentTime) {
-              const elapsed = currentTime - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-              const currentSeconds = Math.round(oldSeconds + (targetSeconds - oldSeconds) * easeOutQuart);
-              
-              // Convert back to time string
-              const hours = Math.floor((currentSeconds % 86400) / 3600);
-              const minutes = Math.floor((currentSeconds % 3600) / 60);
-              const seconds = currentSeconds % 60;
-              const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-              
-              if (progress < 1) {
-                td.textContent = timeStr;
-                requestAnimationFrame(animateTime);
-              } else {
-                td.textContent = newTime;
-              }
-            }
-            
-            requestAnimationFrame(animateTime);
-          } else {
-            td.textContent = newTime;
-          }
+          td.textContent = newTime;
         } catch (e) {
           td.textContent = '--:--:--';
         }
@@ -943,7 +951,7 @@
       const percent = ((passed / total) * 100).toFixed(2);
       const daysPassed = Math.floor(passed / (1000 * 60 * 60 * 24));
       const daysRemaining = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
-      
+
       animateCountup(document.getElementById('year-progress-percent'), percent + '%', 800, 2);
       document.getElementById('year-progress-bar').value = percent;
       animateCountup(document.getElementById('days-passed'), daysPassed, 800, 0);
@@ -1079,7 +1087,7 @@
         const cryptoList = Object.values(cryptoIds).join(',');
         const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cryptoList}&vs_currencies=usd`);
         const data = await response.json();
-        
+
         // Convert to our format
         for (const [code, id] of Object.entries(cryptoIds)) {
           if (data[id] && data[id].usd) {
@@ -1160,16 +1168,16 @@
       const val = parseFloat(document.getElementById(`temp-${from}`).value) || 0;
       if (from === 'c') {
         c = val;
-        f = (c * 9/5) + 32;
+        f = (c * 9 / 5) + 32;
         k = c + 273.15;
       } else if (from === 'f') {
         f = val;
-        c = (f - 32) * 5/9;
+        c = (f - 32) * 5 / 9;
         k = c + 273.15;
       } else if (from === 'k') {
         k = val;
         c = k - 273.15;
-        f = (c * 9/5) + 32;
+        f = (c * 9 / 5) + 32;
       }
       animateCountup(document.getElementById('temp-c'), c.toFixed(2), 400, 2);
       animateCountup(document.getElementById('temp-f'), f.toFixed(2), 400, 2);
@@ -1270,13 +1278,13 @@
       });
     });
 
-    document.getElementById('encrypt-method').addEventListener('change', function() {
+    document.getElementById('encrypt-method').addEventListener('change', function () {
       const method = this.value;
       const keyGroup = document.getElementById('encrypt-key-group');
       const keyInput = document.getElementById('encrypt-key');
       const keyLabel = document.getElementById('encrypt-key-label');
       const keyHint = document.getElementById('encrypt-key-hint');
-      
+
       if (method === 'atbash' || method === 'rot13' || method === 'reverse') {
         keyGroup.style.display = 'none';
       } else {
@@ -1369,7 +1377,7 @@
       if (!key) return text;
       key = key.toUpperCase().replace(/[^A-Z]/g, '');
       if (!key) return text;
-      
+
       let keyIndex = 0;
       return text.split('').map(char => {
         if (char.match(/[a-z]/i)) {
@@ -1398,33 +1406,33 @@
 
     function railFenceCipher(text, rails, encrypt) {
       if (rails < 2) return text;
-      
+
       if (encrypt) {
         const fence = Array(rails).fill(null).map(() => []);
         let rail = 0;
         let direction = 1;
-        
+
         for (let i = 0; i < text.length; i++) {
           fence[rail].push(text[i]);
           rail += direction;
           if (rail === 0 || rail === rails - 1) direction = -direction;
         }
-        
+
         return fence.flat().join('');
       } else {
         const pattern = [];
         let rail = 0;
         let direction = 1;
-        
+
         for (let i = 0; i < text.length; i++) {
           pattern.push(rail);
           rail += direction;
           if (rail === 0 || rail === rails - 1) direction = -direction;
         }
-        
+
         const fence = Array(rails).fill(null).map(() => []);
         let index = 0;
-        
+
         for (let r = 0; r < rails; r++) {
           for (let i = 0; i < pattern.length; i++) {
             if (pattern[i] === r) {
@@ -1432,18 +1440,18 @@
             }
           }
         }
-        
+
         let result = '';
         rail = 0;
         direction = 1;
         const indices = Array(rails).fill(0);
-        
+
         for (let i = 0; i < text.length; i++) {
           result += fence[rail][indices[rail]++];
           rail += direction;
           if (rail === 0 || rail === rails - 1) direction = -direction;
         }
-        
+
         return result;
       }
     }
@@ -1457,7 +1465,7 @@
         'U': 'BABAA', 'V': 'BABAB', 'W': 'BABBA', 'X': 'BABBB', 'Y': 'BBAAA',
         'Z': 'BBAAB'
       };
-      
+
       if (encrypt) {
         return text.toUpperCase().split('').map(char => {
           if (char.match(/[A-Z]/)) {
@@ -1470,7 +1478,7 @@
         for (const [char, code] of Object.entries(baconMap)) {
           reverseMap[code] = char;
         }
-        
+
         return text.split(/\s+/).map(code => {
           return reverseMap[code] || code;
         }).join('');
@@ -1571,7 +1579,7 @@
         ';': '-.-.-.', '=': '-...-', '+': '.-.-.', '-': '-....-', '_': '..--.-',
         '"': '.-..-.', '$': '...-..-', '@': '.--.-.'
       };
-      
+
       if (encode) {
         return text.toUpperCase().split('').map(char => {
           if (char === ' ') return '/';
@@ -1582,7 +1590,7 @@
         for (const [char, code] of Object.entries(morseMap)) {
           reverseMap[code] = char;
         }
-        
+
         return text.split(' ').map(code => {
           if (code === '/') return ' ';
           return reverseMap[code] || code;
@@ -1595,7 +1603,7 @@
       const algorithm = document.getElementById('hash-algorithm').value;
       const input = document.getElementById('hash-input').value;
       const output = document.getElementById('hash-output');
-      
+
       if (!input) {
         output.value = '';
         return;
@@ -1611,7 +1619,7 @@
           const encoder = new TextEncoder();
           const data = encoder.encode(input);
           let hashBuffer;
-          
+
           if (algorithm === 'sha1') {
             hashBuffer = await crypto.subtle.digest('SHA-1', data);
           } else if (algorithm === 'sha256') {
@@ -1621,7 +1629,7 @@
           } else if (algorithm === 'sha512') {
             hashBuffer = await crypto.subtle.digest('SHA-512', data);
           }
-          
+
           const hashArray = Array.from(new Uint8Array(hashBuffer));
           const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
           output.value = hashHex;
@@ -1638,7 +1646,7 @@
       const hashToCompare = document.getElementById('md5-verify-hash').value.trim().toLowerCase();
       const resultAlert = document.getElementById('md5-verify-result');
       const message = document.getElementById('md5-verify-message');
-      
+
       if (!input || !hashToCompare) {
         resultAlert.className = 'alert';
         message.textContent = 'Enter text and hash to verify';
@@ -1648,7 +1656,7 @@
       try {
         const computedHash = CryptoJS.MD5(input).toString().toLowerCase();
         const match = computedHash === hashToCompare;
-        
+
         if (match) {
           resultAlert.className = 'alert alert-success';
           message.textContent = '✓ MD5 hash matches! Verification successful.';
@@ -1668,7 +1676,7 @@
       const algorithm = document.getElementById('sha-verify-algorithm').value;
       const resultAlert = document.getElementById('sha-verify-result');
       const message = document.getElementById('sha-verify-message');
-      
+
       if (!input || !hashToCompare) {
         resultAlert.className = 'alert';
         message.textContent = 'Enter text and hash to verify';
@@ -1679,7 +1687,7 @@
         const encoder = new TextEncoder();
         const data = encoder.encode(input);
         let hashBuffer;
-        
+
         if (algorithm === 'sha1') {
           hashBuffer = await crypto.subtle.digest('SHA-1', data);
         } else if (algorithm === 'sha256') {
@@ -1689,11 +1697,11 @@
         } else if (algorithm === 'sha512') {
           hashBuffer = await crypto.subtle.digest('SHA-512', data);
         }
-        
+
         const hashArray = Array.from(new Uint8Array(hashBuffer));
         const computedHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('').toLowerCase();
         const match = computedHash === hashToCompare;
-        
+
         if (match) {
           resultAlert.className = 'alert alert-success';
           message.textContent = `✓ ${algorithm.toUpperCase()} hash matches! Verification successful.`;
@@ -1720,4 +1728,3 @@
 </body>
 
 </html>
-
