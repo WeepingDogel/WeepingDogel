@@ -5,20 +5,94 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Donate | WeepingDogel</title>
+  <meta name="description" content="Support WeepingDogel — scan Alipay or WeChat Pay QR codes to donate." />
+  <meta name="author" content="WeepingDogel" />
 
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP animation library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>" />
 
   <style>
     .no-save {
       -webkit-user-drag: none;
       user-select: none;
     }
+
+    #bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    #bg-animation .shape {
+      position: absolute;
+      opacity: 0.10;
+      will-change: transform;
+    }
+
+    #bg-animation .shape-circle { width: 18vmax; height: 18vmax; border-radius: 50%; background: currentColor; color: var(--p); }
+    #bg-animation .shape-diamond { width: 12vmax; height: 12vmax; background: currentColor; color: var(--s); transform: rotate(45deg); }
+    #bg-animation .shape-ring { width: 14vmax; height: 14vmax; border-radius: 50%; border: 3px solid currentColor; color: var(--a); }
+    #bg-animation .shape-dot { width: 3vmax; height: 3vmax; border-radius: 50%; background: currentColor; color: var(--in); }
+
+    #bg-animation .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), transparent);
+      border: 1px solid currentColor;
+      color: var(--p);
+      opacity: 0.08;
+      will-change: transform;
+      pointer-events: none;
+    }
+    #bg-animation .bubble-sm { width: 1.2vmax; height: 1.2vmax; }
+    #bg-animation .bubble-md { width: 2.5vmax; height: 2.5vmax; }
+    #bg-animation .bubble-lg { width: 4vmax; height: 4vmax; }
+
+    #lines-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.03;
+    }
   </style>
 </head>
 
-<body class="bg-base-200 text-base-content font-sans">
-  <header class="navbar bg-base-100 shadow-md sticky top-0 z-50">
+<body class="bg-base-200 text-base-content font-sans min-h-screen flex flex-col">
+  <!-- Floating shapes background -->
+  <div id="bg-animation" aria-hidden="true">
+    <div class="shape shape-circle" style="top: -8%; left: -5%;"></div>
+    <div class="shape shape-diamond" style="top: 50%; left: -5%;"></div>
+    <div class="shape shape-ring" style="top: -10%; right: -3%;"></div>
+    <div class="shape shape-dot" style="top: 35%; right: 15%;"></div>
+    <div class="shape shape-circle" style="bottom: -8%; left: 25%;"></div>
+    <div class="shape shape-diamond" style="bottom: 15%; right: -3%;"></div>
+    <div class="shape shape-dot" style="top: 10%; left: 50%;"></div>
+    <div class="shape shape-ring" style="top: 65%; left: 15%;"></div>
+    <div class="bubble bubble-sm" style="left: 10%; bottom: -10%;"></div>
+    <div class="bubble bubble-md" style="left: 25%; bottom: -15%;"></div>
+    <div class="bubble bubble-lg" style="left: 45%; bottom: -8%;"></div>
+    <div class="bubble bubble-sm" style="left: 60%; bottom: -12%;"></div>
+    <div class="bubble bubble-md" style="left: 80%; bottom: -10%;"></div>
+    <div class="bubble bubble-sm" style="left: 90%; bottom: -18%;"></div>
+  </div>
+
+  <canvas id="lines-canvas" aria-hidden="true"></canvas>
+
+  <header class="navbar bg-base-100 shadow-md z-50">
     <div class="container mx-auto">
       <div class="flex-1">
         <a href="../" class="btn btn-ghost text-xl">
@@ -78,7 +152,7 @@
     </div>
   </header>
 
-  <main class="container mx-auto p-4 md:p-8">
+  <main class="container mx-auto p-4 md:p-8 flex-1">
     <section class="card bg-base-100 shadow-xl max-w-3xl mx-auto">
       <div class="card-body">
         <h1 class="card-title text-2xl md:text-3xl">Donate</h1>
@@ -131,6 +205,7 @@
     </section>
   </main>
 
+
   <script>
     (() => {
       const themeKey = 'theme';
@@ -159,12 +234,75 @@
         el.classList.add('btn', 'btn-sm', 'btn-block', 'justify-start', 'font-normal')
       );
 
+      // Dynamic copyright year
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
       // Best-effort: make saving QR images harder (users can still screenshot or use dev tools)
       document.addEventListener('contextmenu', (e) => {
         if (e.target.closest('.no-save')) {
           e.preventDefault();
         }
       });
+    })();
+  </script>
+
+  <!-- GSAP shapes animation -->
+  <script>
+    (() => {
+      gsap.config({ nullTargetWarn: false });
+      const shapes = document.querySelectorAll('#bg-animation .shape');
+      shapes.forEach((el) => {
+        const durX = 8 + Math.random() * 15;
+        const durY = 10 + Math.random() * 15;
+        const sway = 60 + Math.random() * 100;
+        gsap.to(el, { x: () => (Math.random() - 0.5) * sway, duration: durX, delay: Math.random() * -durX, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to(el, { y: () => (Math.random() - 0.5) * sway * 0.5, duration: durY, delay: Math.random() * -durY, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        if (!el.classList.contains('shape-circle') && !el.classList.contains('shape-dot')) {
+          gsap.to(el, { rotation: () => 360 + Math.random() * 180, duration: 20 + Math.random() * 20, delay: Math.random() * -20, repeat: -1, ease: 'none' });
+        }
+      });
+    })();
+  </script>
+
+  <!-- Bubble rising animation -->
+  <script>
+    (() => {
+      const bubbles = document.querySelectorAll('#bg-animation .bubble');
+      bubbles.forEach((el) => {
+        const dur = 12 + Math.random() * 18;
+        const delay = Math.random() * -dur;
+        gsap.to(el, { y: () => -(window.innerHeight * (1 + Math.random() * 0.4)), duration: dur, delay: delay, repeat: -1, ease: 'none' });
+        gsap.to(el, { x: () => (Math.random() - 0.5) * 40, duration: dur * 0.6, delay: delay, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to(el, { rotation: () => (Math.random() - 0.5) * 15, duration: 3 + Math.random() * 3, delay: Math.random() * -4, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+      });
+    })();
+  </script>
+
+  <!-- Connecting lines canvas -->
+  <script>
+    (() => {
+      const canvas = document.getElementById('lines-canvas');
+      const ctx = canvas.getContext('2d');
+      let animationId, points = [], vw, vh;
+      function resize() { vw = window.innerWidth; vh = window.innerHeight; canvas.width = vw; canvas.height = vh; }
+      function getRandomPoints(count) { const pts = []; for (let i = 0; i < count; i++) { pts.push({ x: Math.random() * vw, y: Math.random() * vh, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3 }); } return pts; }
+      function draw() {
+        ctx.clearRect(0, 0, vw, vh);
+        const color = getComputedStyle(document.documentElement).getPropertyValue('--p').trim() || '#6366f1';
+        ctx.strokeStyle = color; ctx.lineWidth = 1;
+        for (let i = 0; i < points.length; i++) {
+          for (let j = i + 1; j < points.length; j++) {
+            const dx = points[i].x - points[j].x, dy = points[i].y - points[j].y, dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 250) { ctx.globalAlpha = (1 - dist / 250) * 0.5; ctx.beginPath(); ctx.moveTo(points[i].x, points[i].y); ctx.lineTo(points[j].x, points[j].y); ctx.stroke(); }
+          }
+        }
+        ctx.globalAlpha = 1;
+        for (const p of points) { p.x += p.vx; p.y += p.vy; if (p.x < -50) p.x = vw + 50; if (p.x > vw + 50) p.x = -50; if (p.y < -50) p.y = vh + 50; if (p.y > vh + 50) p.y = -50; }
+        animationId = requestAnimationFrame(draw);
+      }
+      function init() { resize(); points = getRandomPoints(20); draw(); }
+      window.addEventListener('resize', () => { resize(); points = getRandomPoints(20); });
+      init();
     })();
   </script>
 </body>
