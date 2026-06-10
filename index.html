@@ -5,15 +5,233 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WeepingDogel | Full-Stack Developer & Operations Engineer</title>
+  <meta name="description" content="WeepingDogel — Full-Stack Developer, Operations Engineer, and Arch/NixOS Linux enthusiast. Explore projects, skills, tools, and GitHub stats." />
+  <meta name="keywords" content="WeepingDogel, developer, operations engineer, full-stack, CI/CD, Arch Linux, NixOS, Python, Vue.js, FastAPI" />
+  <meta name="author" content="WeepingDogel" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="WeepingDogel | Full-Stack Developer & Operations Engineer" />
+  <meta property="og:description" content="Full-Stack Developer, Operations Engineer, and Linux enthusiast. Explore my projects, skills, and tools." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://weepingdogel.github.io" />
+  <meta property="og:image" content="https://www.gravatar.com/avatar/89324749a6b918c319554298ed4fae42093f22b1a0c4e552af1ef39915647d59?s=736&d=retro" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="WeepingDogel | Full-Stack Developer & Operations Engineer" />
+  <meta name="twitter:description" content="Full-Stack Developer, Operations Engineer, and Linux enthusiast. Explore my projects, skills, and tools." />
 
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>" />
 
+  <!-- GSAP animation library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    #bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    #bg-animation .shape {
+      position: absolute;
+      opacity: 0.08;
+      will-change: transform;
+    }
+
+    /* Slightly more visible shape variant for smaller ones */
+    #bg-animation .shape-sm {
+      opacity: 0.12;
+    }
+
+    /* Theme-aware shape colors via DaisyUI variables */
+    #bg-animation .shape-circle {
+      width: 20vmax;
+      height: 20vmax;
+      border-radius: 50%;
+      background: currentColor;
+      color: var(--p);
+    }
+
+    #bg-animation .shape-circle-sm {
+      width: 10vmax;
+      height: 10vmax;
+      border-radius: 50%;
+      background: currentColor;
+      color: var(--p);
+    }
+
+    #bg-animation .shape-diamond {
+      width: 14vmax;
+      height: 14vmax;
+      background: currentColor;
+      color: var(--s);
+      transform: rotate(45deg);
+    }
+
+    #bg-animation .shape-diamond-sm {
+      width: 7vmax;
+      height: 7vmax;
+      background: currentColor;
+      color: var(--s);
+      transform: rotate(45deg);
+    }
+
+    #bg-animation .shape-ring {
+      width: 16vmax;
+      height: 16vmax;
+      border-radius: 50%;
+      border: 3px solid currentColor;
+      color: var(--a);
+    }
+
+    #bg-animation .shape-ring-sm {
+      width: 8vmax;
+      height: 8vmax;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      color: var(--a);
+    }
+
+    #bg-animation .shape-dot {
+      width: 4vmax;
+      height: 4vmax;
+      border-radius: 50%;
+      background: currentColor;
+      color: var(--in);
+    }
+
+    #bg-animation .shape-dot-sm {
+      width: 2vmax;
+      height: 2vmax;
+      border-radius: 50%;
+      background: currentColor;
+      color: var(--in);
+    }
+
+    #bg-animation .shape-cross {
+      position: absolute;
+      color: var(--su);
+    }
+
+    #bg-animation .shape-cross::before,
+    #bg-animation .shape-cross::after {
+      content: '';
+      position: absolute;
+      background: currentColor;
+    }
+
+    #bg-animation .shape-cross::before {
+      width: 1.5vmax;
+      height: 10vmax;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #bg-animation .shape-cross::after {
+      width: 10vmax;
+      height: 1.5vmax;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Bubbles — small translucent circles that float upward */
+    #bg-animation .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), transparent);
+      border: 1px solid currentColor;
+      color: var(--p);
+      opacity: 0.10;
+      will-change: transform;
+      pointer-events: none;
+    }
+
+    #bg-animation .bubble-sm {
+      width: 1.5vmax;
+      height: 1.5vmax;
+    }
+
+    #bg-animation .bubble-md {
+      width: 3vmax;
+      height: 3vmax;
+    }
+
+    #bg-animation .bubble-lg {
+      width: 5vmax;
+      height: 5vmax;
+    }
+
+    /* Connecting lines canvas overlay */
+    #lines-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.04;
+    }
+  </style>
 </head>
 
 <body class="bg-base-200 text-base-content font-sans">
+  <!-- Floating shapes background -->
+  <div id="bg-animation" aria-hidden="true">
+    <!-- Large background shapes -->
+    <div class="shape shape-circle" style="top: -5%; left: -8%;"></div>
+    <div class="shape shape-diamond" style="top: 60%; left: -6%;"></div>
+    <div class="shape shape-ring" style="top: -10%; right: -5%;"></div>
+    <div class="shape shape-dot" style="top: 40%; right: 12%;"></div>
+    <div class="shape shape-cross" style="bottom: 10%; right: 15%;"></div>
+    <div class="shape shape-circle" style="bottom: -8%; left: 30%;"></div>
+    <div class="shape shape-diamond" style="bottom: 20%; right: -4%;"></div>
+    <div class="shape shape-dot" style="top: 15%; left: 45%;"></div>
+    <div class="shape shape-ring" style="top: 70%; left: 20%;"></div>
+
+    <!-- Medium accent shapes -->
+    <div class="shape shape-circle-sm shape-sm" style="top: 10%; left: 25%;"></div>
+    <div class="shape shape-diamond-sm shape-sm" style="top: 25%; right: 10%;"></div>
+    <div class="shape shape-ring-sm shape-sm" style="top: 45%; left: 5%;"></div>
+    <div class="shape shape-dot-sm shape-sm" style="top: 80%; left: 50%;"></div>
+    <div class="shape shape-dot" style="top: 5%; left: 60%;"></div>
+    <div class="shape shape-diamond-sm shape-sm" style="bottom: 35%; left: 15%;"></div>
+    <div class="shape shape-circle-sm shape-sm" style="bottom: 5%; right: 30%;"></div>
+    <div class="shape shape-ring-sm shape-sm" style="top: 50%; right: 25%;"></div>
+    <div class="shape shape-cross" style="top: 30%; left: 35%;"></div>
+    <div class="shape shape-dot-sm shape-sm" style="top: 75%; right: 5%;"></div>
+    <div class="shape shape-circle-sm shape-sm" style="top: 85%; left: 65%;"></div>
+    <div class="shape shape-diamond-sm shape-sm" style="top: 55%; left: 55%;"></div>
+
+    <!-- Floating bubbles -->
+    <div class="bubble bubble-sm" style="left: 5%; bottom: -10%;"></div>
+    <div class="bubble bubble-md" style="left: 15%; bottom: -15%;"></div>
+    <div class="bubble bubble-lg" style="left: 30%; bottom: -8%;"></div>
+    <div class="bubble bubble-sm" style="left: 50%; bottom: -12%;"></div>
+    <div class="bubble bubble-md" style="left: 65%; bottom: -10%;"></div>
+    <div class="bubble bubble-sm" style="left: 75%; bottom: -18%;"></div>
+    <div class="bubble bubble-md" style="left: 85%; bottom: -8%;"></div>
+    <div class="bubble bubble-sm" style="left: 95%; bottom: -14%;"></div>
+    <div class="bubble bubble-lg" style="left: 45%; bottom: -20%;"></div>
+    <div class="bubble bubble-sm" style="left: 20%; bottom: -25%;"></div>
+    <div class="bubble bubble-md" style="left: 55%; bottom: -22%;"></div>
+    <div class="bubble bubble-sm" style="left: 70%; bottom: -28%;"></div>
+  </div>
+
+  <canvas id="lines-canvas" aria-hidden="true"></canvas>
+
   <header class="navbar bg-base-100 shadow-md sticky top-0 z-50">
     <div class="container mx-auto">
       <div class="flex-1">
@@ -78,6 +296,13 @@
       </div>
     </div>
   </header>
+
+  <!-- Scroll to Top Button -->
+  <button id="scroll-to-top" class="btn btn-primary btn-sm fixed bottom-6 right-6 z-50 opacity-0 translate-y-4 transition-all duration-300 shadow-lg" aria-label="Scroll to top">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+    </svg>
+  </button>
 
   <main class="container mx-auto p-4 md:p-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -303,6 +528,7 @@
                 <div class="flex flex-wrap gap-4">
                   <div class="tooltip" data-tip="Python"><i class="devicon-python-plain text-3xl"></i></div>
                   <div class="tooltip" data-tip="JavaScript"><i class="devicon-javascript-plain text-3xl"></i></div>
+                  <div class="tooltip" data-tip="TypeScript"><i class="devicon-typescript-plain text-3xl"></i></div>
                   <div class="tooltip" data-tip="HTML5"><i class="devicon-html5-plain text-3xl"></i></div>
                   <div class="tooltip" data-tip="CSS3"><i class="devicon-css3-plain text-3xl"></i></div>
                   <div class="tooltip" data-tip="C"><i class="devicon-c-plain text-3xl"></i></div>
@@ -409,6 +635,9 @@
                   <img
                     src="https://img.shields.io/badge/Redmi%20Pad%20SE-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF"
                     alt="Redmi Pad SE" />
+                  <img
+                    src="https://img.shields.io/badge/Redmi%20Band%202-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF"
+                    alt="Redmi Band 2" />
                 </div>
               </div>
               <div>
@@ -473,16 +702,16 @@
             <div class="space-y-4">
               <img class="w-full rounded-lg"
                 src="https://github-profile-trophy.vercel.app/?username=weepingdogel&theme=dracula&no-frame=true&no-bg=true&margin-w=4"
-                alt="GitHub Trophies" />
+                alt="GitHub Trophies" loading="lazy" />
               <img class="w-full rounded-lg"
                 src="https://github-readme-streak-stats.herokuapp.com?user=WeepingDogel&theme=dracula&hide_border=true&background=282A36"
-                alt="GitHub Streak Stats" />
+                alt="GitHub Streak Stats" loading="lazy" />
               <img class="w-full rounded-lg"
                 src="https://github-readme-stats.vercel.app/api?username=weepingdogel&show_icons=true&theme=dracula&hide_border=true&title_color=9575CD&icon_color=7986CB&text_color=BDBDBD&bg_color=282A36"
-                alt="GitHub Stats" />
+                alt="GitHub Stats" loading="lazy" />
               <img class="w-full rounded-lg"
                 src="https://github-readme-stats.vercel.app/api/top-langs/?username=weepingdogel&layout=compact&theme=dracula&hide_border=true&title_color=9575CD&text_color=BDBDBD&bg_color=282A36"
-                alt="Top Languages" />
+                alt="Top Languages" loading="lazy" />
             </div>
           </div>
         </section>
@@ -492,7 +721,7 @@
 
   <footer class="footer footer-center p-4 bg-base-300 text-base-content mt-12">
     <aside>
-      <p>Copyright © 2025 - All right reserved by WeepingDogel</p>
+      <p>Copyright © <span id="copyright-year">2025</span> - All right reserved by WeepingDogel</p>
       <div class="mt-2">
         <img src="https://count.getloli.com/@:WeepingDogel?theme=moebooru" alt="views" />
       </div>
@@ -528,6 +757,234 @@
 
       // Add class for menu items for easier styling
       document.querySelectorAll('.dropdown-content li button').forEach(el => el.classList.add('btn', 'btn-sm', 'btn-block', 'justify-start', 'font-normal'));
+
+      // Dynamic copyright year
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+      // Scroll to top button
+      const scrollBtn = document.getElementById('scroll-to-top');
+      let lastScroll = 0;
+
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+        if (currentScroll > 300) {
+          scrollBtn.classList.remove('opacity-0', 'translate-y-4');
+          scrollBtn.classList.add('opacity-100', 'translate-y-0');
+        } else {
+          scrollBtn.classList.add('opacity-0', 'translate-y-4');
+          scrollBtn.classList.remove('opacity-100', 'translate-y-0');
+        }
+        lastScroll = currentScroll;
+      });
+
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
+
+  <!-- GSAP background shapes animation -->
+  <script>
+    (() => {
+      gsap.config({ nullTargetWarn: false });
+
+      const shapes = document.querySelectorAll('#bg-animation .shape');
+
+      // Assign different frequency bands per shape type
+      const freqMap = {
+        'shape-circle': { x: [25, 40], y: [25, 40], r: [40, 60], sway: [80, 140] },
+        'shape-circle-sm': { x: [18, 28], y: [18, 28], r: [30, 45], sway: [60, 100] },
+        'shape-diamond': { x: [12, 20], y: [14, 22], r: [18, 28], sway: [100, 160] },
+        'shape-diamond-sm': { x: [8, 14], y: [10, 16], r: [14, 22], sway: [70, 120] },
+        'shape-ring': { x: [30, 50], y: [30, 50], r: [50, 80], sway: [60, 100] },
+        'shape-ring-sm': { x: [20, 35], y: [20, 35], r: [35, 55], sway: [50, 80] },
+        'shape-dot': { x: [5, 10], y: [6, 12], r: null, sway: [130, 200] },
+        'shape-dot-sm': { x: [4, 8], y: [5, 10], r: null, sway: [100, 160] },
+        'shape-cross': { x: [15, 22], y: [15, 25], r: [22, 35], sway: [80, 140] },
+      };
+
+      shapes.forEach((el) => {
+        // Determine which type class this element has
+        let type = 'shape-circle'; // fallback
+        for (const cls of el.classList) {
+          if (freqMap[cls]) { type = cls; break; }
+        }
+        const freq = freqMap[type];
+
+        const durX = freq.x[0] + Math.random() * (freq.x[1] - freq.x[0]);
+        const durY = freq.y[0] + Math.random() * (freq.y[1] - freq.y[0]);
+        const durR = freq.r ? freq.r[0] + Math.random() * (freq.r[1] - freq.r[0]) : null;
+        const swayRange = freq.sway[0] + Math.random() * (freq.sway[1] - freq.sway[0]);
+
+        const delayX = Math.random() * -durX;
+        const delayY = Math.random() * -durY;
+        const delayR = durR ? Math.random() * -durR : null;
+
+        // Horizontal float
+        gsap.to(el, {
+          x: () => (Math.random() - 0.5) * swayRange,
+          duration: durX,
+          delay: delayX,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        });
+
+        // Vertical float
+        gsap.to(el, {
+          y: () => (Math.random() - 0.5) * swayRange * 0.6,
+          duration: durY,
+          delay: delayY,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        });
+
+        // Rotation (circles and dots excluded — they look the same rotated)
+        if (durR) {
+          gsap.to(el, {
+            rotation: () => 360 + Math.random() * 360,
+            duration: durR,
+            delay: delayR,
+            repeat: -1,
+            ease: 'none',
+          });
+        }
+      });
+    })();
+  </script>
+
+  <!-- Bubble rising animation -->
+  <script>
+    (() => {
+      const bubbles = document.querySelectorAll('#bg-animation .bubble');
+
+      bubbles.forEach((el) => {
+        // Each bubble starts below the viewport (bottom: negative)
+        // Rise upward to above the viewport
+        const dur = 15 + Math.random() * 20;
+        const delay = Math.random() * -dur;
+
+        gsap.to(el, {
+          y: () => -(window.innerHeight * (1 + Math.random() * 0.5)),
+          duration: dur,
+          delay: delay,
+          repeat: -1,
+          ease: 'none',
+        });
+
+        // Gentle horizontal drift while rising
+        gsap.to(el, {
+          x: () => (Math.random() - 0.5) * 60,
+          duration: dur * 0.7,
+          delay: delay,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        });
+
+        // Tiny wobble rotation
+        gsap.to(el, {
+          rotation: () => (Math.random() - 0.5) * 20,
+          duration: 3 + Math.random() * 4,
+          delay: Math.random() * -5,
+          repeat: -1,
+          yoyo: true,
+          ease: 'sine.inOut',
+        });
+      });
+    })();
+  </script>
+
+  <!-- Connecting lines canvas -->
+  <script>
+    (() => {
+      const canvas = document.getElementById('lines-canvas');
+      const ctx = canvas.getContext('2d');
+      let animationId;
+      let points = [];
+      let vw, vh;
+
+      function resize() {
+        vw = window.innerWidth;
+        vh = window.innerHeight;
+        canvas.width = vw;
+        canvas.height = vh;
+
+        // Collect all animated element positions as percentage references
+        const elements = document.querySelectorAll('#bg-animation .shape, #bg-animation .bubble');
+        // We track them dynamically on each frame instead
+      }
+
+      function getRandomPoints(count) {
+        const pts = [];
+        for (let i = 0; i < count; i++) {
+          pts.push({
+            x: Math.random() * vw,
+            y: Math.random() * vh,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+          });
+        }
+        return pts;
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, vw, vh);
+
+        // Determine the primary color from DaisyUI CSS variable
+        const color = getComputedStyle(document.documentElement).getPropertyValue('--p').trim() || '#6366f1';
+
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1;
+
+        // Draw lines between nearby points
+        for (let i = 0; i < points.length; i++) {
+          for (let j = i + 1; j < points.length; j++) {
+            const dx = points[i].x - points[j].x;
+            const dy = points[i].y - points[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 250) {
+              const alpha = (1 - dist / 250) * 0.5;
+              ctx.globalAlpha = alpha;
+              ctx.beginPath();
+              ctx.moveTo(points[i].x, points[i].y);
+              ctx.lineTo(points[j].x, points[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        ctx.globalAlpha = 1;
+
+        // Slowly drift points
+        for (const p of points) {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < -50) p.x = vw + 50;
+          if (p.x > vw + 50) p.x = -50;
+          if (p.y < -50) p.y = vh + 50;
+          if (p.y > vh + 50) p.y = -50;
+        }
+
+        animationId = requestAnimationFrame(draw);
+      }
+
+      function init() {
+        resize();
+        points = getRandomPoints(25);
+        draw();
+      }
+
+      window.addEventListener('resize', () => {
+        resize();
+        // Rebuild points to fit new dimensions
+        points = getRandomPoints(25);
+      });
+
+      init();
     })();
   </script>
 </body>
