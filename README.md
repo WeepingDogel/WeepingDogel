@@ -1,4 +1,3 @@
-
 <p align="center" style="position: relative; padding: 20px; font-size: 16px; line-height: 1.6;">
 <span style="
             position: absolute;
