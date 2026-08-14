@@ -116,6 +116,8 @@ INFP-T / Arch User / Learning FullStack Developer / CICD / CSCI / Operations Eng
 ![Windows 10 22H2](https://img.shields.io/badge/Windows%2010%2022h2-0078D6?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDx0aXRsZT5XaW5kb3dzIDEwPC90aXRsZT4KICAgIDxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0wIDMuNDQ5TDkuNzUgMi4xdjkuNDUxSDBtMTAuOTQ5LTkuNjAyTDI0IDB2MTEuNEgxMC45NDlNMCAxMi42aDkuNzV2OS40NTFMMCAyMC42OTlNMTAuOTQ5IDEyLjZIMjRWMjRsLTEyLjktMS44MDEiLz4KPC9zdmc+&logoColor=FFFFFF)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=FFFFFF)
 ![WSL](https://img.shields.io/badge/WSL-4D4D4D?style=for-the-badge&logo=linux&logoColor=FFFFFF)
+![NixOS](https://img.shields.io/badge/NixOS-5277C3?style=for-the-badge&logo=nixos&logoColor=FFFFFF)
+
 
 
 <h2 align="center">Github Status</h2>
