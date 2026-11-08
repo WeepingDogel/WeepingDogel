@@ -27,241 +27,218 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>" />
 
-  <!-- GSAP animation library -->
+  <!-- GSAP + ScrollTrigger (same CDN version) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.17/dist/lenis.min.js"></script>
+
   <style>
-    #bg-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
+    /* Resolve DaisyUI 4.12 oklch theme vars into usable colors (hex fallback for non-oklch browsers) */
+    :root {
+      --wdg-p:     var(--fallback-p,  oklch(var(--p) / 1));
+      --wdg-pc:    var(--fallback-pc, oklch(var(--pc) / 1));
+      --wdg-b1:    var(--fallback-b1, oklch(var(--b1) / 1));
+      --wdg-bc:    var(--fallback-bc, oklch(var(--bc) / 1));
+      --wdg-soft:  color-mix(in srgb, var(--wdg-bc) 62%, transparent);
+      --wdg-faint: color-mix(in srgb, var(--wdg-bc) 42%, transparent);
+    }
+    /* ============ Lenis core css ============ */
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis.lenis-stopped { overflow: hidden; }
+    .lenis.lenis-smooth iframe { pointer-events: none; }
+
+    /* ============ Base ============ */
+    html { scroll-behavior: auto; }
+    body { overflow-x: hidden; }
+
+    /* Fixed background orbs + constellation canvas */
+    #bg-orph { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    #bg-orph .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .35; will-change: transform; }
+    .orb-a { width: 46vmax; height: 46vmax; background: radial-gradient(circle at 30% 30%, var(--wdg-p), transparent 70%); top: -12vmax; left: -10vmax; }
+    .orb-b { width: 34vmax; height: 34vmax; background: radial-gradient(circle at 30% 30%, var(--s), transparent 70%); top: 30%; right: -12vmax; }
+    .orb-c { width: 30vmax; height: 30vmax; background: radial-gradient(circle at 30% 30%, var(--a), transparent 70%); bottom: -8vmax; left: 30%; }
+    #lines-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .05; }
+    main { position: relative; z-index: 1; }
+
+    /* ============ Custom cursor ============ */
+    #cursor-dot, #cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
+      border-radius: 50%; will-change: transform; opacity: 0;
+    }
+    #cursor-dot { width: 8px; height: 8px; background: var(--wdg-p); }
+    #cursor-ring {
+      width: 36px; height: 36px; border: 1.5px solid var(--wdg-p);
+      transition: width .25s ease, height .25s ease, border-radius .25s ease, background-color .25s ease;
+    }
+    #cursor-ring.is-hover {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: color-mix(in srgb, var(--wdg-p) 12%, transparent);
+    }
+    @media (hover: none), (pointer: coarse) { #cursor-dot, #cursor-ring { display: none; } }
+
+    /* ============ Navbar ============ */
+    .site-navbar {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--wdg-b1);
+      background: color-mix(in srgb, var(--wdg-b1) 78%, transparent);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid color-mix(in srgb, var(--wdg-bc) 45%, transparent);
     }
 
-    #bg-animation .shape {
-      position: absolute;
-      opacity: 0.08;
-      will-change: transform;
+    /* ============ Hero ============ */
+    .hero {
+      min-height: 100svh; display: flex; align-items: center; justify-content: center;
+      position: relative; padding: 5.5rem 1.25rem 4.5rem; text-align: center; overflow: hidden;
     }
+    .hero-inner { position: relative; max-width: 56rem; margin: 0 auto; }
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--wdg-p); border: 1px solid color-mix(in srgb, var(--wdg-p) 40%, transparent);
+      padding: .35rem .95rem; border-radius: 999px;
+      background: color-mix(in srgb, var(--wdg-p) 8%, transparent);
+    }
+    .avatar-wrap { position: relative; width: 148px; height: 148px; margin: 1.4rem auto 0; }
+    .avatar-glow {
+      position: absolute; inset: -20%; border-radius: 50%; filter: blur(26px); opacity: .45;
+      background: radial-gradient(circle, color-mix(in srgb, var(--wdg-p) 60%, transparent), transparent 70%);
+      animation: avatarPulse 4s ease-in-out infinite;
+    }
+    @keyframes avatarPulse { 0%, 100% { opacity: .35; transform: scale(1); } 50% { opacity: .6; transform: scale(1.08); } }
+    .avatar-img {
+      position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
+      border: 2px solid color-mix(in srgb, var(--wdg-p) 55%, transparent);
+      box-shadow: 0 0 0 8px color-mix(in srgb, var(--wdg-p) 12%, transparent);
+    }
+    .avatar-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-name {
+      position: relative;
+      font-size: clamp(2.75rem, 9vw, 6.5rem); font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.02em; margin: 1.1rem 0 .4rem;
+      /* no-JS / reduced-motion fallback: gradient clips onto the plain text node */
+      background: linear-gradient(100deg, var(--wdg-bc), color-mix(in srgb, var(--wdg-p) 70%, var(--wdg-bc)) 55%, var(--wdg-p));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    /* Each split letter carries its own gradient window — background-clip on
+       the h1 cannot paint into composited inline-block spans (will-change).
+       JS aligns the windows into one continuous gradient across the word;
+       without it each letter shows its own full gradient (still visible). */
+    .hero-name .ltr {
+      display: inline-block; will-change: transform, filter, opacity;
+      background: linear-gradient(100deg, var(--wdg-bc), color-mix(in srgb, var(--wdg-p) 70%, var(--wdg-bc)) 55%, var(--wdg-p));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      background-repeat: no-repeat;
+    }
+    .hero-name .space { display: inline-block; width: .3em; }
+    .hero-tagline { min-height: 1.8em; display: flex; justify-content: center; }
+    .hero-bio { max-width: 42rem; margin: .8rem auto 0; color: var(--wdg-soft); font-size: .95rem; line-height: 1.7; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; margin-top: 1.7rem; }
+    .hero-cta .btn { transition: box-shadow .3s ease; }
+    .hero-cta .btn:hover { box-shadow: 0 8px 30px color-mix(in srgb, var(--wdg-p) 35%, transparent); }
+    .magnetic { display: inline-block; will-change: transform; }
+    .hero-scroll {
+      position: absolute; bottom: 1.4rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      font-size: .68rem; letter-spacing: .28em; text-transform: uppercase; color: var(--wdg-faint);
+    }
+    .hero-scroll .mouse { width: 22px; height: 34px; border: 2px solid var(--wdg-faint); border-radius: 12px; position: relative; }
+    .hero-scroll .mouse::before {
+      content: ''; position: absolute; top: 6px; left: 50%; width: 3px; height: 6px;
+      margin-left: -1.5px; border-radius: 3px; background: var(--wdg-p);
+      animation: scrolldot 1.6s ease-in-out infinite;
+    }
+    @keyframes scrolldot { 0%, 100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(10px); opacity: .3; } }
 
-    /* Slightly more visible shape variant for smaller ones */
-    #bg-animation .shape-sm {
-      opacity: 0.12;
+    /* ============ Sections ============ */
+    .sec { max-width: 64rem; margin: 0 auto; padding: 3.5rem 1.25rem; }
+    .sec-title { font-size: clamp(1.8rem, 5vw, 2.75rem); font-weight: 800; position: relative; }
+    .sec-title .mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+    .sec-title .inner { display: inline-block; will-change: transform; }
+    .sec-title::after {
+      content: ''; display: block; width: 4rem; height: 3px; margin-top: .55rem;
+      border-radius: 3px; background: var(--wdg-p);
     }
+    .sec-sub { font-size: 1.05rem; font-weight: 700; color: var(--wdg-bc); margin-top: 1.8rem; }
 
-    /* Theme-aware shape colors via DaisyUI variables */
-    #bg-animation .shape-circle {
-      width: 20vmax;
-      height: 20vmax;
-      border-radius: 50%;
-      background: currentColor;
-      color: var(--p);
+    /* ============ Marquee ============ */
+    .marquee-wrap { padding: 1rem 0 2.2rem; overflow: hidden; position: relative; }
+    .marquee-wrap + .marquee-wrap { padding-top: .4rem; }
+    .marquee-wrap::before, .marquee-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 6rem; z-index: 2; pointer-events: none;
     }
+    .marquee-wrap::before { left: 0; background: linear-gradient(90deg, var(--b2), transparent); }
+    .marquee-wrap::after { right: 0; background: linear-gradient(270deg, var(--b2), transparent); }
+    .marquee-track { display: flex; align-items: center; gap: 2.5rem; width: max-content; will-change: transform; padding-left: 2.5rem; }
+    .marquee-item {
+      display: inline-flex; align-items: center; gap: .6rem; white-space: nowrap;
+      font-size: .95rem; letter-spacing: .05em; color: var(--wdg-soft);
+    }
+    .marquee-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--wdg-p); display: inline-block; }
 
-    #bg-animation .shape-circle-sm {
-      width: 10vmax;
-      height: 10vmax;
-      border-radius: 50%;
-      background: currentColor;
-      color: var(--p);
-    }
+    /* ============ Intro / contact ============ */
+    .intro-line { font-size: 1.05rem; line-height: 1.9; color: var(--wdg-soft); max-width: 52rem; }
+    .contact-row { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.2rem; }
+    .contact-badge { transition: transform .25s cubic-bezier(.22,1,.36,1), border-color .25s; }
+    .contact-badge:hover { transform: translateY(-3px); border-color: var(--wdg-p); }
 
-    #bg-animation .shape-diamond {
-      width: 14vmax;
-      height: 14vmax;
-      background: currentColor;
-      color: var(--s);
-      transform: rotate(45deg);
-    }
+    /* ============ Cards / projects ============ */
+    .proj-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+    @media (min-width: 768px) { .proj-grid { grid-template-columns: 1fr 1fr; } }
+    .tilt { perspective: 900px; }
+    .tilt .card { transform-style: preserve-3d; will-change: transform; }
+    .tilt .card .card-body { transform: translateZ(0); }
 
-    #bg-animation .shape-diamond-sm {
-      width: 7vmax;
-      height: 7vmax;
-      background: currentColor;
-      color: var(--s);
-      transform: rotate(45deg);
-    }
+    /* ============ Skills ============ */
+    .skill-grid { display: grid; grid-template-columns: 1fr; gap: 1.6rem; }
+    @media (min-width: 768px) { .skill-grid { grid-template-columns: 1fr 1fr; } }
+    .skill-group h3 { font-weight: 600; font-size: .9rem; text-transform: uppercase; letter-spacing: .08em; color: var(--wdg-faint); margin-bottom: .7rem; }
+    .skill-row { display: flex; flex-wrap: wrap; gap: .9rem; }
+    .skill-row .devicon { font-size: 1.9rem; transition: transform .25s cubic-bezier(.22,1,.36,1); }
+    .skill-row .devicon:hover { transform: translateY(-4px) scale(1.15); }
 
-    #bg-animation .shape-ring {
-      width: 16vmax;
-      height: 16vmax;
-      border-radius: 50%;
-      border: 3px solid currentColor;
-      color: var(--a);
-    }
+    /* ============ Devices / stats ============ */
+    .dev-block { margin-bottom: 1.4rem; }
+    .dev-block h3 { font-weight: 600; font-size: .9rem; text-transform: uppercase; letter-spacing: .08em; color: var(--wdg-faint); margin-bottom: .7rem; }
+    .dev-row { background: color-mix(in srgb, var(--wdg-b1) 60%, transparent); }
+    .stats-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 768px) { .stats-grid { grid-template-columns: 1fr 1fr; } }
 
-    #bg-animation .shape-ring-sm {
-      width: 8vmax;
-      height: 8vmax;
-      border-radius: 50%;
-      border: 2px solid currentColor;
-      color: var(--a);
-    }
-
-    #bg-animation .shape-dot {
-      width: 4vmax;
-      height: 4vmax;
-      border-radius: 50%;
-      background: currentColor;
-      color: var(--in);
-    }
-
-    #bg-animation .shape-dot-sm {
-      width: 2vmax;
-      height: 2vmax;
-      border-radius: 50%;
-      background: currentColor;
-      color: var(--in);
-    }
-
-    #bg-animation .shape-cross {
-      position: absolute;
-      color: var(--su);
-    }
-
-    #bg-animation .shape-cross::before,
-    #bg-animation .shape-cross::after {
-      content: '';
-      position: absolute;
-      background: currentColor;
-    }
-
-    #bg-animation .shape-cross::before {
-      width: 1.5vmax;
-      height: 10vmax;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    #bg-animation .shape-cross::after {
-      width: 10vmax;
-      height: 1.5vmax;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    /* Bubbles — small translucent circles that float upward */
-    #bg-animation .bubble {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), transparent);
-      border: 1px solid currentColor;
-      color: var(--p);
-      opacity: 0.10;
-      will-change: transform;
-      pointer-events: none;
-    }
-
-    #bg-animation .bubble-sm {
-      width: 1.5vmax;
-      height: 1.5vmax;
-    }
-
-    #bg-animation .bubble-md {
-      width: 3vmax;
-      height: 3vmax;
-    }
-
-    #bg-animation .bubble-lg {
-      width: 5vmax;
-      height: 5vmax;
-    }
-
-    /* Project card hover lift — GSAP reveals use clearProps so this stays active */
-    .project-card {
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
-    }
-
-    /* Connecting lines canvas overlay */
-    #lines-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.04;
-    }
+    /* ============ Footer ============ */
+    .site-footer { border-top: 1px solid color-mix(in srgb, var(--wdg-bc) 30%, transparent); }
   </style>
 </head>
 
-<body class="bg-base-200 text-base-content font-sans">
-  <!-- Floating shapes background -->
-  <div id="bg-animation" aria-hidden="true">
-    <!-- Large background shapes -->
-    <div class="shape shape-circle" style="top: -5%; left: -8%;"></div>
-    <div class="shape shape-diamond" style="top: 60%; left: -6%;"></div>
-    <div class="shape shape-ring" style="top: -10%; right: -5%;"></div>
-    <div class="shape shape-dot" style="top: 40%; right: 12%;"></div>
-    <div class="shape shape-cross" style="bottom: 10%; right: 15%;"></div>
-    <div class="shape shape-circle" style="bottom: -8%; left: 30%;"></div>
-    <div class="shape shape-diamond" style="bottom: 20%; right: -4%;"></div>
-    <div class="shape shape-dot" style="top: 15%; left: 45%;"></div>
-    <div class="shape shape-ring" style="top: 70%; left: 20%;"></div>
+<body class="bg-base-200 text-base-content font-sans antialiased">
 
-    <!-- Medium accent shapes -->
-    <div class="shape shape-circle-sm shape-sm" style="top: 10%; left: 25%;"></div>
-    <div class="shape shape-diamond-sm shape-sm" style="top: 25%; right: 10%;"></div>
-    <div class="shape shape-ring-sm shape-sm" style="top: 45%; left: 5%;"></div>
-    <div class="shape shape-dot-sm shape-sm" style="top: 80%; left: 50%;"></div>
-    <div class="shape shape-dot" style="top: 5%; left: 60%;"></div>
-    <div class="shape shape-diamond-sm shape-sm" style="bottom: 35%; left: 15%;"></div>
-    <div class="shape shape-circle-sm shape-sm" style="bottom: 5%; right: 30%;"></div>
-    <div class="shape shape-ring-sm shape-sm" style="top: 50%; right: 25%;"></div>
-    <div class="shape shape-cross" style="top: 30%; left: 35%;"></div>
-    <div class="shape shape-dot-sm shape-sm" style="top: 75%; right: 5%;"></div>
-    <div class="shape shape-circle-sm shape-sm" style="top: 85%; left: 65%;"></div>
-    <div class="shape shape-diamond-sm shape-sm" style="top: 55%; left: 55%;"></div>
+  <!-- Custom cursor (desktop only) -->
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
 
-    <!-- Floating bubbles -->
-    <div class="bubble bubble-sm" style="left: 5%; bottom: -10%;"></div>
-    <div class="bubble bubble-md" style="left: 15%; bottom: -15%;"></div>
-    <div class="bubble bubble-lg" style="left: 30%; bottom: -8%;"></div>
-    <div class="bubble bubble-sm" style="left: 50%; bottom: -12%;"></div>
-    <div class="bubble bubble-md" style="left: 65%; bottom: -10%;"></div>
-    <div class="bubble bubble-sm" style="left: 75%; bottom: -18%;"></div>
-    <div class="bubble bubble-md" style="left: 85%; bottom: -8%;"></div>
-    <div class="bubble bubble-sm" style="left: 95%; bottom: -14%;"></div>
-    <div class="bubble bubble-lg" style="left: 45%; bottom: -20%;"></div>
-    <div class="bubble bubble-sm" style="left: 20%; bottom: -25%;"></div>
-    <div class="bubble bubble-md" style="left: 55%; bottom: -22%;"></div>
-    <div class="bubble bubble-sm" style="left: 70%; bottom: -28%;"></div>
+  <!-- Background orbs + constellation -->
+  <div id="bg-orph" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
   </div>
-
   <canvas id="lines-canvas" aria-hidden="true"></canvas>
 
-  <header class="navbar bg-base-100 shadow-md sticky top-0 z-50">
-    <div class="container mx-auto">
-      <div class="flex-1">
-        <a class="btn btn-ghost text-xl">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 12" />
-          </svg>
-          WeepingDogel
-        </a>
+  <!-- ============ NAVBAR ============ -->
+  <header class="site-navbar">
+    <div class="navbar mx-auto max-w-6xl px-4">
+      <div class="flex-1 flex items-center gap-2">
+        <span class="text-2xl" aria-hidden="true">🐾</span>
+        <span class="font-extrabold text-lg tracking-tight">WeepingDogel</span>
       </div>
-      <div class="flex-none items-center">
+      <div class="flex-none items-center gap-2">
+        <a class="btn btn-ghost btn-sm hidden md:inline-flex" href="https://github.com/WeepingDogel" target="_blank" rel="noopener">GitHub</a>
         <div class="dropdown dropdown-end">
-          <button tabindex="0" role="button" class="btn btn-ghost">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402a3.75 3.75 0 0 0-5.304-5.304L4.098 14.6c-.43.43-.683.993-.683 1.59V18a1.5 1.5 0 0 0 1.5 1.5h1.812c.596 0 1.16-.253 1.59-.684l.706-.706M18 6l-5.304 5.304m0 0a3.75 3.75 0 0 0 5.304 5.304l6.402-6.401a3.75 3.75 0 0 0-5.304-5.304L18 6Z" />
+          <button tabindex="0" role="button" class="btn btn-ghost btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402a3.75 3.75 0 0 0-5.304-5.304L4.098 14.6c-.43.43-.683.993-.683 1.59V18a1.5 1.5 0 0 0 1.5 1.5h1.812c.596 0 1.16-.253 1.59-.684l.706-.706M18 6l-5.304 5.304m0 0a3.75 3.75 0 0 0 5.304 5.304l6.402-6.401a3.75 3.75 0 0 0-5.304-5.304L18 6Z" />
             </svg>
             <span class="hidden md:inline">Theme</span>
           </button>
@@ -308,452 +285,442 @@
     </div>
   </header>
 
-  <!-- Scroll to Top Button -->
+  <!-- Scroll to Top -->
   <button id="scroll-to-top" class="btn btn-primary btn-sm fixed bottom-6 right-6 z-50 opacity-0 translate-y-4 transition-all duration-300 shadow-lg" aria-label="Scroll to top">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
       <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
     </svg>
   </button>
 
-  <main class="container mx-auto p-4 md:p-8">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <span class="hero-kicker">INFP-T · Arch / NixOS · Full-Stack &amp; Ops</span>
+        <div class="avatar-wrap" id="hero-avatar">
+          <div class="avatar-glow"></div>
+          <div class="avatar-img">
+            <img src="https://www.gravatar.com/avatar/89324749a6b918c319554298ed4fae42093f22b1a0c4e552af1ef39915647d59?s=736&d=retro" alt="WeepingDogel Gravatar" />
+          </div>
+        </div>
+        <h1 class="hero-name" id="hero-name">WeepingDogel</h1>
+        <div class="hero-tagline">
+          <img
+            src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=F76EEE&width=450&lines=Learning+Full-Stack+Developer;Operations+Engineer;Arch+Linux+Enthusiast"
+            alt="Typing SVG" class="typing max-w-full h-auto" />
+        </div>
+        <p class="hero-bio">
+          A passionate developer and ops engineer exploring full-stack development, CI/CD, and cloud infrastructure.
+          Building efficient, scalable solutions — and always learning. I use NixOS, btw.
+        </p>
+        <div class="hero-cta">
+          <span class="magnetic"><a class="btn btn-primary btn-sm" href="tools/">Tools</a></span>
+          <span class="magnetic"><a class="btn btn-primary btn-sm" href="donate/">Donate</a></span>
+          <span class="magnetic"><a class="btn btn-primary btn-sm" href="https://blog.weepingdogel.vip" target="_blank" rel="noopener">Blog</a></span>
+          <span class="magnetic"><a class="btn btn-secondary btn-sm" href="https://t.me/weep1ngdoge1_goz" target="_blank" rel="noopener">Telegram</a></span>
+          <span class="magnetic"><a class="btn btn-secondary btn-sm" href="mailto:weepingdogel@gmail.com">Email</a></span>
+          <span class="magnetic"><a class="btn btn-ghost btn-sm" href="https://x.com/weepingdogel_me" target="_blank" rel="noopener">X / Twitter</a></span>
+          <span class="magnetic"><a class="btn btn-ghost btn-sm" rel="me" href="https://zone.liolok.com/@WeepingDogel" target="_blank" rel="noopener">Mastodon</a></span>
+        </div>
+      </div>
+      <div class="hero-scroll" aria-hidden="true">
+        <div class="mouse"></div>
+        <span>scroll</span>
+      </div>
+    </section>
 
-      <div class="lg:col-span-2 space-y-8">
+    <!-- ============ MARQUEE ============ -->
+    <section aria-hidden="true">
+      <div class="marquee-wrap">
+        <div class="marquee-track" data-dir="left">
+          <span class="marquee-item"><span class="dot"></span>Python</span>
+          <span class="marquee-item"><span class="dot"></span>Vue.js</span>
+          <span class="marquee-item"><span class="dot"></span>FastAPI</span>
+          <span class="marquee-item"><span class="dot"></span>TypeScript</span>
+          <span class="marquee-item"><span class="dot"></span>Docker</span>
+          <span class="marquee-item"><span class="dot"></span>Git</span>
+          <span class="marquee-item"><span class="dot"></span>NixOS</span>
+          <span class="marquee-item"><span class="dot"></span>Arch Linux</span>
+          <span class="marquee-item"><span class="dot"></span>Electron</span>
+          <span class="marquee-item"><span class="dot"></span>Streamlit</span>
+        </div>
+      </div>
+      <div class="marquee-wrap">
+        <div class="marquee-track" data-dir="right">
+          <span class="marquee-item"><span class="dot"></span>PyTorch</span>
+          <span class="marquee-item"><span class="dot"></span>PostgreSQL</span>
+          <span class="marquee-item"><span class="dot"></span>MySQL</span>
+          <span class="marquee-item"><span class="dot"></span>Vite</span>
+          <span class="marquee-item"><span class="dot"></span>TailwindCSS</span>
+          <span class="marquee-item"><span class="dot"></span>GitHub Actions</span>
+          <span class="marquee-item"><span class="dot"></span>OpenStack</span>
+          <span class="marquee-item"><span class="dot"></span>Portainer</span>
+          <span class="marquee-item"><span class="dot"></span>Pandas</span>
+          <span class="marquee-item"><span class="dot"></span>Cloudflare</span>
+        </div>
+      </div>
+    </section>
 
-        <section class="card bg-base-100 shadow-xl hero">
-          <div class="card-body flex-col md:flex-row items-center gap-8">
-            <div class="avatar">
-              <div class="w-32 md:w-48 lg:w-64 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img
-                  src="https://www.gravatar.com/avatar/89324749a6b918c319554298ed4fae42093f22b1a0c4e552af1ef39915647d59?s=736&d=retro"
-                  alt="WeepingDogel Gravatar" />
+    <!-- ============ MY INTRO ============ -->
+    <section class="sec" id="intro">
+      <h2 class="sec-title" data-text="My Intro">My Intro</h2>
+      <div class="intro-line reveal">
+        INFP-T / Arch User / Learning FullStack Developer / CI&amp;CD / CSCI / Operations Engineer —
+        I build full-stack services, keep the infra honest, and run Arch &amp; NixOS on everything that will boot.
+      </div>
+      <div class="contact-row reveal">
+        <a class="badge badge-lg badge-outline contact-badge" href="https://t.me/weep1ngdoge1_goz" target="_blank" rel="noopener">Telegram · @weep1ngdoge1_goz</a>
+        <a class="badge badge-lg badge-outline contact-badge" href="mailto:weepingdogel@gmail.com">Gmail · weepingdogel@gmail.com</a>
+        <a class="badge badge-lg badge-outline contact-badge" href="https://x.com/weepingdogel_me" target="_blank" rel="noopener">X · @weepingdogel_me</a>
+        <a class="badge badge-lg badge-outline contact-badge" href="https://zone.liolok.com/@WeepingDogel" rel="me" target="_blank">Mastodon · @WeepingDogel</a>
+      </div>
+    </section>
+
+    <!-- ============ MY PROJECTS ============ -->
+    <section class="sec" id="projects">
+      <h2 class="sec-title" data-text="My Projects">My Projects</h2>
+
+      <h3 class="sec-sub reveal">Personal</h3>
+      <div class="proj-grid">
+        <div class="tilt">
+          <div class="card card-compact bg-base-100 shadow-lg project-card">
+            <div class="card-body">
+              <h4 class="card-title">tinygallery-vue
+                <img src="https://img.shields.io/github/stars/WeepingDogel/tinygallery-vue?style=flat&logo=github&label=stars" alt="stars" class="h-5" />
+              </h4>
+              <p class="text-sm text-base-content/70">A lightweight and modern gallery front-end built with Vue.</p>
+              <div class="card-actions justify-start flex-wrap gap-2">
+                <div class="badge badge-outline">Vue.js</div>
+                <div class="badge badge-outline">Vite</div>
+                <a href="https://github.com/WeepingDogel/tinygallery-vue" class="btn btn-sm btn-ghost">View on GitHub →</a>
               </div>
             </div>
-            <div class="flex-1 text-center md:text-left">
-              <h1 class="text-3xl md:text-4xl font-bold">WeepingDogel</h1>
-              <img
-                src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=888888&width=450&lines=Learning+Full-Stack+Developer;Operations+Engineer;Arch+Linux+Enthusiast"
-                alt="Typing SVG" class="typing mt-2 max-w-full h-auto mx-auto md:mx-0" />
-              <p class="py-4 text-base-content/80">
-                A passionate developer and ops engineer exploring the worlds of full-stack development, CI/CD, and cloud
-                infrastructure. I thrive on building efficient, scalable solutions and am always eager to learn new
-                technologies. I use NixOS, btw.
+          </div>
+        </div>
+        <div class="tilt">
+          <div class="card card-compact bg-base-100 shadow-lg project-card">
+            <div class="card-body">
+              <h4 class="card-title">tinygallery-backend
+                <img src="https://img.shields.io/github/stars/WeepingDogel/tinygallery-backend?style=flat&logo=github&label=stars" alt="stars" class="h-5" />
+              </h4>
+              <p class="text-sm text-base-content/70">The FastAPI-powered backend for the Tiny Gallery project.</p>
+              <div class="card-actions justify-start flex-wrap gap-2">
+                <div class="badge badge-outline">Python</div>
+                <div class="badge badge-outline">FastAPI</div>
+                <a href="https://github.com/WeepingDogel/tinygallery-backend" class="btn btn-sm btn-ghost">View on GitHub →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tilt">
+          <div class="card card-compact bg-base-100 shadow-lg project-card">
+            <div class="card-body">
+              <h4 class="card-title">matrix-historian
+                <img src="https://img.shields.io/github/stars/WeepingDogel/matrix-historian?style=flat&logo=github&label=stars" alt="stars" class="h-5" />
+              </h4>
+              <p class="text-sm text-base-content/70">A tool to archive and browse Matrix chat history.</p>
+              <div class="card-actions justify-start flex-wrap gap-2">
+                <div class="badge badge-outline">Python</div>
+                <a href="https://github.com/WeepingDogel/matrix-historian" class="btn btn-sm btn-ghost">View on GitHub →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tilt">
+          <div class="card card-compact bg-base-100 shadow-lg project-card">
+            <div class="card-body">
+              <h4 class="card-title">red-snake-ai
+                <img src="https://img.shields.io/github/stars/me0w00f/red-snake-ai?style=flat&logo=github&label=stars" alt="stars" class="h-5" />
+              </h4>
+              <p class="text-sm text-base-content/70">An AI project involving the classic Snake game.</p>
+              <div class="card-actions justify-start flex-wrap gap-2">
+                <div class="badge badge-outline">Python</div>
+                <div class="badge badge-outline">AI/RL</div>
+                <a href="https://github.com/me0w00f/red-snake-ai" class="btn btn-sm btn-ghost">View on GitHub →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tilt">
+          <div class="card card-compact bg-base-100 shadow-lg project-card">
+            <div class="card-body">
+              <h4 class="card-title">Big-Ball-Swallows-Small-Ball
+                <img src="https://img.shields.io/github/stars/me0w00f/Big-Ball-Swallows-Small-Ball?style=flat&logo=github&label=stars" alt="stars" class="h-5" />
+              </h4>
+              <p class="text-sm text-base-content/70">
+                🎮 Big Ball Swallows Small Ball - An addictive arcade game with AI support. Control a demon ball to
+                eat smaller dots while avoiding bigger ones. Features dynamic movement, rainbow effects, and
+                reinforcement learning capabilities. Built with Pygame and PyTorch. 😈 🌈
               </p>
-              <div class="flex flex-wrap justify-center md:justify-start gap-2">
-                <a class="btn btn-primary" href="tools/">Tools</a>
-                <a class="btn btn-primary" href="donate/">Donate</a>
-                <a class="btn btn-primary" href="https://blog.weepingdogel.vip">Blog</a>
-                <a class="btn btn-primary" href="https://t.me/weep1ngdoge1_goz">Telegram</a>
-                <a class="btn btn-secondary" href="mailto:weepingdogel@gmail.com">Email</a>
-                <a class="btn btn-ghost" href="https://x.com/weepingdogel_me">X / Twitter</a>
-                <a class="btn btn-ghost" rel="me" href="https://zone.liolok.com/@WeepingDogel">Mastodon</a>
+              <div class="card-actions justify-start flex-wrap gap-2">
+                <div class="badge badge-outline">Python</div>
+                <div class="badge badge-outline">AI/RL</div>
+                <a href="https://github.com/me0w00f/Big-Ball-Swallows-Small-Ball" class="btn btn-sm btn-ghost">View on GitHub →</a>
               </div>
             </div>
           </div>
-        </section>
-
-        <section class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title text-2xl">My Projects</h2>
-            <div class="divider"></div>
-            <h3 class="font-bold text-lg mt-4">Personal</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-              <div class="card card-compact bg-base-200/50 project-card">
-                <div class="card-body">
-                  <h4 class="card-title">tinygallery-vue
-                    <img
-                      src="https://img.shields.io/github/stars/WeepingDogel/tinygallery-vue?style=flat&logo=github&label=stars"
-                      alt="stars" class="h-5" />
-                  </h4>
-                  <p class="text-sm text-base-content/70">A lightweight and modern gallery front-end built with Vue.</p>
-                  <div class="card-actions justify-start">
-                    <div class="badge badge-outline">Vue.js</div>
-                    <div class="badge badge-outline">Vite</div>
-                  </div>
-                  <a href="https://github.com/WeepingDogel/tinygallery-vue"
-                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                </div>
-              </div>
-              <div class="card card-compact bg-base-200/50 project-card">
-                <div class="card-body">
-                  <h4 class="card-title">tinygallery-backend
-                    <img
-                      src="https://img.shields.io/github/stars/WeepingDogel/tinygallery-backend?style=flat&logo=github&label=stars"
-                      alt="stars" class="h-5" />
-                  </h4>
-                  <p class="text-sm text-base-content/70">The FastAPI-powered backend for the Tiny Gallery project.</p>
-                  <div class="card-actions justify-start">
-                    <div class="badge badge-outline">Python</div>
-                    <div class="badge badge-outline">FastAPI</div>
-                  </div>
-                  <a href="https://github.com/WeepingDogel/tinygallery-backend"
-                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                </div>
-              </div>
-              <div class="card card-compact bg-base-200/50 project-card">
-                <div class="card-body">
-                  <h4 class="card-title">matrix-historian
-                    <img
-                      src="https://img.shields.io/github/stars/WeepingDogel/matrix-historian?style=flat&logo=github&label=stars"
-                      alt="stars" class="h-5" />
-                  </h4>
-                  <p class="text-sm text-base-content/70">A tool to archive and browse Matrix chat history.</p>
-                  <div class="card-actions justify-start">
-                    <div class="badge badge-outline">Python</div>
-                  </div>
-                  <a href="https://github.com/WeepingDogel/matrix-historian"
-                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                </div>
-              </div>
-              <div class="card card-compact bg-base-200/50 project-card">
-                <div class="card-body">
-                  <h4 class="card-title">red-snake-ai
-                    <img
-                      src="https://img.shields.io/github/stars/me0w00f/red-snake-ai?style=flat&logo=github&label=stars"
-                      alt="stars" class="h-5" />
-                  </h4>
-                  <p class="text-sm text-base-content/70">An AI project involving the classic Snake game.</p>
-                  <div class="card-actions justify-start">
-                    <div class="badge badge-outline">Python</div>
-                    <div class="badge badge-outline">AI/RL</div>
-                  </div>
-                  <a href="https://github.com/me0w00f/red-snake-ai"
-                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                </div>
-              </div>
-              <div class="card card-compact bg-base-200/50 project-card">
-                <div class="card-body">
-                  <h4 class="card-title">Big-Ball-Swallows-Small-Ball
-                    <img
-                      src="https://img.shields.io/github/stars/me0w00f/Big-Ball-Swallows-Small-Ball?style=flat&logo=github&label=stars"
-                      alt="stars" class="h-5" />
-                  </h4>
-                  <p class="text-sm text-base-content/70">
-                    🎮 Big Ball Swallows Small Ball - An addictive arcade game with AI support. Control a demon ball to
-                    eat smaller dots while avoiding bigger ones. Features dynamic movement, rainbow effects, and
-                    reinforcement learning capabilities. Built with Pygame and PyTorch. 😈 🌈
-                  </p>
-                  <div class="card-actions justify-start">
-                    <div class="badge badge-outline">Python</div>
-                    <div class="badge badge-outline">AI/RL</div>
-                  </div>
-                  <a href="https://github.com/me0w00f/Big-Ball-Swallows-Small-Ball"
-                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                </div>
-              </div>
-            </div>
-            <h3 class="font-bold text-lg mt-6">Collaborations</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-              <div class="card card-compact bg-base-200/50 project-card">
-                <div class="card-body">
-                  <h4 class="card-title">gozjaro-bootstrap
-                    <img
-                      src="https://img.shields.io/github/stars/Gozjaro/gozjaro-bootstrap?style=flat&logo=github&label=stars"
-                      alt="stars" class="h-5" />
-                  </h4>
-                  <p class="text-sm text-base-content/70">Bootstrap scripts for the Gozjaro organization.</p>
-                  <div class="card-actions justify-start">
-                    <div class="badge badge-outline">Shell</div>
-                  </div>
-                  <a href="https://github.com/Gozjaro/gozjaro-bootstrap"
-                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                </div>
-              </div>
-              <div class="card card-compact bg-base-200/50 project-card">
-                <div class="card-body">
-                  <h4 class="card-title">EmbeddingPaw
-                    <img
-                      src="https://img.shields.io/github/stars/Kira-Pgr/EmbeddingPaw?style=flat&logo=github&label=stars"
-                      alt="stars" class="h-5" />
-                  </h4>
-                  <p class="text-sm text-base-content/70">A collaborative project related to text embeddings.</p>
-                  <div class="card-actions justify-start">
-                    <div class="badge badge-outline">Python</div>
-                    <div class="badge badge-outline">AI/ML</div>
-                  </div>
-                  <a href="https://github.com/Kira-Pgr/EmbeddingPaw"
-                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                </div>
-              </div>
-              <div class="card card-compact bg-base-200/50 project-card">
-                <div class="card-body">
-                  <h4 class="card-title">me0w00f Blogger Backend
-                    <img
-                      src="https://img.shields.io/github/stars/me0w00f/me0w00f_organization_blogger_backend?style=flat&logo=github&label=stars"
-                      alt="stars" class="h-5" />
-                  </h4>
-                  <p class="text-sm text-base-content/70">Backend service for the me0w00f organization's blog.</p>
-                  <div class="card-actions justify-start">
-                    <div class="badge badge-outline">Python</div>
-                  </div>
-                  <a href="https://github.com/me0w00f/me0w00f_organization_blogger_backend"
-                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                </div>
-              </div>
-              <div class="card card-compact bg-base-200/50 project-card">
-                <div class="card-body">
-                  <h4 class="card-title">me0w00f Blogger Frontend
-                    <img
-                      src="https://img.shields.io/github/stars/me0w00f/me0w00f_organization_blogger_frontend?style=flat&logo=github&label=stars"
-                      alt="stars" class="h-5" />
-                  </h4>
-                  <p class="text-sm text-base-content/70">Frontend interface for the me0w00f organization's blog.</p>
-                  <div class="card-actions justify-start">
-                    <div class="badge badge-outline">Vue.js</div>
-                  </div>
-                  <a href="https://github.com/me0w00f/me0w00f_organization_blogger_frontend"
-                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                </div>
-              </div>
-
-              <div class="card card-compact bg-base-200/50 project-card">
-                <div class="card-body">
-                  <h4 class="card-title">me0w00f-wiki
-                    <img
-                      src="https://img.shields.io/github/stars/me0w00f/me0w00f-wiki?style=flat&logo=github&label=stars"
-                      alt="stars" class="h-5" />
-                  </h4>
-                  <p class="text-sm text-base-content/70">A collaborative wiki for the me0w00f organization.</p>
-                  <div class="card-actions justify-start">
-                    <div class="badge badge-outline">Markdown</div>
-                  </div>
-                  <a href="https://github.com/me0w00f/me0w00f-wiki"
-                    class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        </div>
       </div>
 
-      <div class="lg:col-span-1 space-y-8">
-
-        <section id="skills" class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title text-2xl">Skills & Tools</h2>
-            <div class="divider my-2"></div>
-
-            <div class="space-y-4 text-sm">
-              <div>
-                <h3 class="font-semibold text-base-content/90 mb-2">Languages & Markup</h3>
-                <div class="flex flex-wrap gap-4">
-                  <div class="tooltip" data-tip="Python"><i class="devicon-python-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="JavaScript"><i class="devicon-javascript-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="TypeScript"><i class="devicon-typescript-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="HTML5"><i class="devicon-html5-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="CSS3"><i class="devicon-css3-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="C"><i class="devicon-c-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Bash"><i class="devicon-bash-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="PowerShell"><i class="devicon-powershell-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Markdown"><i class="devicon-markdown-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="LaTeX"><i class="devicon-latex-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="YAML"><i class="devicon-yaml-plain text-3xl"></i></div>
-                </div>
-              </div>
-
-              <div>
-                <h3 class="font-semibold text-base-content/90 mb-2">Frontend</h3>
-                <div class="flex flex-wrap gap-4">
-                  <div class="tooltip" data-tip="Vue.js"><i class="devicon-vuejs-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="TailwindCSS"><i class="devicon-tailwindcss-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Vite"><i class="devicon-vitejs-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Electron"><i class="devicon-electron-original text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Axios"><i class="devicon-axios-plain text-3xl"></i></div>
-                </div>
-              </div>
-
-              <div>
-                <h3 class="font-semibold text-base-content/90 mb-2">Backend & Databases</h3>
-                <div class="flex flex-wrap gap-4">
-                  <div class="tooltip" data-tip="Node.js"><i class="devicon-nodejs-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="FastAPI"><i class="devicon-fastapi-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="SQLAlchemy"><i class="devicon-sqlalchemy-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="PostgreSQL"><i class="devicon-postgresql-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="MySQL"><i class="devicon-mysql-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="MariaDB"><i class="devicon-mariadb-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="SQLite"><i class="devicon-sqlite-plain text-3xl"></i></div>
-                </div>
-              </div>
-
-              <div>
-                <h3 class="font-semibold text-base-content/90 mb-2">Data Science & AI</h3>
-                <div class="flex flex-wrap gap-4">
-                  <div class="tooltip" data-tip="Pandas"><i class="devicon-pandas-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="NumPy"><i class="devicon-numpy-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="TensorFlow"><i class="devicon-tensorflow-original text-3xl"></i></div>
-                  <div class="tooltip" data-tip="PyTorch"><i class="devicon-pytorch-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Streamlit"><i class="devicon-streamlit-plain text-3xl"></i></div>
-                </div>
-              </div>
-
-              <div>
-                <h3 class="font-semibold text-base-content/90 mb-2">DevOps & Tooling</h3>
-                <div class="flex flex-wrap gap-4">
-                  <div class="tooltip" data-tip="Docker"><i class="devicon-docker-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Git"><i class="devicon-git-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="GitHub"><i class="devicon-github-original text-3xl"></i></div>
-                  <div class="tooltip" data-tip="GitHub Actions"><i class="devicon-githubactions-plain text-3xl"></i>
-                  </div>
-                  <div class="tooltip" data-tip="Jenkins"><i class="devicon-jenkins-line text-3xl"></i></div>
-                  <div class="tooltip" data-tip="OpenStack"><i class="devicon-openstack-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Portainer"><i class="devicon-portainer-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="NPM"><i class="devicon-npm-original-wordmark text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Yarn"><i class="devicon-yarn-plain text-3xl"></i></div>
-                </div>
-              </div>
-
-              <div>
-                <h3 class="font-semibold text-base-content/90 mb-2">Platforms & OS</h3>
-                <div class="flex flex-wrap gap-4">
-                  <div class="tooltip" data-tip="Arch Linux"><i class="devicon-archlinux-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="NixOS"><i class="devicon-nixos-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Ubuntu"><i class="devicon-ubuntu-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Windows"><i class="devicon-windows8-original text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Android"><i class="devicon-android-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Apple"><i class="devicon-apple-original text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Google Cloud"><i class="devicon-google-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Cloudflare"><i class="devicon-cloudflare-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Supabase"><i class="devicon-supabase-plain text-3xl"></i></div>
-                </div>
-              </div>
-
-              <div>
-                <h3 class="font-semibold text-base-content/90 mb-2">Software</h3>
-                <div class="flex flex-wrap gap-4">
-                  <div class="tooltip" data-tip="VSCode"><i class="devicon-vscode-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Vim"><i class="devicon-vim-plain text-3xl"></i></div>
-                  <div class="tooltip" data-tip="Chrome"><i class="devicon-chrome-plain text-3xl"></i></div>
-                </div>
+      <h3 class="sec-sub reveal">Collaborations</h3>
+      <div class="proj-grid">
+        <div class="tilt">
+          <div class="card card-compact bg-base-100 shadow-lg project-card">
+            <div class="card-body">
+              <h4 class="card-title">gozjaro-bootstrap
+                <img src="https://img.shields.io/github/stars/Gozjaro/gozjaro-bootstrap?style=flat&logo=github&label=stars" alt="stars" class="h-5" />
+              </h4>
+              <p class="text-sm text-base-content/70">Bootstrap scripts for the Gozjaro organization.</p>
+              <div class="card-actions justify-start flex-wrap gap-2">
+                <div class="badge badge-outline">Shell</div>
+                <a href="https://github.com/Gozjaro/gozjaro-bootstrap" class="btn btn-sm btn-ghost">View on GitHub →</a>
               </div>
             </div>
           </div>
-        </section>
-
-        <section id="devices" class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title text-2xl">My Devices</h2>
-            <div class="divider my-2"></div>
-            <div class="space-y-4">
-              <div>
-                <h3 class="font-semibold text-base-content/90 mb-2">Mobile</h3>
-                <div class="flex flex-wrap gap-2">
-                  <img
-                    src="https://img.shields.io/badge/Redmi%20K50%20Ultra-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF"
-                    alt="Redmi K50 Ultra" />
-                  <img
-                    src="https://img.shields.io/badge/iPhone%20XR-000000?style=for-the-badge&logo=Apple&logoColor=FFFFFF"
-                    alt="iPhone XR" />
-                  <img
-                    src="https://img.shields.io/badge/Redmi%20Pad%20SE-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF"
-                    alt="Redmi Pad SE" />
-                  <img
-                    src="https://img.shields.io/badge/Redmi%20Band%202-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF"
-                    alt="Redmi Band 2" />
-                </div>
-              </div>
-              <div>
-                <h3 class="font-semibold text-base-content/90 mb-2">Computers</h3>
-                <div class="space-y-3 text-sm">
-                  <div class="p-3 bg-base-200/50 rounded-lg">
-                    <p class="font-bold">Gaming Laptop</p>
-                    <div class="flex flex-wrap gap-2 mt-1">
-                      <img
-                        src="https://img.shields.io/badge/Core%20i5--11400H-0071C5?style=for-the-badge&logo=Intel&logoColor=FFFFFF"
-                        alt="i5-11400H" />
-                      <img
-                        src="https://img.shields.io/badge/RTX%203050%20Mobile-76B900?style=for-the-badge&logo=Nvidia&logoColor=FFFFFF"
-                        alt="RTX 3050 Mobile" />
-                      <span class="badge badge-lg">32GB RAM</span>
-                    </div>
-                  </div>
-                  <div class="p-3 bg-base-200/50 rounded-lg">
-                    <p class="font-bold">All In Boom</p>
-                    <div class="flex flex-wrap gap-2 mt-1">
-                      <img
-                        src="https://img.shields.io/badge/Xeon%20E3--1230%20v2-0071C5?style=for-the-badge&logo=Intel&logoColor=FFFFFF"
-                        alt="Xeon E3-1230 v2" />
-                      <img
-                        src="https://img.shields.io/badge/GTX%20750%20Ti-76B900?style=for-the-badge&logo=Nvidia&logoColor=FFFFFF"
-                        alt="GTX 750 Ti" />
-                      <span class="badge badge-lg">20GB RAM</span>
-                    </div>
-                  </div>
-                  <div class="p-3 bg-base-200/50 rounded-lg">
-                    <p class="font-bold">Mac mini</p>
-                    <div class="flex flex-wrap gap-2 mt-1">
-                      <img
-                        src="https://img.shields.io/badge/Apple%20M4-000000?style=for-the-badge&logo=Apple&logoColor=FFFFFF"
-                        alt="Apple M4" />
-                      <span class="badge badge-lg">16GB RAM</span>
-                      <span class="badge badge-lg">256GB SSD</span>
-                    </div>
-                  </div>
-                  <div class="p-3 bg-base-200/50 rounded-lg">
-                    <p class="font-bold">Secondary Desktop</p>
-                    <div class="flex flex-wrap gap-2 mt-1">
-                      <img
-                        src="https://img.shields.io/badge/Ryzen%205%201400-ED1C24?style=for-the-badge&logo=AMD&logoColor=FFFFFF"
-                        alt="Ryzen 5 1400" />
-                      <img
-                        src="https://img.shields.io/badge/Radeon%20RX%20580-ED1C24?style=for-the-badge&logo=AMD&logoColor=FFFFFF"
-                        alt="Radeon RX 580" />
-                      <span class="badge badge-lg">8GB RAM</span>
-                    </div>
-                  </div>
-                </div>
+        </div>
+        <div class="tilt">
+          <div class="card card-compact bg-base-100 shadow-lg project-card">
+            <div class="card-body">
+              <h4 class="card-title">EmbeddingPaw
+                <img src="https://img.shields.io/github/stars/Kira-Pgr/EmbeddingPaw?style=flat&logo=github&label=stars" alt="stars" class="h-5" />
+              </h4>
+              <p class="text-sm text-base-content/70">A collaborative project related to text embeddings.</p>
+              <div class="card-actions justify-start flex-wrap gap-2">
+                <div class="badge badge-outline">Python</div>
+                <div class="badge badge-outline">AI/ML</div>
+                <a href="https://github.com/Kira-Pgr/EmbeddingPaw" class="btn btn-sm btn-ghost">View on GitHub →</a>
               </div>
             </div>
           </div>
-        </section>
-
-        <section id="gh-stats" class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title text-2xl">GitHub Stats</h2>
-            <div class="divider my-2"></div>
-            <div class="space-y-4">
-              <img class="w-full rounded-lg"
-                src="https://github-profile-trophy.vercel.app/?username=weepingdogel&theme=dracula&no-frame=true&no-bg=true&margin-w=4"
-                alt="GitHub Trophies" loading="lazy" />
-              <img class="w-full rounded-lg"
-                src="https://github-readme-streak-stats.herokuapp.com?user=WeepingDogel&theme=dracula&hide_border=true&background=282A36"
-                alt="GitHub Streak Stats" loading="lazy" />
-              <img class="w-full rounded-lg"
-                src="https://github-readme-stats.vercel.app/api?username=weepingdogel&show_icons=true&theme=dracula&hide_border=true&title_color=9575CD&icon_color=7986CB&text_color=BDBDBD&bg_color=282A36"
-                alt="GitHub Stats" loading="lazy" />
-              <img class="w-full rounded-lg"
-                src="https://github-readme-stats.vercel.app/api/top-langs/?username=weepingdogel&layout=compact&theme=dracula&hide_border=true&title_color=9575CD&text_color=BDBDBD&bg_color=282A36"
-                alt="Top Languages" loading="lazy" />
+        </div>
+        <div class="tilt">
+          <div class="card card-compact bg-base-100 shadow-lg project-card">
+            <div class="card-body">
+              <h4 class="card-title">me0w00f Blogger Backend
+                <img src="https://img.shields.io/github/stars/me0w00f/me0w00f_organization_blogger_backend?style=flat&logo=github&label=stars" alt="stars" class="h-5" />
+              </h4>
+              <p class="text-sm text-base-content/70">Backend service for the me0w00f organization's blog.</p>
+              <div class="card-actions justify-start flex-wrap gap-2">
+                <div class="badge badge-outline">Python</div>
+                <a href="https://github.com/me0w00f/me0w00f_organization_blogger_backend" class="btn btn-sm btn-ghost">View on GitHub →</a>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
+        <div class="tilt">
+          <div class="card card-compact bg-base-100 shadow-lg project-card">
+            <div class="card-body">
+              <h4 class="card-title">me0w00f Blogger Frontend
+                <img src="https://img.shields.io/github/stars/me0w00f/me0w00f_organization_blogger_frontend?style=flat&logo=github&label=stars" alt="stars" class="h-5" />
+              </h4>
+              <p class="text-sm text-base-content/70">Frontend interface for the me0w00f organization's blog.</p>
+              <div class="card-actions justify-start flex-wrap gap-2">
+                <div class="badge badge-outline">Vue.js</div>
+                <a href="https://github.com/me0w00f/me0w00f_organization_blogger_frontend" class="btn btn-sm btn-ghost">View on GitHub →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tilt">
+          <div class="card card-compact bg-base-100 shadow-lg project-card">
+            <div class="card-body">
+              <h4 class="card-title">me0w00f-wiki
+                <img src="https://img.shields.io/github/stars/me0w00f/me0w00f-wiki?style=flat&logo=github&label=stars" alt="stars" class="h-5" />
+              </h4>
+              <p class="text-sm text-base-content/70">A collaborative wiki for the me0w00f organization.</p>
+              <div class="card-actions justify-start flex-wrap gap-2">
+                <div class="badge badge-outline">Markdown</div>
+                <a href="https://github.com/me0w00f/me0w00f-wiki" class="btn btn-sm btn-ghost">View on GitHub →</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- ============ SKILLS & TOOLS ============ -->
+    <section class="sec" id="skills">
+      <h2 class="sec-title" data-text="Skills &amp; Tools">Skills &amp; Tools</h2>
+      <div class="skill-grid">
+        <div class="skill-group reveal">
+          <h3>Languages &amp; Markup</h3>
+          <div class="skill-row">
+            <div class="tooltip" data-tip="Python"><i class="devicon-python-plain"></i></div>
+            <div class="tooltip" data-tip="JavaScript"><i class="devicon-javascript-plain"></i></div>
+            <div class="tooltip" data-tip="TypeScript"><i class="devicon-typescript-plain"></i></div>
+            <div class="tooltip" data-tip="HTML5"><i class="devicon-html5-plain"></i></div>
+            <div class="tooltip" data-tip="CSS3"><i class="devicon-css3-plain"></i></div>
+            <div class="tooltip" data-tip="C"><i class="devicon-c-plain"></i></div>
+            <div class="tooltip" data-tip="Bash"><i class="devicon-bash-plain"></i></div>
+            <div class="tooltip" data-tip="PowerShell"><i class="devicon-powershell-plain"></i></div>
+            <div class="tooltip" data-tip="Markdown"><i class="devicon-markdown-plain"></i></div>
+            <div class="tooltip" data-tip="LaTeX"><i class="devicon-latex-plain"></i></div>
+            <div class="tooltip" data-tip="YAML"><i class="devicon-yaml-plain"></i></div>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Frontend</h3>
+          <div class="skill-row">
+            <div class="tooltip" data-tip="Vue.js"><i class="devicon-vuejs-plain"></i></div>
+            <div class="tooltip" data-tip="TailwindCSS"><i class="devicon-tailwindcss-plain"></i></div>
+            <div class="tooltip" data-tip="Vite"><i class="devicon-vitejs-plain"></i></div>
+            <div class="tooltip" data-tip="Electron"><i class="devicon-electron-original"></i></div>
+            <div class="tooltip" data-tip="Axios"><i class="devicon-axios-plain"></i></div>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Backend &amp; Databases</h3>
+          <div class="skill-row">
+            <div class="tooltip" data-tip="Node.js"><i class="devicon-nodejs-plain"></i></div>
+            <div class="tooltip" data-tip="FastAPI"><i class="devicon-fastapi-plain"></i></div>
+            <div class="tooltip" data-tip="SQLAlchemy"><i class="devicon-sqlalchemy-plain"></i></div>
+            <div class="tooltip" data-tip="PostgreSQL"><i class="devicon-postgresql-plain"></i></div>
+            <div class="tooltip" data-tip="MySQL"><i class="devicon-mysql-plain"></i></div>
+            <div class="tooltip" data-tip="MariaDB"><i class="devicon-mariadb-plain"></i></div>
+            <div class="tooltip" data-tip="SQLite"><i class="devicon-sqlite-plain"></i></div>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Data Science &amp; AI</h3>
+          <div class="skill-row">
+            <div class="tooltip" data-tip="Pandas"><i class="devicon-pandas-plain"></i></div>
+            <div class="tooltip" data-tip="NumPy"><i class="devicon-numpy-plain"></i></div>
+            <div class="tooltip" data-tip="TensorFlow"><i class="devicon-tensorflow-original"></i></div>
+            <div class="tooltip" data-tip="PyTorch"><i class="devicon-pytorch-plain"></i></div>
+            <div class="tooltip" data-tip="Streamlit"><i class="devicon-streamlit-plain"></i></div>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3>DevOps &amp; Tooling</h3>
+          <div class="skill-row">
+            <div class="tooltip" data-tip="Docker"><i class="devicon-docker-plain"></i></div>
+            <div class="tooltip" data-tip="Git"><i class="devicon-git-plain"></i></div>
+            <div class="tooltip" data-tip="GitHub"><i class="devicon-github-original"></i></div>
+            <div class="tooltip" data-tip="GitHub Actions"><i class="devicon-githubactions-plain"></i></div>
+            <div class="tooltip" data-tip="Jenkins"><i class="devicon-jenkins-line"></i></div>
+            <div class="tooltip" data-tip="OpenStack"><i class="devicon-openstack-plain"></i></div>
+            <div class="tooltip" data-tip="Portainer"><i class="devicon-portainer-plain"></i></div>
+            <div class="tooltip" data-tip="NPM"><i class="devicon-npm-original-wordmark"></i></div>
+            <div class="tooltip" data-tip="Yarn"><i class="devicon-yarn-plain"></i></div>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Platforms &amp; OS</h3>
+          <div class="skill-row">
+            <div class="tooltip" data-tip="Arch Linux"><i class="devicon-archlinux-plain"></i></div>
+            <div class="tooltip" data-tip="NixOS"><i class="devicon-nixos-plain"></i></div>
+            <div class="tooltip" data-tip="Ubuntu"><i class="devicon-ubuntu-plain"></i></div>
+            <div class="tooltip" data-tip="Windows"><i class="devicon-windows8-original"></i></div>
+            <div class="tooltip" data-tip="Android"><i class="devicon-android-plain"></i></div>
+            <div class="tooltip" data-tip="Apple"><i class="devicon-apple-original"></i></div>
+            <div class="tooltip" data-tip="Google Cloud"><i class="devicon-google-plain"></i></div>
+            <div class="tooltip" data-tip="Cloudflare"><i class="devicon-cloudflare-plain"></i></div>
+            <div class="tooltip" data-tip="Supabase"><i class="devicon-supabase-plain"></i></div>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Software</h3>
+          <div class="skill-row">
+            <div class="tooltip" data-tip="VSCode"><i class="devicon-vscode-plain"></i></div>
+            <div class="tooltip" data-tip="Vim"><i class="devicon-vim-plain"></i></div>
+            <div class="tooltip" data-tip="Chrome"><i class="devicon-chrome-plain"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MY DEVICES ============ -->
+    <section class="sec" id="devices">
+      <h2 class="sec-title" data-text="My Devices">My Devices</h2>
+      <div class="dev-block">
+        <h3>Mobile</h3>
+        <div class="flex flex-wrap gap-2">
+          <img src="https://img.shields.io/badge/Redmi%20K50%20Ultra-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF" alt="Redmi K50 Ultra" />
+          <img src="https://img.shields.io/badge/iPhone%20XR-000000?style=for-the-badge&logo=Apple&logoColor=FFFFFF" alt="iPhone XR" />
+          <img src="https://img.shields.io/badge/Redmi%20Pad%20SE-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF" alt="Redmi Pad SE" />
+          <img src="https://img.shields.io/badge/Redmi%20Band%202-FF6900?style=for-the-badge&logo=xiaomi&logoColor=FFFFFF" alt="Redmi Band 2" />
+        </div>
+      </div>
+      <div class="dev-block">
+        <h3>Computers</h3>
+        <div class="space-y-3">
+          <div class="dev-row p-3 rounded-lg text-sm">
+            <p class="font-bold mb-1">Gaming Laptop</p>
+            <div class="flex flex-wrap gap-2">
+              <img src="https://img.shields.io/badge/Core%20i5--11400H-0071C5?style=for-the-badge&logo=Intel&logoColor=FFFFFF" alt="i5-11400H" />
+              <img src="https://img.shields.io/badge/RTX%203050%20Mobile-76B900?style=for-the-badge&logo=Nvidia&logoColor=FFFFFF" alt="RTX 3050 Mobile" />
+              <span class="badge badge-lg">32GB RAM</span>
+            </div>
+          </div>
+          <div class="dev-row p-3 rounded-lg text-sm">
+            <p class="font-bold mb-1">All In Boom</p>
+            <div class="flex flex-wrap gap-2">
+              <img src="https://img.shields.io/badge/Xeon%20E3--1230%20v2-0071C5?style=for-the-badge&logo=Intel&logoColor=FFFFFF" alt="Xeon E3-1230 v2" />
+              <img src="https://img.shields.io/badge/GTX%20750%20Ti-76B900?style=for-the-badge&logo=Nvidia&logoColor=FFFFFF" alt="GTX 750 Ti" />
+              <span class="badge badge-lg">20GB RAM</span>
+            </div>
+          </div>
+          <div class="dev-row p-3 rounded-lg text-sm">
+            <p class="font-bold mb-1">Mac mini</p>
+            <div class="flex flex-wrap gap-2">
+              <img src="https://img.shields.io/badge/Apple%20M4-000000?style=for-the-badge&logo=Apple&logoColor=FFFFFF" alt="Apple M4" />
+              <span class="badge badge-lg">16GB RAM</span>
+              <span class="badge badge-lg">256GB SSD</span>
+            </div>
+          </div>
+          <div class="dev-row p-3 rounded-lg text-sm">
+            <p class="font-bold mb-1">Secondary Desktop</p>
+            <div class="flex flex-wrap gap-2">
+              <img src="https://img.shields.io/badge/Ryzen%205%201400-ED1C24?style=for-the-badge&logo=AMD&logoColor=FFFFFF" alt="Ryzen 5 1400" />
+              <img src="https://img.shields.io/badge/Radeon%20RX%20580-ED1C24?style=for-the-badge&logo=AMD&logoColor=FFFFFF" alt="Radeon RX 580" />
+              <span class="badge badge-lg">8GB RAM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GITHUB STATS ============ -->
+    <section class="sec" id="gh-stats">
+      <h2 class="sec-title" data-text="GitHub Stats">GitHub Stats</h2>
+      <div class="stats-grid">
+        <img class="w-full rounded-lg"
+          src="https://github-trophy.vercel.app/?username=weepingdogel&theme=dracula&no-frame=true&no-bg=true&margin-w=4"
+          alt="GitHub Trophies" loading="lazy" />
+        <img class="w-full rounded-lg"
+          src="https://github-readme-streak-stats.herokuapp.com?user=WeepingDogel&theme=dracula&hide_border=true&background=282A36"
+          alt="GitHub Streak Stats" loading="lazy" />
+        <img class="w-full rounded-lg"
+          src="https://github-readme-stats-ten.vercel.app/api?username=weepingdogel&show_icons=true&theme=dracula&hide_border=true&title_color=9575CD&icon_color=7986CB&text_color=BDBDBD&bg_color=282A36"
+          alt="GitHub Stats" loading="lazy" />
+        <img class="w-full rounded-lg"
+          src="https://github-readme-stats-six.vercel.app/api/top-langs/?username=weepingdogel&layout=compact&theme=dracula&hide_border=true&title_color=9575CD&text_color=BDBDBD&bg_color=282A36"
+          alt="Top Languages" loading="lazy" />
+      </div>
+    </section>
   </main>
 
-  <footer class="footer footer-center p-4 bg-base-300 text-base-content mt-12">
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer footer-center p-6 site-footer bg-base-300 text-base-content mt-12">
     <aside>
       <div class="flex flex-col items-center gap-3">
         <div class="flex items-center gap-2 text-sm text-base-content/70">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 12" />
-          </svg>
+          <span aria-hidden="true">🐾</span>
           <span>Built with ❤️ by <span class="font-semibold text-base-content">WeepingDogel</span></span>
         </div>
         <p class="text-xs text-base-content/50">Copyright © <span id="copyright-year">2026</span></p>
-        <div class="flex items-center gap-2">
-          <div class="flex items-center gap-3">
-            <a href="https://github.com/WeepingDogel" class="text-base-content/40 hover:text-base-content transition-colors" aria-label="GitHub">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
-            <a href="https://x.com/weepingdogel_me" class="text-base-content/40 hover:text-base-content transition-colors" aria-label="X / Twitter">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="mailto:weepingdogel@gmail.com" class="text-base-content/40 hover:text-base-content transition-colors" aria-label="Email">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-              </svg>
-            </a>
-          </div>
+        <div class="flex items-center gap-3">
+          <a href="https://github.com/WeepingDogel" class="text-base-content/40 hover:text-base-content transition-colors" aria-label="GitHub" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com/weepingdogel_me" class="text-base-content/40 hover:text-base-content transition-colors" aria-label="X / Twitter" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="mailto:weepingdogel@gmail.com" class="text-base-content/40 hover:text-base-content transition-colors" aria-label="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+            </svg>
+          </a>
         </div>
         <div class="mt-1">
           <img src="https://count.getloli.com/@:WeepingDogel?theme=moebooru" alt="views" />
@@ -762,6 +729,7 @@
     </aside>
   </footer>
 
+  <!-- ============ Theme + misc ============ -->
   <script>
     (() => {
       const themeKey = 'theme';
@@ -789,7 +757,7 @@
         });
       });
 
-      // Add class for menu items for easier styling
+      // Style the theme menu items
       document.querySelectorAll('.dropdown-content li button').forEach(el => el.classList.add('btn', 'btn-sm', 'btn-block', 'justify-start', 'font-normal'));
 
       // Dynamic copyright year
@@ -797,269 +765,241 @@
 
       // Scroll to top button
       const scrollBtn = document.getElementById('scroll-to-top');
-      let lastScroll = 0;
-
       window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-        if (currentScroll > 300) {
+        if (window.scrollY > 300) {
           scrollBtn.classList.remove('opacity-0', 'translate-y-4');
           scrollBtn.classList.add('opacity-100', 'translate-y-0');
         } else {
           scrollBtn.classList.add('opacity-0', 'translate-y-4');
           scrollBtn.classList.remove('opacity-100', 'translate-y-0');
         }
-        lastScroll = currentScroll;
       });
 
       scrollBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (window.__lenis) window.__lenis.scrollTo(0, { duration: 1.2 });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     })();
   </script>
 
-  <!-- GSAP background shapes animation -->
+  <!-- ============ Lenis smooth scroll ============ -->
   <script>
     (() => {
-      gsap.config({ nullTargetWarn: false });
+      if (!window.Lenis) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      const shapes = document.querySelectorAll('#bg-animation .shape');
+      const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+      window.__lenis = lenis;
 
-      // Assign different frequency bands per shape type
-      const freqMap = {
-        'shape-circle': { x: [25, 40], y: [25, 40], r: [40, 60], sway: [80, 140] },
-        'shape-circle-sm': { x: [18, 28], y: [18, 28], r: [30, 45], sway: [60, 100] },
-        'shape-diamond': { x: [12, 20], y: [14, 22], r: [18, 28], sway: [100, 160] },
-        'shape-diamond-sm': { x: [8, 14], y: [10, 16], r: [14, 22], sway: [70, 120] },
-        'shape-ring': { x: [30, 50], y: [30, 50], r: [50, 80], sway: [60, 100] },
-        'shape-ring-sm': { x: [20, 35], y: [20, 35], r: [35, 55], sway: [50, 80] },
-        'shape-dot': { x: [5, 10], y: [6, 12], r: null, sway: [130, 200] },
-        'shape-dot-sm': { x: [4, 8], y: [5, 10], r: null, sway: [100, 160] },
-        'shape-cross': { x: [15, 22], y: [15, 25], r: [22, 35], sway: [80, 140] },
-      };
-
-      shapes.forEach((el) => {
-        // Determine which type class this element has
-        let type = 'shape-circle'; // fallback
-        for (const cls of el.classList) {
-          if (freqMap[cls]) { type = cls; break; }
-        }
-        const freq = freqMap[type];
-
-        const durX = freq.x[0] + Math.random() * (freq.x[1] - freq.x[0]);
-        const durY = freq.y[0] + Math.random() * (freq.y[1] - freq.y[0]);
-        const durR = freq.r ? freq.r[0] + Math.random() * (freq.r[1] - freq.r[0]) : null;
-        const swayRange = freq.sway[0] + Math.random() * (freq.sway[1] - freq.sway[0]);
-
-        const delayX = Math.random() * -durX;
-        const delayY = Math.random() * -durY;
-        const delayR = durR ? Math.random() * -durR : null;
-
-        // Horizontal float
-        gsap.to(el, {
-          x: () => (Math.random() - 0.5) * swayRange,
-          duration: durX,
-          delay: delayX,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        });
-
-        // Vertical float
-        gsap.to(el, {
-          y: () => (Math.random() - 0.5) * swayRange * 0.6,
-          duration: durY,
-          delay: delayY,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        });
-
-        // Rotation (circles and dots excluded — they look the same rotated)
-        if (durR) {
-          gsap.to(el, {
-            rotation: () => 360 + Math.random() * 360,
-            duration: durR,
-            delay: delayR,
-            repeat: -1,
-            ease: 'none',
-          });
-        }
-      });
+      // Wire Lenis into GSAP so ScrollTrigger stays in sync with smooth scroll
+      if (window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+      }
     })();
   </script>
 
-  <!-- Bubble rising animation -->
-  <script>
-    (() => {
-      const bubbles = document.querySelectorAll('#bg-animation .bubble');
-
-      bubbles.forEach((el) => {
-        // Each bubble starts below the viewport (bottom: negative)
-        // Rise upward to above the viewport
-        const dur = 15 + Math.random() * 20;
-        const delay = Math.random() * -dur;
-
-        gsap.to(el, {
-          y: () => -(window.innerHeight * (1 + Math.random() * 0.5)),
-          duration: dur,
-          delay: delay,
-          repeat: -1,
-          ease: 'none',
-        });
-
-        // Gentle horizontal drift while rising
-        gsap.to(el, {
-          x: () => (Math.random() - 0.5) * 60,
-          duration: dur * 0.7,
-          delay: delay,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        });
-
-        // Tiny wobble rotation
-        gsap.to(el, {
-          rotation: () => (Math.random() - 0.5) * 20,
-          duration: 3 + Math.random() * 4,
-          delay: Math.random() * -5,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        });
-      });
-    })();
-  </script>
-
-  <!-- GSAP page entrance & scroll reveal -->
+  <!-- ============ GSAP motion system ============ -->
   <script>
     (() => {
       if (!window.gsap) return;
-
-      // Respect user motion preferences — leave the page static, fully visible
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      const hasScrollTrigger = !!window.ScrollTrigger;
-      if (hasScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+      if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+      const hasST = !!window.ScrollTrigger;
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
 
-      // ----- Hero entrance timeline -----
-      const hero = document.querySelector('.hero');
-
-      // Split the hero name into per-letter spans for a staggered rise
-      const h1 = hero ? hero.querySelector('h1') : null;
-      let nameSpans = [];
-      if (h1) {
-        const text = h1.textContent;
-        h1.textContent = '';
+      /* ---------- Split hero name into per-letter spans ---------- */
+      const nameEl = document.getElementById('hero-name');
+      const letters = [];
+      if (nameEl) {
+        const text = nameEl.textContent;
+        nameEl.textContent = '';
         text.split('').forEach((ch) => {
           const s = document.createElement('span');
-          s.textContent = ch;
-          s.style.display = 'inline-block';
-          s.style.willChange = 'transform, opacity';
-          h1.appendChild(s);
-          nameSpans.push(s);
+          if (ch === ' ') { s.className = 'space'; }
+          else { s.className = 'ltr'; s.textContent = ch; }
+          nameEl.appendChild(s);
+          letters.push(s);
         });
+
+        /* Align each letter's gradient window into one continuous word-wide
+           gradient (letter box = word width, shifted by -letter x). */
+        const alignGradient = () => {
+          const w = nameEl.offsetWidth;
+          if (!w) return;
+          letters.forEach((s) => {
+            if (!s.classList.contains('ltr')) return;
+            s.style.backgroundSize = w + 'px 100%';
+            s.style.backgroundPosition = (-s.offsetLeft) + 'px 0';
+          });
+        };
+        requestAnimationFrame(alignGradient);
+        window.addEventListener('resize', alignGradient);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignGradient);
       }
 
-      gsap.timeline({ defaults: { ease: 'power3.out' } })
-        .from('header.navbar', { y: -24, opacity: 0, duration: 0.5 })
-        .from('.hero .avatar img', { scale: 0, duration: 0.9, ease: 'back.out(1.3)' }, 0.15)
-        .from(nameSpans, { y: '0.7em', opacity: 0, duration: 0.55, stagger: 0.035 }, 0.35)
-        .from('.hero .typing', { y: 14, opacity: 0, duration: 0.5 }, 0.65)
-        .from('.hero p', { y: 14, opacity: 0, duration: 0.5 }, 0.75)
-        .from('.hero a.btn', { y: 12, opacity: 0, duration: 0.4, stagger: 0.05 }, 0.85);
+      /* ---------- Entrance timeline ---------- */
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+        .from('header.site-navbar', { y: -20, opacity: 0, duration: 0.5 })
+        .from('.hero-kicker', { y: 16, opacity: 0, duration: 0.5 }, 0.1)
+        .from('#hero-avatar', { scale: 0.6, opacity: 0, duration: 0.8, ease: 'back.out(1.4)' }, 0.2)
+        .from(letters, { y: '1.1em', opacity: 0, filter: 'blur(14px)', duration: 0.7, stagger: 0.045 }, 0.35)
+        .from('.hero-tagline', { y: 14, opacity: 0, duration: 0.5 }, 0.95)
+        .from('.hero-bio', { y: 14, opacity: 0, duration: 0.5 }, 1.05)
+        .from('.hero-cta .magnetic', { y: 14, opacity: 0, duration: 0.45, stagger: 0.06 }, 1.15)
+        .from('.hero-scroll', { opacity: 0, duration: 0.6 }, 1.6);
 
-      // ----- Scroll reveals (need ScrollTrigger) -----
-      if (!hasScrollTrigger) return;
+      // Safety net: background/throttled tabs can starve the rAF ticker.
+      // Force-complete the entrance so no hero content stays invisible.
+      setTimeout(() => tl.progress(1), 4000);
 
-      // Section cards rise into view
-      gsap.utils.toArray('main section.card').forEach((sec) => {
-        if (sec.classList.contains('hero')) return;
-        gsap.from(sec, {
-          opacity: 0,
-          y: 40,
-          duration: 0.7,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: sec, start: 'top 85%' },
+      /* ---------- Scroll reveals (need ScrollTrigger) ---------- */
+      if (!hasST) return;
+
+      // Section titles: wrap text in .mask > .inner and slide up out of the mask
+      gsap.utils.toArray('.sec-title').forEach((el) => {
+        const text = el.getAttribute('data-text') || el.textContent;
+        el.innerHTML = '';
+        const mask = document.createElement('span'); mask.className = 'mask';
+        const inner = document.createElement('span'); inner.className = 'inner';
+        inner.textContent = text;
+        mask.appendChild(inner);
+        el.appendChild(mask);
+        gsap.from(inner, {
+          y: '110%', duration: 0.9, ease: 'power4.out',
+          scrollTrigger: { trigger: el, start: 'top 85%' },
         });
       });
 
-      // Section headings slide in from the left
-      gsap.utils.toArray('main section.card:not(.hero) > .card-body > h2').forEach((h) => {
-        gsap.from(h, {
-          opacity: 0,
-          x: -16,
-          duration: 0.5,
-          ease: 'power2.out',
-          scrollTrigger: { trigger: h.closest('section'), start: 'top 80%' },
-        });
-      });
-
-      // Project cards — alternating stagger; clear inline props so the CSS hover lift works
-      gsap.utils.toArray('.project-card').forEach((card, i) => {
-        gsap.from(card, {
-          opacity: 0,
-          y: 28,
-          duration: 0.55,
-          ease: 'power2.out',
-          delay: (i % 2) * 0.08,
+      // Generic reveals
+      gsap.utils.toArray('.reveal').forEach((el) => {
+        gsap.from(el, {
+          opacity: 0, y: 32, duration: 0.7, ease: 'power3.out',
           clearProps: 'transform, opacity',
-          scrollTrigger: { trigger: card, start: 'top 92%' },
+          scrollTrigger: { trigger: el, start: 'top 88%' },
+        });
+      });
+
+      // Project cards — staggered rise; clearProps so tilt/hover stay free
+      gsap.utils.toArray('.proj-grid').forEach((grid) => {
+        gsap.from(grid.querySelectorAll('.project-card'), {
+          opacity: 0, y: 40, duration: 0.65, ease: 'power3.out',
+          stagger: 0.09, clearProps: 'transform, opacity',
+          scrollTrigger: { trigger: grid, start: 'top 82%' },
         });
       });
 
       // Skill icons pop in
       gsap.from('#skills .tooltip', {
-        opacity: 0,
-        y: 10,
-        duration: 0.4,
-        ease: 'power2.out',
-        stagger: 0.015,
+        opacity: 0, y: 12, duration: 0.4, stagger: 0.012, ease: 'power2.out',
         clearProps: 'transform, opacity',
         scrollTrigger: { trigger: '#skills', start: 'top 70%' },
       });
 
-      // Device rows cascade in
-      gsap.from('#devices .space-y-4 > div', {
-        opacity: 0,
-        y: 16,
-        duration: 0.45,
-        ease: 'power2.out',
-        stagger: 0.12,
+      // Device blocks cascade
+      gsap.from('#devices .dev-block', {
+        opacity: 0, y: 20, duration: 0.5, stagger: 0.1, ease: 'power2.out',
         clearProps: 'transform, opacity',
         scrollTrigger: { trigger: '#devices', start: 'top 75%' },
       });
 
-      // GitHub stat images fade up in sequence
-      gsap.from('#gh-stats img', {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        ease: 'power2.out',
-        stagger: 0.12,
+      // Stat images fade up in sequence
+      gsap.from('#gh-stats .stats-grid img', {
+        opacity: 0, y: 24, duration: 0.6, stagger: 0.12, ease: 'power2.out',
         clearProps: 'transform, opacity',
         scrollTrigger: { trigger: '#gh-stats', start: 'top 75%' },
       });
 
       // Footer
-      gsap.from('footer', {
-        opacity: 0,
-        y: 24,
-        duration: 0.6,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: 'footer', start: 'top 95%' },
+      gsap.from('footer.site-footer > aside', {
+        opacity: 0, y: 24, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: 'footer.site-footer', start: 'top 95%' },
       });
 
-      // Lazy stats images can shift the layout after load — resync positions
+      // Infinite marquee — duplicate content, then loop at -50%
+      gsap.utils.toArray('.marquee-track').forEach((track) => {
+        track.innerHTML += track.innerHTML;
+        const dir = track.dataset.dir === 'right' ? -1 : 1;
+        gsap.to(track, {
+          xPercent: -50 * dir, ease: 'none',
+          duration: 22, repeat: -1,
+        });
+      });
+
+      // Hero parallax scrub-out
+      gsap.to('.hero-inner', {
+        y: 160, opacity: 0, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 10%', scrub: true },
+      });
+      gsap.to('#hero-avatar', {
+        y: -120, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 30%', scrub: true },
+      });
+
+      // Background orbs drift
+      gsap.utils.toArray('#bg-orph .orb').forEach((o, i) => {
+        gsap.to(o, {
+          x: () => (Math.random() - 0.5) * 80,
+          y: () => (Math.random() - 0.5) * 80,
+          duration: 14 + i * 4, repeat: -1, yoyo: true, ease: 'sine.inOut',
+        });
+      });
+
+      /* ---------- Magnetic buttons + 3D tilt + custom cursor (fine pointer only) ---------- */
+      if (finePointer) {
+        document.querySelectorAll('.magnetic').forEach((el) => {
+          el.addEventListener('mousemove', (e) => {
+            const r = el.getBoundingClientRect();
+            const x = (e.clientX - r.left - r.width / 2) * 0.35;
+            const y = (e.clientY - r.top - r.height / 2) * 0.35;
+            gsap.to(el, { x, y, duration: 0.2, ease: 'power2.out', overwrite: 'auto' });
+          });
+          el.addEventListener('mouseleave', () => {
+            gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+          });
+        });
+
+        document.querySelectorAll('.tilt .card').forEach((card) => {
+          card.addEventListener('mousemove', (e) => {
+            const r = card.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width - 0.5;
+            const py = (e.clientY - r.top) / r.height - 0.5;
+            gsap.to(card, {
+              rotationY: px * 14, rotationX: -py * 14,
+              transformPerspective: 900, duration: 0.3, ease: 'power2.out', overwrite: 'auto',
+            });
+          });
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, { rotationY: 0, rotationX: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' });
+          });
+        });
+
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        document.addEventListener('mousemove', (e) => {
+          gsap.to(dot, { x: e.clientX - 4, y: e.clientY - 4, duration: 0.1, ease: 'power2.out', overwrite: 'auto' });
+          gsap.to(ring, { x: e.clientX - 18, y: e.clientY - 18, duration: 0.55, ease: 'power3.out', overwrite: 'auto' });
+          gsap.to([dot, ring], { opacity: 1, duration: 0.4, overwrite: 'auto' });
+        });
+        const hoverSel = 'a, button, .project-card, .tooltip, .magnetic';
+        document.addEventListener('mouseover', (e) => {
+          ring.classList.toggle('is-hover', !!(e.target.closest && e.target.closest(hoverSel)));
+        });
+      }
+
+      // Lazy images shift layout — resync trigger positions
       window.addEventListener('load', () => ScrollTrigger.refresh());
     })();
   </script>
 
-  <!-- Connecting lines canvas -->
+  <!-- ============ Constellation canvas ============ -->
   <script>
     (() => {
       const canvas = document.getElementById('lines-canvas');
       const ctx = canvas.getContext('2d');
-      let animationId;
       let points = [];
       let vw, vh;
 
@@ -1068,10 +1008,6 @@
         vh = window.innerHeight;
         canvas.width = vw;
         canvas.height = vh;
-
-        // Collect all animated element positions as percentage references
-        const elements = document.querySelectorAll('#bg-animation .shape, #bg-animation .bubble');
-        // We track them dynamically on each frame instead
       }
 
       function getRandomPoints(count) {
@@ -1090,22 +1026,19 @@
       function draw() {
         ctx.clearRect(0, 0, vw, vh);
 
-        // Determine the primary color from DaisyUI CSS variable
-        const color = getComputedStyle(document.documentElement).getPropertyValue('--p').trim() || '#6366f1';
+        // Primary color from the active DaisyUI theme (resolved alias: oklch() or hex fallback)
+        const color = getComputedStyle(document.documentElement).getPropertyValue('--wdg-p').trim() || '#6366f1';
 
         ctx.strokeStyle = color;
         ctx.lineWidth = 1;
 
-        // Draw lines between nearby points
         for (let i = 0; i < points.length; i++) {
           for (let j = i + 1; j < points.length; j++) {
             const dx = points[i].x - points[j].x;
             const dy = points[i].y - points[j].y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-
             if (dist < 250) {
-              const alpha = (1 - dist / 250) * 0.5;
-              ctx.globalAlpha = alpha;
+              ctx.globalAlpha = (1 - dist / 250) * 0.5;
               ctx.beginPath();
               ctx.moveTo(points[i].x, points[i].y);
               ctx.lineTo(points[j].x, points[j].y);
@@ -1113,21 +1046,18 @@
             }
           }
         }
-
         ctx.globalAlpha = 1;
 
-        // Slowly drift points
         for (const p of points) {
           p.x += p.vx;
           p.y += p.vy;
-
           if (p.x < -50) p.x = vw + 50;
           if (p.x > vw + 50) p.x = -50;
           if (p.y < -50) p.y = vh + 50;
           if (p.y > vh + 50) p.y = -50;
         }
 
-        animationId = requestAnimationFrame(draw);
+        requestAnimationFrame(draw);
       }
 
       function init() {
@@ -1138,7 +1068,6 @@
 
       window.addEventListener('resize', () => {
         resize();
-        // Rebuild points to fit new dimensions
         points = getRandomPoints(25);
       });
 
