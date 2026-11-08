@@ -12,6 +12,10 @@
         "></span>
 <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=32&pause=1000&color=F76EEE&width=435&lines=Hi%2C+I'm+WeepingDogel.;I+will%2C+therefore+I+am." alt="Typing SVG" /></a>
 </p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/WeepingDogel/WeepingDogel/main/assets/weepingdogel-banner.svg" width="520" alt="WeepingDogel — animated banner" />
+</p>
 <!-- 
 https://t.me/weep1ngdoge1_goz
  -->

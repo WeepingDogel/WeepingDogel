@@ -29,6 +29,7 @@
 
   <!-- GSAP animation library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
     #bg-animation {
@@ -173,6 +174,16 @@
       height: 5vmax;
     }
 
+    /* Project card hover lift — GSAP reveals use clearProps so this stays active */
+    .project-card {
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    }
+
     /* Connecting lines canvas overlay */
     #lines-canvas {
       position: fixed;
@@ -309,7 +320,7 @@
 
       <div class="lg:col-span-2 space-y-8">
 
-        <section class="card bg-base-100 shadow-xl">
+        <section class="card bg-base-100 shadow-xl hero">
           <div class="card-body flex-col md:flex-row items-center gap-8">
             <div class="avatar">
               <div class="w-32 md:w-48 lg:w-64 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -322,7 +333,7 @@
               <h1 class="text-3xl md:text-4xl font-bold">WeepingDogel</h1>
               <img
                 src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=888888&width=450&lines=Learning+Full-Stack+Developer;Operations+Engineer;Arch+Linux+Enthusiast"
-                alt="Typing SVG" class="mt-2 max-w-full h-auto mx-auto md:mx-0" />
+                alt="Typing SVG" class="typing mt-2 max-w-full h-auto mx-auto md:mx-0" />
               <p class="py-4 text-base-content/80">
                 A passionate developer and ops engineer exploring the worlds of full-stack development, CI/CD, and cloud
                 infrastructure. I thrive on building efficient, scalable solutions and am always eager to learn new
@@ -347,7 +358,7 @@
             <div class="divider"></div>
             <h3 class="font-bold text-lg mt-4">Personal</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-              <div class="card card-compact bg-base-200/50">
+              <div class="card card-compact bg-base-200/50 project-card">
                 <div class="card-body">
                   <h4 class="card-title">tinygallery-vue
                     <img
@@ -363,7 +374,7 @@
                     class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
-              <div class="card card-compact bg-base-200/50">
+              <div class="card card-compact bg-base-200/50 project-card">
                 <div class="card-body">
                   <h4 class="card-title">tinygallery-backend
                     <img
@@ -379,7 +390,7 @@
                     class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
-              <div class="card card-compact bg-base-200/50">
+              <div class="card card-compact bg-base-200/50 project-card">
                 <div class="card-body">
                   <h4 class="card-title">matrix-historian
                     <img
@@ -394,7 +405,7 @@
                     class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
-              <div class="card card-compact bg-base-200/50">
+              <div class="card card-compact bg-base-200/50 project-card">
                 <div class="card-body">
                   <h4 class="card-title">red-snake-ai
                     <img
@@ -410,7 +421,7 @@
                     class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
-              <div class="card card-compact bg-base-200/50">
+              <div class="card card-compact bg-base-200/50 project-card">
                 <div class="card-body">
                   <h4 class="card-title">Big-Ball-Swallows-Small-Ball
                     <img
@@ -433,7 +444,7 @@
             </div>
             <h3 class="font-bold text-lg mt-6">Collaborations</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-              <div class="card card-compact bg-base-200/50">
+              <div class="card card-compact bg-base-200/50 project-card">
                 <div class="card-body">
                   <h4 class="card-title">gozjaro-bootstrap
                     <img
@@ -448,7 +459,7 @@
                     class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
-              <div class="card card-compact bg-base-200/50">
+              <div class="card card-compact bg-base-200/50 project-card">
                 <div class="card-body">
                   <h4 class="card-title">EmbeddingPaw
                     <img
@@ -464,7 +475,7 @@
                     class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
-              <div class="card card-compact bg-base-200/50">
+              <div class="card card-compact bg-base-200/50 project-card">
                 <div class="card-body">
                   <h4 class="card-title">me0w00f Blogger Backend
                     <img
@@ -479,7 +490,7 @@
                     class="btn btn-sm btn-ghost mt-2 justify-self-end">View on GitHub →</a>
                 </div>
               </div>
-              <div class="card card-compact bg-base-200/50">
+              <div class="card card-compact bg-base-200/50 project-card">
                 <div class="card-body">
                   <h4 class="card-title">me0w00f Blogger Frontend
                     <img
@@ -495,7 +506,7 @@
                 </div>
               </div>
 
-              <div class="card card-compact bg-base-200/50">
+              <div class="card card-compact bg-base-200/50 project-card">
                 <div class="card-body">
                   <h4 class="card-title">me0w00f-wiki
                     <img
@@ -517,7 +528,7 @@
 
       <div class="lg:col-span-1 space-y-8">
 
-        <section class="card bg-base-100 shadow-xl">
+        <section id="skills" class="card bg-base-100 shadow-xl">
           <div class="card-body">
             <h2 class="card-title text-2xl">Skills & Tools</h2>
             <div class="divider my-2"></div>
@@ -618,7 +629,7 @@
           </div>
         </section>
 
-        <section class="card bg-base-100 shadow-xl">
+        <section id="devices" class="card bg-base-100 shadow-xl">
           <div class="card-body">
             <h2 class="card-title text-2xl">My Devices</h2>
             <div class="divider my-2"></div>
@@ -695,7 +706,7 @@
           </div>
         </section>
 
-        <section class="card bg-base-100 shadow-xl">
+        <section id="gh-stats" class="card bg-base-100 shadow-xl">
           <div class="card-body">
             <h2 class="card-title text-2xl">GitHub Stats</h2>
             <div class="divider my-2"></div>
@@ -916,6 +927,130 @@
           ease: 'sine.inOut',
         });
       });
+    })();
+  </script>
+
+  <!-- GSAP page entrance & scroll reveal -->
+  <script>
+    (() => {
+      if (!window.gsap) return;
+
+      // Respect user motion preferences — leave the page static, fully visible
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const hasScrollTrigger = !!window.ScrollTrigger;
+      if (hasScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+      // ----- Hero entrance timeline -----
+      const hero = document.querySelector('.hero');
+
+      // Split the hero name into per-letter spans for a staggered rise
+      const h1 = hero ? hero.querySelector('h1') : null;
+      let nameSpans = [];
+      if (h1) {
+        const text = h1.textContent;
+        h1.textContent = '';
+        text.split('').forEach((ch) => {
+          const s = document.createElement('span');
+          s.textContent = ch;
+          s.style.display = 'inline-block';
+          s.style.willChange = 'transform, opacity';
+          h1.appendChild(s);
+          nameSpans.push(s);
+        });
+      }
+
+      gsap.timeline({ defaults: { ease: 'power3.out' } })
+        .from('header.navbar', { y: -24, opacity: 0, duration: 0.5 })
+        .from('.hero .avatar img', { scale: 0, duration: 0.9, ease: 'back.out(1.3)' }, 0.15)
+        .from(nameSpans, { y: '0.7em', opacity: 0, duration: 0.55, stagger: 0.035 }, 0.35)
+        .from('.hero .typing', { y: 14, opacity: 0, duration: 0.5 }, 0.65)
+        .from('.hero p', { y: 14, opacity: 0, duration: 0.5 }, 0.75)
+        .from('.hero a.btn', { y: 12, opacity: 0, duration: 0.4, stagger: 0.05 }, 0.85);
+
+      // ----- Scroll reveals (need ScrollTrigger) -----
+      if (!hasScrollTrigger) return;
+
+      // Section cards rise into view
+      gsap.utils.toArray('main section.card').forEach((sec) => {
+        if (sec.classList.contains('hero')) return;
+        gsap.from(sec, {
+          opacity: 0,
+          y: 40,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: sec, start: 'top 85%' },
+        });
+      });
+
+      // Section headings slide in from the left
+      gsap.utils.toArray('main section.card:not(.hero) > .card-body > h2').forEach((h) => {
+        gsap.from(h, {
+          opacity: 0,
+          x: -16,
+          duration: 0.5,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: h.closest('section'), start: 'top 80%' },
+        });
+      });
+
+      // Project cards — alternating stagger; clear inline props so the CSS hover lift works
+      gsap.utils.toArray('.project-card').forEach((card, i) => {
+        gsap.from(card, {
+          opacity: 0,
+          y: 28,
+          duration: 0.55,
+          ease: 'power2.out',
+          delay: (i % 2) * 0.08,
+          clearProps: 'transform, opacity',
+          scrollTrigger: { trigger: card, start: 'top 92%' },
+        });
+      });
+
+      // Skill icons pop in
+      gsap.from('#skills .tooltip', {
+        opacity: 0,
+        y: 10,
+        duration: 0.4,
+        ease: 'power2.out',
+        stagger: 0.015,
+        clearProps: 'transform, opacity',
+        scrollTrigger: { trigger: '#skills', start: 'top 70%' },
+      });
+
+      // Device rows cascade in
+      gsap.from('#devices .space-y-4 > div', {
+        opacity: 0,
+        y: 16,
+        duration: 0.45,
+        ease: 'power2.out',
+        stagger: 0.12,
+        clearProps: 'transform, opacity',
+        scrollTrigger: { trigger: '#devices', start: 'top 75%' },
+      });
+
+      // GitHub stat images fade up in sequence
+      gsap.from('#gh-stats img', {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: 'power2.out',
+        stagger: 0.12,
+        clearProps: 'transform, opacity',
+        scrollTrigger: { trigger: '#gh-stats', start: 'top 75%' },
+      });
+
+      // Footer
+      gsap.from('footer', {
+        opacity: 0,
+        y: 24,
+        duration: 0.6,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: 'footer', start: 'top 95%' },
+      });
+
+      // Lazy stats images can shift the layout after load — resync positions
+      window.addEventListener('load', () => ScrollTrigger.refresh());
     })();
   </script>
 
