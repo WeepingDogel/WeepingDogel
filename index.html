@@ -141,14 +141,22 @@
       -webkit-background-clip: text; background-clip: text; color: transparent;
       transform: rotateX(90deg); transform-origin: 50% 50%;
       backface-visibility: hidden;
+      /* truly hidden at rest: some GPUs rasterize a plane parked at exactly
+         90deg as a 1px sliver (a stray mark across the name) — never rely on
+         geometry alone to hide these. The flip timeline toggles visibility. */
+      visibility: hidden;
       pointer-events: none; will-change: transform;
     }
     /* Each split letter carries its own gradient window — background-clip on
        the h1 cannot paint into composited inline-block spans (will-change).
        JS aligns the windows into one continuous gradient across the word;
-       without it each letter shows its own full gradient (still visible). */
+       without it each letter shows its own full gradient (still visible).
+       Letters are only composited while the split entrance runs (JS sets
+       will-change inline); afterwards they are plain static text — permanent
+       composited text layers are where mobile Safari leaves dirty-rect
+       smudges inside glyphs, so we never park them in that state. */
     .hero-name .ltr {
-      display: inline-block; will-change: transform, filter, opacity;
+      display: inline-block;
       background: linear-gradient(100deg, var(--wdg-bc), color-mix(in srgb, var(--wdg-p) 70%, var(--wdg-bc)) 55%, var(--wdg-p));
       -webkit-background-clip: text; background-clip: text; color: transparent;
       background-repeat: no-repeat;
@@ -844,7 +852,11 @@
         text.split('').forEach((ch) => {
           const s = document.createElement('span');
           if (ch === ' ') { s.className = 'space'; }
-          else { s.className = 'ltr'; s.textContent = ch; }
+          else {
+            s.className = 'ltr'; s.textContent = ch;
+            // composite only while the split entrance animates; cleared on completion
+            s.style.willChange = 'transform, filter, opacity';
+          }
           nameEl.appendChild(s);
           letters.push(s);
         });
@@ -866,7 +878,13 @@
       }
 
       /* ---------- Entrance timeline ---------- */
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      const tl = gsap.timeline({
+        defaults: { ease: 'power3.out' },
+        // Park the letters as plain static text once the split settles: drop the
+        // transient compositing hints + inline filter (also covers the 4s
+        // rAF-starved safety-net path, which force-completes this timeline).
+        onComplete: () => letters.forEach((s) => { s.style.willChange = 'auto'; s.style.filter = ''; }),
+      })
         .from('header.site-navbar', { y: -20, opacity: 0, duration: 0.5 })
         .from('.hero-kicker', { y: 16, opacity: 0, duration: 0.5 }, 0.1)
         .from('#hero-avatar', { scale: 0.6, opacity: 0, duration: 0.8, ease: 'back.out(1.4)' }, 0.2)
@@ -899,10 +917,17 @@
           const layer = flipLayers[i];
           const back = FLIP_T + FLIP_CROSS + FLIP_HOLD;
           gsap.timeline({ onComplete: () => { flipBusy = false; } })
+            .set(nameEl, { willChange: 'transform' }, 0)
             .to(nameEl, { rotationX: -90, transformOrigin: '50% 50%', duration: FLIP_T, ease: 'power2.in' }, 0)
+            // reveal the nickname only once it has left the 90deg edge (some GPUs
+            // rasterize a plane parked at exactly 90deg as a 1px sliver), and hide
+            // it the instant it returns — the rest state is CSS visibility:hidden.
+            .set(layer, { visibility: 'visible' }, FLIP_CROSS + 0.02)
             .to(layer, { rotationX: 0, duration: FLIP_T, ease: 'power3.out' }, FLIP_CROSS)
             .to(layer, { rotationX: 90, duration: FLIP_T, ease: 'power2.in' }, back)
-            .to(nameEl, { rotationX: 0, duration: FLIP_T, ease: 'power3.out' }, back + FLIP_CROSS);
+            .set(layer, { visibility: 'hidden' }, back + FLIP_T)
+            .to(nameEl, { rotationX: 0, duration: FLIP_T, ease: 'power3.out' }, back + FLIP_CROSS)
+            .set(nameEl, { willChange: 'auto' }, back + FLIP_CROSS + FLIP_T);
         };
 
         const scheduleNext = () => {
