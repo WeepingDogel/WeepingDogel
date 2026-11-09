@@ -155,6 +155,13 @@
        will-change inline); afterwards they are plain static text — permanent
        composited text layers are where mobile Safari leaves dirty-rect
        smudges inside glyphs, so we never park them in that state. */
+    /* Once the letters are split, the h1-level fallback gradient is
+       redundant and would leave a second text-clip raster under every
+       letter — a source of stale-pixel ghosts when layers promote/
+       demote (Chrome/Windows ANGLE, mobile Safari). Strip it; the
+       no-JS / reduced-motion path (never split) keeps the fallback. */
+    .hero-name.is-split { background: none; }
+
     .hero-name .ltr {
       display: inline-block;
       background: linear-gradient(100deg, var(--wdg-bc), color-mix(in srgb, var(--wdg-p) 70%, var(--wdg-bc)) 55%, var(--wdg-p));
@@ -854,12 +861,18 @@
           if (ch === ' ') { s.className = 'space'; }
           else {
             s.className = 'ltr'; s.textContent = ch;
-            // composite only while the split entrance animates; cleared on completion
-            s.style.willChange = 'transform, filter, opacity';
+            // composite only while the split entrance animates; cleared on
+            // completion. No filter animation — a blur filter on text forces a
+            // filter-layer raster per letter, and demoting those layers leaves
+            // stale-pixel ghosts (Chrome/Windows ANGLE).
+            s.style.willChange = 'transform, opacity';
           }
           nameEl.appendChild(s);
           letters.push(s);
         });
+        // JS has taken over the rendering: strip the h1-level fallback paint
+        // so no second text-clip raster sits under the per-letter windows.
+        nameEl.classList.add('is-split');
 
         /* Align each letter's gradient window into one continuous word-wide
            gradient (letter box = word width, shifted by -letter x). */
@@ -880,15 +893,15 @@
       /* ---------- Entrance timeline ---------- */
       const tl = gsap.timeline({
         defaults: { ease: 'power3.out' },
-        // Park the letters as plain static text once the split settles: drop the
-        // transient compositing hints + inline filter (also covers the 4s
-        // rAF-starved safety-net path, which force-completes this timeline).
-        onComplete: () => letters.forEach((s) => { s.style.willChange = 'auto'; s.style.filter = ''; }),
+        // Park the letters as plain static text once the split settles: drop
+        // the transient compositing hints (also covers the 4s rAF-starved
+        // safety-net path, which force-completes this timeline).
+        onComplete: () => letters.forEach((s) => { s.style.willChange = 'auto'; }),
       })
         .from('header.site-navbar', { y: -20, opacity: 0, duration: 0.5 })
         .from('.hero-kicker', { y: 16, opacity: 0, duration: 0.5 }, 0.1)
         .from('#hero-avatar', { scale: 0.6, opacity: 0, duration: 0.8, ease: 'back.out(1.4)' }, 0.2)
-        .from(letters, { y: '1.1em', opacity: 0, filter: 'blur(14px)', duration: 0.7, stagger: 0.045 }, 0.35)
+        .from(letters, { y: '1.1em', opacity: 0, duration: 0.7, stagger: 0.045 }, 0.35)
         .from('.hero-tagline', { y: 14, opacity: 0, duration: 0.5 }, 0.95)
         .from('.hero-bio', { y: 14, opacity: 0, duration: 0.5 }, 1.05)
         .from('.hero-cta .magnetic', { y: 14, opacity: 0, duration: 0.45, stagger: 0.06 }, 1.15)
